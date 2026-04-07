@@ -11,7 +11,7 @@ const prices = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="section-padding bg-secondary">
+    <section id="pricing" className="section-padding">
       <div className="container mx-auto max-w-2xl">
         <div className="text-center mb-16">
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Investimento</p>
@@ -19,13 +19,14 @@ const PricingSection = () => {
           <div className="gold-line mx-auto" />
         </div>
 
-        <div className="bg-card border border-border p-8 md:p-12">
+        <div className="glass-card-glow rounded-2xl p-8 md:p-12">
           {prices.map((item, i) => (
             <div
               key={i}
               className={`flex items-center justify-between py-4 ${
-                i < prices.length - 1 ? "border-b border-border" : ""
+                i < prices.length - 1 ? "border-b" : ""
               }`}
+              style={{ borderColor: 'var(--glass-border)' }}
             >
               <span className="font-body text-sm text-foreground">{item.service}</span>
               <span className="font-heading text-lg font-semibold text-primary">{item.price}</span>

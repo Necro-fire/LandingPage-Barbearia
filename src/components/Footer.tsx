@@ -1,7 +1,7 @@
 import { Scissors } from "lucide-react";
 
 const Footer = () => (
-  <footer className="bg-background border-t border-border py-10 px-4">
+  <footer className="py-10 px-4" style={{ background: 'hsl(0 0% 4%)', borderTop: '1px solid var(--glass-border)' }}>
     <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
       <a href="#hero" className="flex items-center gap-2">
         <Scissors className="w-5 h-5 text-primary" />
