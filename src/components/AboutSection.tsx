@@ -2,18 +2,11 @@ import aboutImg from "@/assets/about-barbershop.jpg";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="section-padding">
+    <section id="about" className="section-padding" style={{ background: 'hsl(0 0% 7%)' }}>
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="relative overflow-hidden aspect-[3/2]">
-            <img
-              src={aboutImg}
-              alt="Interior da barbearia"
-              className="w-full h-full object-cover"
-              loading="lazy"
-              width={1280}
-              height={864}
-            />
+          <div className="relative overflow-hidden aspect-[3/2] rounded-2xl soft-shadow">
+            <img src={aboutImg} alt="Interior da barbearia" className="w-full h-full object-cover" loading="lazy" width={1280} height={864} />
           </div>
 
           <div>
@@ -37,7 +30,7 @@ const AboutSection = () => {
                 { num: "15k", label: "Clientes" },
                 { num: "5", label: "Experts" },
               ].map((stat, i) => (
-                <div key={i} className="text-center">
+                <div key={i} className="glass-card rounded-xl p-4 text-center">
                   <p className="font-heading text-2xl md:text-3xl font-bold text-primary">{stat.num}</p>
                   <p className="font-body text-xs tracking-widest uppercase text-muted-foreground mt-1">{stat.label}</p>
                 </div>

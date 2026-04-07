@@ -14,7 +14,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-transparent" style={{ borderColor: 'var(--glass-border)' }}>
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20">
         <a href="#hero" className="flex items-center gap-2">
           <Scissors className="w-6 h-6 text-primary" />
@@ -37,21 +37,18 @@ const Navbar = () => {
 
         <a
           href="#contact"
-          className="hidden md:inline-flex bg-primary text-primary-foreground px-6 py-2.5 text-xs font-body font-semibold uppercase tracking-widest hover:opacity-90 transition-opacity"
+          className="hidden md:inline-flex bg-primary text-primary-foreground px-6 py-2.5 text-xs font-body font-semibold uppercase tracking-widest rounded-lg hover:opacity-90 transition-opacity"
         >
           Agendar
         </a>
 
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setOpen(!open)}
-        >
+        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-background border-t border-border px-4 pb-6">
+        <div className="md:hidden bg-background/95 backdrop-blur-md px-4 pb-6" style={{ borderTop: '1px solid var(--glass-border)' }}>
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -65,7 +62,7 @@ const Navbar = () => {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="block mt-4 bg-primary text-primary-foreground px-6 py-3 text-xs font-body font-semibold uppercase tracking-widest text-center"
+            className="block mt-4 bg-primary text-primary-foreground px-6 py-3 text-xs font-body font-semibold uppercase tracking-widest text-center rounded-lg"
           >
             Agendar
           </a>
