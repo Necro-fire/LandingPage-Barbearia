@@ -1,8 +1,18 @@
 import { Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
+import { applyPhoneMask } from "@/lib/phoneMask";
 
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", phone: "", date: "", time: "", service: "" });
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, phone: applyPhoneMask(e.target.value) });
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "").slice(0, 45);
+    setForm({ ...form, name: value });
+  };
 
   return (
     <section id="contact" className="section-padding">
@@ -19,14 +29,16 @@ const ContactSection = () => {
               type="text"
               placeholder="Seu nome"
               value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              onChange={handleNameChange}
+              maxLength={45}
               className="w-full bg-secondary/50 border border-border/50 rounded-lg px-5 py-3.5 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
             />
             <input
               type="tel"
-              placeholder="Telefone / WhatsApp"
+              placeholder="(99) 9 9999-9999"
               value={form.phone}
-              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+              onChange={handlePhoneChange}
+              maxLength={16}
               className="w-full bg-secondary/50 border border-border/50 rounded-lg px-5 py-3.5 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
             />
             <div className="grid grid-cols-2 gap-4">
