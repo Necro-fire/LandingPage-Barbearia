@@ -19,7 +19,7 @@ const Navbar = () => {
         <a href="#hero" className="flex items-center gap-2">
           <Scissors className="w-6 h-6 text-primary" />
           <span className="font-heading text-xl font-bold tracking-wider text-foreground">
-            B<span className="text-primary">A</span>RBER
+            ON<span className="text-primary">-</span>STYLER
           </span>
         </a>
 

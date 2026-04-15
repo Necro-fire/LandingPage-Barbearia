@@ -65,8 +65,8 @@ const ContactSection = () => {
 
           <div className="space-y-6 flex flex-col justify-center">
             {[
-              { icon: MapPin, title: "Endereço", text: "Rua Augusta, 1234 — São Paulo, SP" },
-              { icon: Phone, title: "Telefone", text: "(11) 99999-0000" },
+              { icon: MapPin, title: "Endereço", text: "Centro, Teresina PI" },
+              { icon: Phone, title: "Telefone", text: "(86) 9 9999-0000" },
               { icon: Clock, title: "Horário", text: "Seg–Sáb: 9h às 20h | Dom: Fechado" },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4 glass-card rounded-xl p-5">
