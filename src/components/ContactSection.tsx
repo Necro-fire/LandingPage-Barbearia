@@ -9,6 +9,11 @@ const ContactSection = () => {
     setForm({ ...form, phone: applyPhoneMask(e.target.value) });
   };
 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "").slice(0, 45);
+    setForm({ ...form, name: value });
+  };
+
   return (
     <section id="contact" className="section-padding">
       <div className="container mx-auto">
@@ -24,7 +29,8 @@ const ContactSection = () => {
               type="text"
               placeholder="Seu nome"
               value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              onChange={handleNameChange}
+              maxLength={45}
               className="w-full bg-secondary/50 border border-border/50 rounded-lg px-5 py-3.5 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
             />
             <input
