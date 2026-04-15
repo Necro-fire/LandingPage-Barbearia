@@ -23,10 +23,10 @@ const PricingSection = () => {
           {prices.map((item, i) => (
             <div
               key={i}
-              className={`flex items-center justify-between py-4 ${
+              className={`flex items-center justify-between py-4 px-4 -mx-4 rounded-lg cursor-default transition-all duration-300 hover:scale-[1.02] hover:bg-primary/10 hover:shadow-[0_0_20px_rgba(191,155,81,0.08)] ${
                 i < prices.length - 1 ? "border-b" : ""
               }`}
-              style={{ borderColor: 'var(--glass-border)' }}
+              style={{ borderColor: "var(--glass-border)" }}
             >
               <span className="font-body text-sm text-foreground">{item.service}</span>
               <span className="font-heading text-lg font-semibold text-primary">{item.price}</span>
