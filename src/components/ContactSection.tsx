@@ -20,12 +20,10 @@ const ContactSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <form className="glass-card-glow rounded-2xl p-8 space-y-5" onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="text"
-              placeholder="Seu nome"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full bg-secondary/50 border border-border/50 rounded-lg px-5 py-3.5 text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "").slice(0, 45);
+    setForm({ ...form, name: value });
+  };
             />
             <input
               type="tel"
