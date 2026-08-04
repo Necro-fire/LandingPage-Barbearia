@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
 
 const Index = () => (
-  <main className="bg-background min-h-screen">
+  <main className="theme-dark bg-background min-h-screen">
     <Navbar />
     <HeroSection />
     <ServicesSection />
