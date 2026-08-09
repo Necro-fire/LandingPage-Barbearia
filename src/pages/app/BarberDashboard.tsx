@@ -83,7 +83,7 @@ export default function BarberDashboard() {
         setStats({
           todayCount,
           monthRevenue,
-          customerCount: new Set(allRes.data.map(a => a.client_id)).size
+          customerCount: 0 // Will be implemented with full stats module
         });
       }
       
