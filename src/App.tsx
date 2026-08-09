@@ -22,11 +22,11 @@ import {
   Loyalty,
   Notifications,
   Reports,
-  Schedule,
   Services,
   SettingsPage,
 } from "./pages/app/Modules.tsx";
 import Booking from "./pages/app/Booking.tsx";
+import Schedule from "./pages/app/Schedule.tsx";
 
 const queryClient = new QueryClient();
 
