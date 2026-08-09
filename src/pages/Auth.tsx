@@ -136,7 +136,7 @@ export default function Auth() {
                     {busy ? <Spinner className="h-4 w-4" /> : "Entrar"}
                   </Button>
                   <div className="text-center">
-                    <Link to="/auth/forgot-password" size="sm" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+                    <Link to="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary transition-colors">
                       Esqueceu sua senha?
                     </Link>
                   </div>
