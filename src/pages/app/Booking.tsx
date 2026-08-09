@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/common/PageHeader";
 import { toast } from "@/hooks/use-toast";
 import { Spinner } from "@/components/common/Loading";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 type Step = "service" | "barber" | "date" | "time" | "summary" | "confirmation";
 
@@ -46,13 +47,19 @@ export default function BookingFlow() {
       return;
     }
 
+    const startDateTime = `${selectedDate}T${selectedTime}:00`;
+    // Calculate end time based on service duration
+    const startDate = new Date(startDateTime);
+    const endDate = new Date(startDate.getTime() + selectedService.duration_minutes * 60000);
+
     const { error } = await supabase.from("appointments").insert({
       client_id: user.id,
       service_id: selectedService.id,
       barber_id: selectedBarber.id,
-      start_time: `${selectedDate}T${selectedTime}:00`,
+      starts_at: startDate.toISOString(),
+      ends_at: endDate.toISOString(),
       status: "pending",
-      total_price: selectedService.price
+      price: selectedService.price
     });
 
     setLoading(false);
@@ -107,12 +114,12 @@ export default function BookingFlow() {
                 }}
               >
                 <CardContent className="p-6 flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center">
-                    <User className="text-muted-foreground" />
+                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center overflow-hidden">
+                    {b.avatar_url ? <img src={b.avatar_url} alt={b.display_name} className="h-full w-full object-cover" /> : <User className="text-muted-foreground" />}
                   </div>
                   <div className="flex-1">
-                    <p className="font-heading font-bold">{b.name}</p>
-                    <p className="text-sm text-muted-foreground">{b.specialty || "Barbeiro Especialista"}</p>
+                    <p className="font-heading font-bold">{b.display_name}</p>
+                    <p className="text-sm text-muted-foreground">{b.specialties?.join(", ") || "Barbeiro Especialista"}</p>
                   </div>
                   {selectedBarber?.id === b.id && <Check className="text-primary" />}
                 </CardContent>
@@ -170,7 +177,7 @@ export default function BookingFlow() {
                   <User className="h-5 w-5 text-primary" />
                   <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider">Barbeiro</p>
-                    <p className="font-bold">{selectedBarber.name}</p>
+                    <p className="font-bold">{selectedBarber.display_name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -181,7 +188,7 @@ export default function BookingFlow() {
                   </div>
                 </div>
               </div>
-              <Button onClick={handleBooking} disabled={loading} className="w-full rounded-xl gap-2">
+              <Button onClick={handleBooking} disabled={loading} className="w-full rounded-xl gap-2 shadow-lg shadow-primary/20">
                 {loading ? <Spinner className="h-4 w-4" /> : <>Solicitar Agendamento <ArrowRight className="h-4 w-4" /></>}
               </Button>
             </CardContent>
@@ -189,15 +196,15 @@ export default function BookingFlow() {
         );
       case "confirmation":
         return (
-          <div className="text-center space-y-6 py-10">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10 text-green-500">
+          <div className="text-center space-y-6 py-10 animate-in fade-in zoom-in duration-300">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10 text-green-500 ring-8 ring-green-500/5">
               <Check className="h-10 w-10" />
             </div>
             <div className="space-y-2">
               <h3 className="text-2xl font-heading font-bold">Solicitação Enviada!</h3>
-              <p className="text-muted-foreground">Seu agendamento está aguardando aprovação da barbearia. Você receberá uma notificação em breve.</p>
+              <p className="text-muted-foreground max-w-sm mx-auto">Seu agendamento está aguardando aprovação da barbearia. Você receberá uma notificação em breve.</p>
             </div>
-            <Button variant="outline" onClick={() => window.location.href = "/app"} className="rounded-xl">
+            <Button variant="outline" onClick={() => window.location.href = "/app"} className="rounded-xl border-border/60 hover:bg-secondary">
               Voltar ao Início
             </Button>
           </div>
@@ -206,7 +213,7 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <PageHeader 
         title="Novo Agendamento" 
         description={
@@ -229,7 +236,7 @@ export default function BookingFlow() {
             if (step === "time") setStep("date");
             if (step === "summary") setStep("time");
           }}
-          className="gap-2 text-muted-foreground"
+          className="gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
         >
           <ArrowLeft className="h-4 w-4" /> Voltar
         </Button>
@@ -241,6 +248,3 @@ export default function BookingFlow() {
     </div>
   );
 }
-
-// Helper needed
-import { Input } from "@/components/ui/input";
