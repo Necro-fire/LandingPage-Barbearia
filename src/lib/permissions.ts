@@ -1,9 +1,12 @@
-export type AppRole = "admin" | "barber" | "client";
+export type AppRole = "admin" | "barber" | "client" | "receptionist" | "manager" | "owner";
 
 export const ROLE_LABELS: Record<AppRole, string> = {
   admin: "Administrador",
   barber: "Barbeiro",
   client: "Cliente",
+  receptionist: "Recepcionista",
+  manager: "Gerente",
+  owner: "Proprietário",
 };
 
 /** Permissões atômicas do sistema. Módulos futuros apenas consomem estas chaves. */
@@ -57,6 +60,9 @@ const ADMIN: Permission[] = [
 export const ROLE_PERMISSIONS: Record<AppRole, Permission[]> = {
   client: CLIENT,
   barber: BARBER,
+  receptionist: BARBER, // Por enquanto herda barbeiro
+  manager: ADMIN,
+  owner: ADMIN,
   admin: ADMIN,
 };
 

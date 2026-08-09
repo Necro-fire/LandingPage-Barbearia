@@ -10,6 +10,7 @@ import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import AppLayout from "@/components/layout/AppLayout";
 import Index from "./pages/Index.tsx";
 import Auth from "./pages/Auth.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Dashboard from "./pages/app/Dashboard.tsx";
 import Profile from "./pages/app/Profile.tsx";
@@ -40,6 +41,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
                 <Route
                   path="/app"
