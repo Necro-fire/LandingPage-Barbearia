@@ -17,16 +17,17 @@ import Profile from "./pages/app/Profile.tsx";
 import {
   Appointments,
   Audit,
-  Clients,
+  Barbers,
   Finance,
   Loyalty,
   Notifications,
   Reports,
-  Services,
   SettingsPage,
 } from "./pages/app/Modules.tsx";
 import Booking from "./pages/app/Booking.tsx";
 import Schedule from "./pages/app/Schedule.tsx";
+import Clients from "./pages/app/Clients.tsx";
+import Services from "./pages/app/Services.tsx";
 
 const queryClient = new QueryClient();
 
@@ -66,9 +67,13 @@ const App = () => (
                     path="agenda"
                     element={<ProtectedRoute permission="schedule.view"><Schedule /></ProtectedRoute>}
                   />
-                  <Route
+                   <Route
                     path="clientes"
                     element={<ProtectedRoute permission="clients.view"><Clients /></ProtectedRoute>}
+                  />
+                  <Route
+                    path="barbeiros"
+                    element={<ProtectedRoute permission="barbers.manage"><Barbers /></ProtectedRoute>}
                   />
                   <Route
                     path="servicos"

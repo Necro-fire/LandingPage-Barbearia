@@ -39,6 +39,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Gestão",
     items: [
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
+      { title: "Barbeiros", url: "/app/barbeiros", icon: Users, permission: "barbers.manage" },
       { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
       { title: "Financeiro", url: "/app/financeiro", icon: Wallet, permission: "finance.view" },
       { title: "Relatórios", url: "/app/relatorios", icon: BarChart3, permission: "reports.view" },
