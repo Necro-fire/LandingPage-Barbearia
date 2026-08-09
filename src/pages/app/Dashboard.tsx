@@ -4,19 +4,27 @@ import { StatCard } from "@/components/common/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/useAuth";
 import { ROLE_LABELS } from "@/lib/permissions";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
   const { profile, user, roles } = useAuth();
+  const navigate = useNavigate();
 
   const isClient = roles.includes("client") && roles.length === 1;
 
   if (isClient) {
     return (
-      <div className="space-y-6">
-        <PageHeader
-          title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
-          description="Acompanhe seus agendamentos e preferências."
-        />
+      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <PageHeader
+            title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
+            description="Acompanhe seus agendamentos e preferências."
+          />
+          <Button onClick={() => navigate("/app/agendar")} className="rounded-xl gap-2 shadow-lg shadow-primary/20">
+            <CalendarDays className="h-4 w-4" /> Novo Agendamento
+          </Button>
+        </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <StatCard
@@ -62,7 +70,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="animate-in fade-in duration-500">
       <PageHeader
         title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
         description={`Perfil de acesso: ${roles.map((r) => ROLE_LABELS[r]).join(", ") || "—"}`}
