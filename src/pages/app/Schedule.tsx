@@ -7,6 +7,7 @@ import {
   Filter, 
   Plus,
   User,
+  Scissors,
   MoreVertical,
   Calendar as CalendarIcon
 } from "lucide-react";
