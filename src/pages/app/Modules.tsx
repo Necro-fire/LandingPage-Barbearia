@@ -1,42 +1,55 @@
-import {
-  BarChart3,
-  Bell,
-  CalendarDays,
-  CalendarRange,
-  Gift,
-  ScrollText,
-  Scissors,
-  Settings,
-  Users,
-  Wallet,
-  UserCheck,
-} from "lucide-react";
-import { ModulePlaceholder } from "./ModulePlaceholder";
+import { PageHeader } from "@/components/common/PageHeader";
 
 export const Appointments = () => (
-  <ModulePlaceholder title="Agendamentos" description="Gestão de horários marcados pelos clientes." icon={CalendarDays} />
+  <div className="space-y-6">
+    <PageHeader title="Agendamentos" description="Gerencie as solicitações e horários marcados." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de agendamentos em desenvolvimento.
+    </div>
+  </div>
 );
-export const Schedule = () => (
-  <ModulePlaceholder title="Agenda" description="Visão de agenda inteligente por barbeiro e período." icon={CalendarRange} />
-);
+
 export const Barbers = () => (
-  <ModulePlaceholder title="Barbeiros" description="Gestão de profissionais, comissões e horários." icon={UserCheck} />
+  <div className="space-y-6">
+    <PageHeader title="Barbeiros" description="Gestão da equipe e perfis profissionais." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de barbeiros em desenvolvimento.
+    </div>
+  </div>
 );
-export const Finance = () => (
-  <ModulePlaceholder title="Financeiro" description="Entradas, saídas, comissões e formas de pagamento." icon={Wallet} />
-);
-export const Reports = () => (
-  <ModulePlaceholder title="Relatórios" description="Indicadores de desempenho e exportações." icon={BarChart3} />
-);
+
 export const Loyalty = () => (
-  <ModulePlaceholder title="Fidelização" description="Pontos, recompensas e campanhas de retenção." icon={Gift} />
+  <div className="space-y-6">
+    <PageHeader title="Programa de Fidelidade" description="Configure pontos, cashback e prêmios." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de fidelidade em desenvolvimento.
+    </div>
+  </div>
 );
+
 export const Notifications = () => (
-  <ModulePlaceholder title="Notificações" description="Central de avisos e alertas do sistema." icon={Bell} />
+  <div className="space-y-6">
+    <PageHeader title="Notificações" description="Histórico de alertas e comunicações do sistema." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de notificações em desenvolvimento.
+    </div>
+  </div>
 );
+
 export const SettingsPage = () => (
-  <ModulePlaceholder title="Configurações" description="Preferências gerais, horários e integrações." icon={Settings} />
+  <div className="space-y-6">
+    <PageHeader title="Configurações" description="Ajustes gerais do sistema e da barbearia." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de configurações em desenvolvimento.
+    </div>
+  </div>
 );
+
 export const Audit = () => (
-  <ModulePlaceholder title="Auditoria" description="Trilha de ações realizadas no sistema." icon={ScrollText} />
+  <div className="space-y-6">
+    <PageHeader title="Auditoria" description="Registro de atividades e logs de segurança." />
+    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
+      Módulo de auditoria em desenvolvimento.
+    </div>
+  </div>
 );
