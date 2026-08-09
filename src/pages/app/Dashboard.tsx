@@ -6,12 +6,18 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROLE_LABELS } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import BarberDashboard from "./BarberDashboard";
 
 export default function Dashboard() {
   const { profile, user, roles } = useAuth();
   const navigate = useNavigate();
 
   const isClient = roles.includes("client") && roles.length === 1;
+  const isBarber = roles.includes("barber");
+
+  if (isBarber) {
+    return <BarberDashboard />;
+  }
 
   if (isClient) {
     return (
