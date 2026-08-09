@@ -24,8 +24,6 @@ import Finance from "./pages/app/Finance.tsx";
 import Reports from "./pages/app/Reports.tsx";
 import Loyalty from "./pages/app/Loyalty.tsx";
 import Notifications from "./pages/app/Notifications.tsx";
-import Finance from "./pages/app/Finance.tsx";
-import Reports from "./pages/app/Reports.tsx";
 import Booking from "./pages/app/Booking.tsx";
 import Schedule from "./pages/app/Schedule.tsx";
 import Clients from "./pages/app/Clients.tsx";
