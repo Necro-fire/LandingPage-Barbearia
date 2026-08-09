@@ -18,24 +18,6 @@ export const Barbers = () => (
   </div>
 );
 
-export const Loyalty = () => (
-  <div className="space-y-6">
-    <PageHeader title="Programa de Fidelidade" description="Configure pontos, cashback e prêmios." />
-    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
-      Módulo de fidelidade em desenvolvimento.
-    </div>
-  </div>
-);
-
-export const Notifications = () => (
-  <div className="space-y-6">
-    <PageHeader title="Notificações" description="Histórico de alertas e comunicações do sistema." />
-    <div className="p-10 border border-dashed rounded-2xl text-center text-muted-foreground">
-      Módulo de notificações em desenvolvimento.
-    </div>
-  </div>
-);
-
 export const SettingsPage = () => (
   <div className="space-y-6">
     <PageHeader title="Configurações" description="Ajustes gerais do sistema e da barbearia." />

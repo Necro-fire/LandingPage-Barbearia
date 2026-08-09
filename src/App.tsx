@@ -18,10 +18,12 @@ import {
   Appointments,
   Audit,
   Barbers,
-  Loyalty,
-  Notifications,
   SettingsPage,
 } from "./pages/app/Modules.tsx";
+import Finance from "./pages/app/Finance.tsx";
+import Reports from "./pages/app/Reports.tsx";
+import Loyalty from "./pages/app/Loyalty.tsx";
+import Notifications from "./pages/app/Notifications.tsx";
 import Finance from "./pages/app/Finance.tsx";
 import Reports from "./pages/app/Reports.tsx";
 import Booking from "./pages/app/Booking.tsx";
