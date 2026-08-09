@@ -18,11 +18,8 @@ export const Appointments = () => (
 export const Schedule = () => (
   <ModulePlaceholder title="Agenda" description="Visão de agenda inteligente por barbeiro e período." icon={CalendarRange} />
 );
-export const Clients = () => (
-  <ModulePlaceholder title="Clientes" description="Cadastro, histórico e relacionamento com clientes." icon={Users} />
-);
-export const Services = () => (
-  <ModulePlaceholder title="Serviços" description="Catálogo de serviços, duração e preços." icon={Scissors} />
+export const Barbers = () => (
+  <ModulePlaceholder title="Barbeiros" description="Gestão de profissionais, comissões e horários." icon={Users} />
 );
 export const Finance = () => (
   <ModulePlaceholder title="Financeiro" description="Entradas, saídas, comissões e formas de pagamento." icon={Wallet} />

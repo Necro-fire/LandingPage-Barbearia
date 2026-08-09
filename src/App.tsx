@@ -66,9 +66,13 @@ const App = () => (
                     path="agenda"
                     element={<ProtectedRoute permission="schedule.view"><Schedule /></ProtectedRoute>}
                   />
-                  <Route
+                   <Route
                     path="clientes"
                     element={<ProtectedRoute permission="clients.view"><Clients /></ProtectedRoute>}
+                  />
+                  <Route
+                    path="barbeiros"
+                    element={<ProtectedRoute permission="barbers.view"><Barbers /></ProtectedRoute>}
                   />
                   <Route
                     path="servicos"

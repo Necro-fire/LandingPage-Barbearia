@@ -89,15 +89,38 @@ export default function Dashboard() {
         <StatCard label="Faturamento" value="—" hint="Aguardando módulo financeiro" icon={Wallet} />
       </div>
 
-      <Card className="mt-6 rounded-2xl border-border/60 bg-card/60 backdrop-blur">
-        <CardHeader>
-          <CardTitle className="font-heading text-lg">Estrutura base concluída</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm text-muted-foreground">
-          <p>Layout, navegação, permissões, temas, componentes reutilizáveis e banco de dados estão prontos.</p>
-          <p>Os próximos módulos serão adicionados sobre esta base, sem alterar o que já existe.</p>
-        </CardContent>
-      </Card>
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <Card className="lg:col-span-2 rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
+          <CardHeader className="bg-muted/30 border-b border-border/40">
+            <CardTitle className="text-lg font-heading">Visão Geral da Operação</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6 h-[300px] flex items-center justify-center text-muted-foreground italic">
+            Gráfico de desempenho em tempo real (Aguardando dados)
+          </CardContent>
+        </Card>
+
+        <div className="space-y-6">
+          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
+            <CardHeader>
+              <CardTitle className="text-lg font-heading">Gestão Rápida</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-2">
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/agendamentos")}>
+                <CalendarDays className="h-4 w-4" /> Gerenciar Solicitações
+              </Button>
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/servicos")}>
+                <Scissors className="h-4 w-4" /> Tabela de Preços
+              </Button>
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/clientes")}>
+                <Users className="h-4 w-4" /> Base de Clientes
+              </Button>
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/financeiro")}>
+                <Wallet className="h-4 w-4" /> Fluxo de Caixa
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
