@@ -26,6 +26,7 @@ import {
   Services,
   SettingsPage,
 } from "./pages/app/Modules.tsx";
+import Booking from "./pages/app/Booking.tsx";
 
 const queryClient = new QueryClient();
 
@@ -53,9 +54,13 @@ const App = () => (
                 >
                   <Route index element={<Dashboard />} />
                   <Route path="perfil" element={<Profile />} />
-                  <Route
+                   <Route
                     path="agendamentos"
                     element={<ProtectedRoute permission="appointments.view"><Appointments /></ProtectedRoute>}
+                  />
+                  <Route
+                    path="agendar"
+                    element={<ProtectedRoute permission="appointments.view"><Booking /></ProtectedRoute>}
                   />
                   <Route
                     path="agenda"
