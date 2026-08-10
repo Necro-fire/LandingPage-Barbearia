@@ -9,10 +9,12 @@ import {
   User,
   Scissors,
   MoreVertical,
-  Calendar as CalendarIcon
+  Calendar as CalendarIcon,
+  Phone,
+  Info
 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
@@ -21,9 +23,16 @@ import {
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
-import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
+import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, differenceInMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +44,9 @@ export default function Schedule() {
   const [appointments, setAppointments] = useState<any[]>([]);
   const [barbers, setBarbers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedAppointment, setSelectedAppointment] = useState<any>(null);
+  const [filterBarber, setFilterBarber] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
 
   useEffect(() => {
     async function fetchData() {
@@ -67,6 +79,22 @@ export default function Schedule() {
     setCurrentDate(newDate);
   };
 
+  const filteredAppointments = appointments.filter(app => {
+    const matchesBarber = filterBarber === "all" || app.barber_id === filterBarber;
+    const matchesStatus = filterStatus === "all" || app.status === filterStatus;
+    return matchesBarber && matchesStatus;
+  });
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "pending": return "border-l-amber-500 bg-amber-500/5";
+      case "confirmed": return "border-l-green-500 bg-green-500/5";
+      case "completed": return "border-l-blue-500 bg-blue-500/5";
+      case "cancelled": return "border-l-red-500 bg-red-500/5";
+      default: return "border-l-muted bg-muted/5";
+    }
+  };
+
   const renderDayView = () => {
     const hours = Array.from({ length: 14 }, (_, i) => i + 8); // 08:00 to 21:00
 
@@ -74,7 +102,7 @@ export default function Schedule() {
       <div className="space-y-4">
         {hours.map((hour) => {
           const timeStr = `${hour.toString().padStart(2, "0")}:00`;
-          const hourAppointments = appointments.filter(app => {
+          const hourAppointments = filteredAppointments.filter(app => {
             const appDate = new Date(app.starts_at);
             return isSameDay(appDate, currentDate) && appDate.getHours() === hour;
           });
@@ -92,10 +120,9 @@ export default function Schedule() {
                         key={app.id} 
                         className={cn(
                           "border-l-4 rounded-xl shadow-sm transition-all hover:shadow-md cursor-pointer",
-                          app.status === "confirmed" ? "border-l-green-500 bg-green-500/5" :
-                          app.status === "pending" ? "border-l-amber-500 bg-amber-500/5" :
-                          "border-l-blue-500 bg-blue-500/5"
+                          getStatusColor(app.status)
                         )}
+                        onClick={() => setSelectedAppointment(app)}
                       >
                         <CardContent className="p-3 flex justify-between items-start gap-2">
                           <div className="space-y-1">
@@ -131,7 +158,7 @@ export default function Schedule() {
     return (
       <div className="grid grid-cols-7 gap-2 overflow-x-auto min-w-[700px]">
         {days.map((day) => {
-          const dayAppointments = appointments.filter(app => isSameDay(new Date(app.starts_at), day));
+          const dayAppointments = filteredAppointments.filter(app => isSameDay(new Date(app.starts_at), day));
           const isToday = isSameDay(day, new Date());
 
           return (
@@ -147,7 +174,8 @@ export default function Schedule() {
                 {dayAppointments.map(app => (
                   <div 
                     key={app.id} 
-                    className="p-2 rounded-lg bg-card border border-border/60 text-[10px] shadow-sm hover:border-primary/50 transition-all cursor-pointer"
+                    className={cn("p-2 rounded-lg bg-card border border-border/60 text-[10px] shadow-sm hover:border-primary/50 transition-all cursor-pointer", getStatusColor(app.status))}
+                    onClick={() => setSelectedAppointment(app)}
                   >
                     <div className="font-bold truncate">{app.client?.full_name?.split(" ")[0]}</div>
                     <div className="text-muted-foreground truncate">{format(new Date(app.starts_at), "HH:mm")}</div>
@@ -174,11 +202,37 @@ export default function Schedule() {
           description="Gerencie horários, bloqueios e disponibilidade."
         />
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="rounded-xl border-border/60">
-            <Filter className="h-4 w-4 mr-2" /> Filtros
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="rounded-xl border-border/60">
+                <Filter className="h-4 w-4 mr-2" /> Barbeiro: {filterBarber === "all" ? "Todos" : barbers.find(b => b.id === filterBarber)?.display_name}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="rounded-xl">
+              <DropdownMenuItem onClick={() => setFilterBarber("all")}>Todos</DropdownMenuItem>
+              {barbers.map(b => (
+                <DropdownMenuItem key={b.id} onClick={() => setFilterBarber(b.id)}>{b.display_name}</DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="rounded-xl border-border/60">
+                <Filter className="h-4 w-4 mr-2" /> Status: {filterStatus === "all" ? "Todos" : filterStatus}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="rounded-xl">
+              <DropdownMenuItem onClick={() => setFilterStatus("all")}>Todos</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setFilterStatus("pending")}>Pendente</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setFilterStatus("confirmed")}>Confirmado</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setFilterStatus("completed")}>Concluído</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setFilterStatus("cancelled")}>Cancelado</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           <Button className="rounded-xl shadow-lg shadow-primary/20">
-            <Plus className="h-4 w-4 mr-2" /> Bloquear Horário
+            <Plus className="h-4 w-4 mr-2" /> Novo Agendamento
           </Button>
         </div>
       </div>
@@ -261,6 +315,75 @@ export default function Schedule() {
           </Card>
         </div>
       </div>
+
+      <Dialog open={!!selectedAppointment} onOpenChange={() => setSelectedAppointment(null)}>
+        <DialogContent className="rounded-2xl border-border/60 bg-card/95 backdrop-blur-xl sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-xl uppercase tracking-tighter">Detalhes do Agendamento</DialogTitle>
+            <DialogDescription className="text-xs uppercase tracking-widest text-muted-foreground">
+              Informações completas da reserva
+            </DialogDescription>
+          </DialogHeader>
+          {selectedAppointment && (
+            <div className="space-y-6 pt-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Cliente</p>
+                  <p className="text-sm font-bold flex items-center gap-2"><User className="h-3 w-3 text-primary" /> {selectedAppointment.client?.full_name}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Status</p>
+                  <Badge variant="outline" className={cn("text-[10px] uppercase font-bold tracking-tighter", getStatusColor(selectedAppointment.status))}>
+                    {selectedAppointment.status}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Serviço</p>
+                  <p className="text-sm font-bold flex items-center gap-2"><Scissors className="h-3 w-3 text-primary" /> {selectedAppointment.service?.name}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Valor</p>
+                  <p className="text-sm font-bold text-primary">R$ {selectedAppointment.price}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Profissional</p>
+                  <p className="text-sm font-bold">{selectedAppointment.barber?.display_name}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Duração</p>
+                  <p className="text-sm font-bold">{selectedAppointment.service?.duration_minutes} min</p>
+                </div>
+              </div>
+
+              <div className="space-y-3 pt-4 border-t border-border/40">
+                <div className="flex items-center justify-between">
+                   <div className="flex items-center gap-2 text-xs font-medium">
+                     <CalendarIcon className="h-3.5 w-3.5 text-muted-foreground" />
+                     {format(new Date(selectedAppointment.starts_at), "dd 'de' MMMM, yyyy", { locale: ptBR })}
+                   </div>
+                   <div className="flex items-center gap-2 text-xs font-medium">
+                     <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                     {format(new Date(selectedAppointment.starts_at), "HH:mm")} - {format(new Date(selectedAppointment.ends_at), "HH:mm")}
+                   </div>
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-4">
+                {selectedAppointment.status === 'pending' && (
+                  <Button className="flex-1 rounded-xl bg-green-600 hover:bg-green-700">Aprovar</Button>
+                )}
+                <Button variant="outline" className="flex-1 rounded-xl border-border/60 text-red-500 hover:bg-red-500/10">Cancelar</Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
