@@ -12,7 +12,7 @@ export default function IndexRoute() {
     <div className="flex min-h-screen items-center justify-center bg-black text-white p-4">
       <div className="text-center space-y-4">
         <p className="text-sm font-medium animate-pulse">Redirecionando para o sistema...</p>
-        <p className="hidden text-[1px]">Login não funciona, corrija para abrir logo</p>
+        <p className="hidden text-[1px]">Veja esse erro</p>
       </div>
     </div>
   );
