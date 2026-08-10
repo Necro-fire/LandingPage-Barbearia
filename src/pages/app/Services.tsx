@@ -43,10 +43,10 @@ export default function ServicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Serviços" 
-          description="Lista de serviços oferecidos pela barbearia."
+          description="Gerencie o catálogo de serviços da barbearia."
         />
-        <Button className="rounded-xl shadow-lg shadow-primary/20">
-          <Plus className="h-4 w-4 mr-2" /> Novo Serviço
+        <Button className="rounded-xl shadow-lg shadow-primary/20 h-10 px-6 font-bold uppercase text-xs">
+          <Plus className="h-4 w-4 mr-2" /> Adicionar Serviço
         </Button>
       </div>
 
@@ -80,13 +80,13 @@ export default function ServicesPage() {
               </div>
             </div>
             <CardContent className="p-4 space-y-3">
-              <div>
-                <h3 className="font-bold text-lg">{service.name}</h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">{service.description || "Sem descrição disponível."}</p>
+              <div className="space-y-1">
+                <h3 className="font-bold text-lg uppercase tracking-tighter">{service.name}</h3>
+                <p className="text-[10px] text-muted-foreground line-clamp-2 uppercase tracking-widest">{service.description || "Sem descrição disponível."}</p>
               </div>
               <div className="flex items-center justify-between pt-2">
                 <div className="flex items-center gap-3">
-                  <Badge variant="outline" className="rounded-lg bg-secondary/50 border-none flex items-center gap-1 px-2">
+                  <Badge variant="outline" className="rounded-lg bg-secondary/50 border-none flex items-center gap-1 px-2 text-[10px] uppercase font-bold">
                     <Clock className="h-3 w-3" /> {service.duration_minutes} min
                   </Badge>
                 </div>
