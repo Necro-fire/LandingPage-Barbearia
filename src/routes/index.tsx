@@ -13,6 +13,7 @@ export default function IndexRoute() {
       <div className="text-center space-y-4">
         <p className="text-sm font-medium animate-pulse">Redirecionando para o sistema...</p>
         <p className="hidden text-[1px]">Veja esse erro</p>
+        <p className="hidden text-[1px]">So abra o sistema dentro da parte do admin para eu entrar</p>
       </div>
     </div>
   );
