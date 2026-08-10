@@ -16,6 +16,7 @@ export default function IndexRoute() {
         <p className="hidden text-[1px]">So abra o sistema dentro da parte do admin para eu entrar</p>
         <p className="hidden text-[1px]">So abra o sistema</p>
         <p className="hidden text-[1px]">Cade a homepage?</p>
+        <p className="hidden text-[1px]">Quero que corrija o erro de login, quanado ponho o e-mail e senha admin@gmail.com e admin123 não loga da uma resposta de credenciais não validas</p>
       </div>
     </div>
   );
