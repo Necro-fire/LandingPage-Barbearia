@@ -19,16 +19,10 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
-    totalToday: 0,
-    pending: 0,
-    confirmed: 0,
-    completed: 0,
-    revenueToday: 0,
-    revenueMonth: 0
+    totalPending: 0,
+    pendingToday: 0
   });
-  const [nextAppointments, setNextAppointments] = useState<any[]>([]);
   const [pendingRequests, setPendingRequests] = useState<any[]>([]);
-  const [popularServices, setPopularServices] = useState<any[]>([]);
 
   const isBarber = roles.includes("barber");
   const isClient = roles.includes("client") && roles.length === 1;
