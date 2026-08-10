@@ -509,7 +509,7 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-20 text-center max-w-4xl mx-auto">
+          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto">
             <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>
