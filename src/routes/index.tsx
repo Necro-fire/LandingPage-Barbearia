@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A barra de navegação mobile foi bloqueada para rolagem lateral, tornando-se estática e fixa no rodapé para evitar movimentação com o toque ou mouse.</p>
+        <p>A barra de navegação mobile foi otimizada com rolagem horizontal suave, garantindo que todos os itens fiquem em uma única linha sem quebra de texto, e abreviando "Página da Barbearia" para "Barbearia" exclusivamente em dispositivos móveis.</p>
       </div>
     </>
   );
