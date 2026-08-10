@@ -167,10 +167,10 @@ export default function BookingFlow() {
         return (
           <div className="space-y-0" id="booking-section">
             <div className="mb-20 text-center">
-              <h3 className="text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
-              <p className="text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
+              <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
+              <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
-            <div className="grid gap-x-20 gap-y-0 md:grid-cols-2">
+            <div className="grid gap-x-20 gap-y-0 lg:grid-cols-2">
               {services.map((s) => (
                 <div 
                   key={s.id} 
@@ -290,7 +290,7 @@ export default function BookingFlow() {
                 <p className="text-[11px] font-black uppercase tracking-widest">O horário que você escolheu acaba de ser ocupado. Por favor, selecione outro.</p>
               </div>
             )}
-            <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5">
               {loadingTimes ? (
                 Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="h-16 border border-white/5 bg-white/[0.02] animate-pulse" />
@@ -412,7 +412,7 @@ export default function BookingFlow() {
 
   return (
     <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-6 py-5 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
@@ -429,7 +429,7 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-8 py-6 text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
+              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
             >
               AGENDAR HORÁRIO
             </Button>
@@ -447,14 +447,14 @@ export default function BookingFlow() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
         
-        <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <span className="mb-6 block text-[10px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-8 font-heading text-6xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.85]">
+        <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
+          <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
+          <h1 className="mb-6 font-heading text-5xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.9]">
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-12 text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
-            A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br />
+          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
+            A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
           
@@ -476,13 +476,13 @@ export default function BookingFlow() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-6 py-32">
-        <div className="space-y-32">
+      <main className="mx-auto max-w-7xl px-6 py-20 md:py-32">
+        <div className="space-y-20 md:space-y-32">
           <div>
-            <div className="flex items-center justify-between border-b border-white/10 pb-8 mb-16">
-              <h2 className="text-4xl font-black uppercase tracking-tighter text-white md:text-5xl">
-                OFERECEMOS SERVIÇOS DE <br /> 
-                <span className="text-primary text-2xl tracking-[0.2em]">PRIMEIRA CLASSE</span>
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-8 mb-12 md:mb-16 gap-6">
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-white md:text-5xl leading-tight">
+                OFERECEMOS SERVIÇOS DE <br className="hidden md:block" /> 
+                <span className="text-primary text-xl md:text-2xl tracking-[0.2em]">PRIMEIRA CLASSE</span>
               </h2>
               {step !== "service" && step !== "confirmation" && (
                 <button 
@@ -509,7 +509,7 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-20 text-center max-w-4xl mx-auto">
+          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto">
             <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>

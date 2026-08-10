@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Aprimore a parte de login melhore-a e adicione opções de login profissional.</p>
+        <p>Todos os elementos deve ser responsivos e focado no formato de celular, o sistema é para celular, há elementos que estão atrapalhando a visão.</p>
       </div>
     </>
   );
