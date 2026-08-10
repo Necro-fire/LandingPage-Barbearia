@@ -112,58 +112,133 @@ export default function Auth() {
   };
 
   return (
-    <main className="theme-dark flex min-h-screen items-center justify-center bg-background px-4 py-10">
-      <div className="w-full max-w-md">
-        <Link to="/" className="mb-6 flex items-center justify-center gap-2 text-foreground">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <Scissors className="h-5 w-5" />
-          </span>
-          <span className="font-heading text-xl tracking-wide">ON-TESTE</span>
-        </Link>
+    <main className="min-h-screen bg-black flex overflow-hidden">
+      {/* Visual Side - Immersive Image */}
+      <div className="hidden lg:block lg:w-1/2 relative">
+        <img 
+          src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
+          className="absolute inset-0 h-full w-full object-cover opacity-50 grayscale brightness-[0.3]" 
+          alt="Login Background"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent" />
+        <div className="absolute bottom-20 left-20 max-w-md">
+          <Link to="/" className="mb-8 flex items-center gap-3 text-white">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-black">
+              <Scissors className="h-6 w-6" />
+            </span>
+            <span className="font-heading text-3xl font-black tracking-tighter uppercase">ON-TESTE</span>
+          </Link>
+          <h2 className="text-5xl font-black text-white uppercase tracking-tighter leading-tight mb-6">
+            GESTÃO PROFISSONAL PARA <span className="text-primary italic">SUA BARBEARIA</span>
+          </h2>
+          <p className="text-white/50 text-[11px] font-black tracking-[0.3em] uppercase leading-relaxed">
+            ACESSE SEU PAINEL E GERENCIE SEUS AGENDAMENTOS COM A EFICIÊNCIA QUE SEU NEGÓCIO MERECE.
+          </p>
+        </div>
+      </div>
 
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
-          <CardHeader className="text-center">
-            <CardTitle className="font-heading text-2xl">Acesse sua conta</CardTitle>
-            <CardDescription>Entre para gerenciar seus agendamentos</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSignIn} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="signin-email">E-mail</Label>
-                <Input id="signin-email" name="email" type="email" autoComplete="email" required className="rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signin-password">Senha</Label>
-                <div className="relative">
-                  <Input 
-                    id="signin-password" 
-                    name="password" 
-                    type={showPassword ? "text" : "password"} 
-                    autoComplete="current-password" 
-                    required 
-                    className="rounded-xl pr-10" 
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-              <Button type="submit" disabled={busy} className="w-full rounded-xl">
-                {busy ? <Spinner className="h-4 w-4" /> : "Entrar"}
-              </Button>
-              <div className="text-center">
-                <Link to="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                  Esqueceu sua senha?
-                </Link>
-              </div>
-            </form>
+      {/* Form Side */}
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 md:p-20 bg-black">
+        <div className="w-full max-w-sm space-y-10">
+          <div className="lg:hidden flex justify-center mb-10">
+            <Link to="/" className="flex items-center gap-2 text-white">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-black">
+                <Scissors className="h-5 w-5" />
+              </span>
+              <span className="font-heading text-xl font-black tracking-tighter uppercase">ON-TESTE</span>
+            </Link>
+          </div>
 
-          </CardContent>
-        </Card>
+          <div className="space-y-4 text-center lg:text-left">
+            <h1 className="text-4xl font-black text-white uppercase tracking-tighter">
+              {mode === "signin" ? "BEM-VINDO DE VOLTA" : "CRIE SUA CONTA"}
+            </h1>
+            <p className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">
+              {mode === "signin" 
+                ? "ENTRE COM SUAS CREDENCIAIS PARA CONTINUAR" 
+                : "JUNTE-SE À ELITE DA GESTÃO DE BARBEARIAS"}
+            </p>
+          </div>
+
+          {/* Social Logins */}
+          <div className="grid grid-cols-2 gap-4">
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={handleGoogle} 
+              disabled={busy}
+              className="rounded-none border-white/10 bg-white/[0.02] text-white hover:bg-white/[0.05] h-14 text-[10px] font-black tracking-[0.2em] uppercase"
+            >
+              <Chrome className="mr-3 h-4 w-4 text-primary" /> GOOGLE
+            </Button>
+            <Button 
+              type="button" 
+              variant="outline" 
+              disabled={true}
+              className="rounded-none border-white/10 bg-white/[0.02] text-white/30 h-14 text-[10px] font-black tracking-[0.2em] uppercase cursor-not-allowed opacity-50"
+            >
+              <Mail className="mr-3 h-4 w-4" /> APPLE
+            </Button>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
+            <div className="relative flex justify-center text-[8px] font-black uppercase tracking-[0.5em]"><span className="bg-black px-4 text-white/20 uppercase">OU</span></div>
+          </div>
+
+          <form onSubmit={mode === "signin" ? handleSignIn : handleSignUp} className="space-y-6">
+            {mode === "signup" && (
+              <div className="space-y-2">
+                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
+                <Input name="full_name" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14" />
+              </div>
+            )}
+            <div className="space-y-2">
+              <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">E-MAIL</label>
+              <Input name="email" type="email" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14" />
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between">
+                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">SENHA</label>
+                {mode === "signin" && (
+                  <Link to="/auth/forgot-password" title="ESQUECEU A SENHA?" className="text-[8px] font-black tracking-[0.2em] text-white/30 hover:text-primary uppercase transition-colors">
+                    ESQUECEU?
+                  </Link>
+                )}
+              </div>
+              <div className="relative">
+                <Input 
+                  name="password" 
+                  type={showPassword ? "text" : "password"} 
+                  required 
+                  className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14 pr-12" 
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+            
+            <Button type="submit" disabled={busy} className="w-full rounded-none bg-primary py-10 text-[12px] font-black tracking-[0.4em] uppercase text-black hover:bg-primary/90 transition-all">
+              {busy ? <Spinner className="h-6 w-6" /> : (mode === "signin" ? "ENTRAR AGORA" : "CRIAR MINHA CONTA")}
+            </Button>
+          </form>
+
+          <div className="text-center">
+            <button 
+              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+              className="text-[10px] font-black tracking-[0.3em] text-white/40 hover:text-white uppercase transition-colors"
+            >
+              {mode === "signin" 
+                ? "NÃO TEM CONTA? CADASTRE-SE" 
+                : "JÁ TEM UMA CONTA? ENTRAR"}
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
