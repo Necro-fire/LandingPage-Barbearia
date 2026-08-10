@@ -1,4 +1,8 @@
-import { CalendarDays, Scissors, Users, Wallet } from "lucide-react";
+import { CalendarDays, Scissors, Users, Wallet, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { PageHeader } from "@/components/common/PageHeader";
 import { StatCard } from "@/components/common/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +14,51 @@ import BarberDashboard from "./BarberDashboard";
 
 export default function Dashboard() {
   const { profile, user, roles } = useAuth();
+  const [stats, setStats] = useState({ appointments: 0, clients: 0 });
+  const [recentAppointments, setRecentAppointments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchStats() {
+      setLoading(true);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      const [appToday, clientsCount, recent] = await Promise.all([
+        supabase
+          .from("appointments")
+          .select("id", { count: "exact" })
+          .gte("starts_at", today.toISOString())
+          .lt("starts_at", new Date(today.getTime() + 86400000).toISOString()),
+        supabase
+          .from("profiles")
+          .select("id", { count: "exact" }),
+        supabase
+          .from("appointments")
+          .select(`
+            id,
+            starts_at,
+            status,
+            service:service_id(name),
+            client:client_id(full_name)
+          `)
+          .order("starts_at", { ascending: false })
+          .limit(5)
+      ]);
+
+      setStats({
+        appointments: appToday.count || 0,
+        clients: clientsCount.count || 0
+      });
+      setRecentAppointments(recent.data || []);
+      setLoading(false);
+    }
+
+    if (!isClient && !isBarber) {
+      fetchStats();
+    }
+  }, [roles]);
 
   const isClient = roles.includes("client") && roles.length === 1;
   const isBarber = roles.includes("barber");
