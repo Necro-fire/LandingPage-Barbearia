@@ -35,10 +35,13 @@ const App = () => (
           <BrowserRouter>
             <AuthProvider>
               <Routes>
+                {/* Public Booking Page */}
                 <Route path="/" element={<Booking />} />
+                
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
+                {/* Private Owner Part */}
                 <Route
                   path="/app"
                   element={
@@ -48,17 +51,11 @@ const App = () => (
                   }
                 >
                   <Route index element={<Dashboard />} />
-                  <Route path="perfil" element={<Profile />} />
-                  <Route path="perfil" element={<Profile />} />
-                  <Route
-                    path="agendar"
-                    element={<ProtectedRoute permission="appointments.view"><Booking /></ProtectedRoute>}
-                  />
                   <Route
                     path="agenda"
                     element={<ProtectedRoute permission="schedule.view"><Schedule /></ProtectedRoute>}
                   />
-                   <Route
+                  <Route
                     path="clientes"
                     element={<ProtectedRoute permission="clients.view"><Clients /></ProtectedRoute>}
                   />
@@ -70,13 +67,13 @@ const App = () => (
                     path="notificacoes"
                     element={<ProtectedRoute permission="notifications.view"><Notifications /></ProtectedRoute>}
                   />
+                  <Route path="perfil" element={<Profile />} />
                   <Route
                     path="configuracoes"
                     element={<ProtectedRoute permission="settings.manage"><SettingsPage /></ProtectedRoute>}
                   />
                 </Route>
 
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AuthProvider>
