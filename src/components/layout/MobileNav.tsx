@@ -13,7 +13,7 @@ export function MobileNav() {
   const isActive = (url: string) => (url === "/app" ? pathname === "/app" : pathname.startsWith(url));
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around overflow-x-auto border-t border-border bg-background/80 px-2 backdrop-blur-xl md:hidden scrollbar-hide">
+    <nav className="fixed bottom-0 left-0 right-0 z-[100] flex h-16 items-center justify-around overflow-x-auto border-t border-border bg-background/95 px-2 backdrop-blur-xl md:hidden scrollbar-hide">
       {allItems.map((item) => (
         <NavLink
           key={item.url}
