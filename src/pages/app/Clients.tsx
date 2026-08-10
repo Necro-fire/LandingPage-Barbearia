@@ -51,8 +51,8 @@ export default function ClientsPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
-          title="Gestão de Clientes" 
-          description="Visualize e gerencie o histórico de seus clientes."
+          title="Clientes" 
+          description="Gerencie o cadastro e visualize o histórico dos seus clientes."
         />
         <div className="flex items-center gap-2">
           <Button variant="outline" className="rounded-xl border-border/60">
