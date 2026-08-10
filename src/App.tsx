@@ -35,7 +35,7 @@ const App = () => (
           <BrowserRouter>
             <AuthProvider>
               <Routes>
-                <Route path="/" element={<Dashboard />} />
+                <Route path="/" element={<Booking />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />
 
