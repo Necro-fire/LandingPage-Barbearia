@@ -94,12 +94,6 @@ export default function Dashboard() {
             hint="Acumule pontos em cada serviço"
             icon={Scissors}
           />
-          <StatCard
-            label="Notificações"
-            value="0"
-            hint="Nenhuma mensagem nova"
-            icon={Wallet}
-          />
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -134,7 +128,7 @@ export default function Dashboard() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatCard label="Agendamentos hoje" value={loading ? "..." : stats.appointments.toString()} hint="Horários marcados para hoje" icon={CalendarDays} />
         <StatCard label="Total de Clientes" value={loading ? "..." : stats.clients.toString()} hint="Base de dados ON-TESTE" icon={Users} />
-        <StatCard label="Notificações" value="0" hint="Nenhum alerta pendente" icon={Wallet} />
+        
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
