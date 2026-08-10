@@ -55,14 +55,11 @@ export default function ClientsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Clientes" 
-          description="Lista e histórico de clientes."
+          description="Gerencie sua base de clientes e histórico de fidelidade."
         />
         <div className="flex items-center gap-2">
-          <Button variant="outline" className="rounded-xl border-border/60">
-            <Download className="h-4 w-4 mr-2" /> Exportar
-          </Button>
-          <Button className="rounded-xl shadow-lg shadow-primary/20">
-            <Plus className="h-4 w-4 mr-2" /> Novo Cliente
+          <Button className="rounded-xl shadow-lg shadow-primary/20 h-10 px-6 font-bold uppercase text-xs">
+            <Plus className="h-4 w-4 mr-2" /> Adicionar Cliente
           </Button>
         </div>
       </div>
