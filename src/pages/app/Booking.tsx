@@ -415,10 +415,10 @@ export default function BookingFlow() {
       <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-6 py-5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">BARBER</span>
+            <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
           </div>
           <div className="hidden items-center gap-10 md:flex">
-            {["HOME", "ABOUT US", "PAGES", "CONTACT"].map((item) => (
+            {["INÍCIO", "SERVIÇOS", "SOBRE", "CONTATO"].map((item) => (
               <a key={item} href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors">{item}</a>
             ))}
           </div>
@@ -431,40 +431,48 @@ export default function BookingFlow() {
               }}
               className="rounded-none bg-primary px-8 py-6 text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
             >
-              MARQUE UMA CONSULTA
+              AGENDAR HORÁRIO
             </Button>
           </div>
         </div>
       </nav>
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" 
-            className="h-full w-full object-cover opacity-60 grayscale brightness-50" 
+            src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
+            className="h-full w-full object-cover opacity-40 grayscale brightness-[0.3]" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <h1 className="mb-4 font-heading text-7xl font-black uppercase tracking-tighter text-white md:text-9xl">
-            PREÇOS
+          <span className="mb-6 block text-[10px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
+          <h1 className="mb-8 font-heading text-6xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.85]">
+            ESTILO & <br />
+            <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-10 text-[12px] tracking-[0.3em] text-white/60 uppercase">Obtenha uma gama completa de serviços premium.</p>
+          <p className="mb-12 text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
+            A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br />
+            OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
+          </p>
           
-          <Button 
-            size="lg"
-            onClick={() => {
-              const el = document.getElementById('booking-section');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="rounded-none bg-primary px-12 py-8 text-[11px] font-black tracking-[0.3em] text-black hover:bg-primary/90 transition-all uppercase"
-          >
-            MARQUE UMA CONSULTA
-          </Button>
-          
-          <p className="mt-8 text-[8px] tracking-[0.2em] text-white/30 uppercase">Imagem de Freepik</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Button 
+              size="lg"
+              onClick={() => {
+                const el = document.getElementById('booking-section');
+                el?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="rounded-none bg-primary px-12 py-8 text-[11px] font-black tracking-[0.3em] text-black hover:bg-primary/90 transition-all uppercase"
+            >
+              AGENDAR HORÁRIO
+            </Button>
+            <button className="text-[10px] font-black tracking-[0.3em] text-white/60 hover:text-white transition-colors border-b border-white/20 pb-1">
+              CONHEÇA NOSSO ESPAÇO
+            </button>
+          </div>
         </div>
       </section>
 
