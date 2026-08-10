@@ -107,7 +107,7 @@ export default function Auth() {
           <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <Scissors className="h-5 w-5" />
           </span>
-          <span className="font-heading text-xl tracking-wide">Barbearia</span>
+          <span className="font-heading text-xl tracking-wide">ON-TESTE</span>
         </Link>
 
         <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">

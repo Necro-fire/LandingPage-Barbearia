@@ -30,7 +30,7 @@ export function AppSidebar() {
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <Scissors className="h-5 w-5" />
           </span>
-          {!collapsed && <span className="font-heading text-lg tracking-wide">Barbearia</span>}
+          {!collapsed && <span className="font-heading text-lg tracking-wide">ON-TESTE</span>}
         </div>
       </SidebarHeader>
 
