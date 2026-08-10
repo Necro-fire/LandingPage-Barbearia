@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Modifique o design do sistema para esse dá imagem, foque principalmente na landing page:</p>
+        <p>Pelo visto o erro de login está por causa que eu não consigo fazer login se o e-mail não tiver:  número tipo esse: admin123@gmail.com, e o que está adicionado é esse: admin@gmail.com</p>
       </div>
     </>
   );
