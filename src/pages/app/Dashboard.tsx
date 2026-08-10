@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, CheckCircle2, TrendingUp, AlertCircle, Scissors, User, ChevronRight, Check, X } from "lucide-react";
+import { CalendarDays, Clock, CheckCircle2, TrendingUp, AlertCircle, Scissors, User, ChevronRight, Check, X, Wallet } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { format, startOfDay, endOfDay, isToday } from "date-fns";
