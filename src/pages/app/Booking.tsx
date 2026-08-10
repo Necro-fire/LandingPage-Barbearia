@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft } from "lucide-react";
+import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
