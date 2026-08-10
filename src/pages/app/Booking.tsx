@@ -12,7 +12,7 @@ import { format, isSameDay, startOfMonth, endOfMonth, eachDayOfInterval, isBefor
 import { ptBR } from "date-fns/locale";
 import referenceAsset from "@/assets/reference.png.asset.json";
 
-type Step = "service" | "barber" | "date" | "time" | "summary" | "confirmation";
+type Step = "service" | "barber" | "date" | "time" | "guest-info" | "summary" | "confirmation";
 
 export default function BookingFlow() {
   const [step, setStep] = useState<Step>("service");
@@ -31,6 +31,15 @@ export default function BookingFlow() {
   const [loadingTimes, setLoadingTimes] = useState(false);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [isSlotTaken, setIsSlotTaken] = useState(false);
+  const [guestName, setGuestName] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -101,14 +110,14 @@ export default function BookingFlow() {
 
   const handleBooking = async () => {
     if (!selectedDate || !selectedTime) return;
-    setLoading(true);
-    const { data: { user } } = await supabase.auth.getUser();
     
-    if (!user) {
-      toast({ title: "Erro", description: "Você precisa estar logado.", variant: "destructive" });
-      setLoading(false);
+    // If not logged in and guest info not filled, go to guest info step
+    if (!user && (!guestName || !guestPhone)) {
+      setStep("guest-info");
       return;
     }
+
+    setLoading(true);
 
     const startDateTime = new Date(selectedDate);
     const [hours, mins] = selectedTime.split(":").map(Number);
@@ -135,7 +144,9 @@ export default function BookingFlow() {
     }
 
     const { error } = await supabase.from("appointments").insert({
-      client_id: user.id,
+      client_id: user?.id || null,
+      guest_name: user ? null : guestName,
+      guest_phone: user ? null : guestPhone,
       service_id: selectedService.id,
       barber_id: selectedBarber.id,
       starts_at: startDateTime.toISOString(),
@@ -317,6 +328,43 @@ export default function BookingFlow() {
             </div>
           </div>
         );
+      case "guest-info":
+        return (
+          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-8 space-y-8">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
+                <Input 
+                  value={guestName} 
+                  onChange={(e) => setGuestName(e.target.value)}
+                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[10px] uppercase tracking-widest focus:border-primary"
+                  placeholder="DIGITE SEU NOME"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">WHATSAPP / TELEFONE</label>
+                <Input 
+                  value={guestPhone} 
+                  onChange={(e) => setGuestPhone(e.target.value)}
+                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[10px] uppercase tracking-widest focus:border-primary"
+                  placeholder="(99) 9 9999-9999"
+                />
+              </div>
+            </div>
+            <Button 
+              onClick={() => {
+                if (!guestName || !guestPhone) {
+                  toast({ title: "Campos obrigatórios", description: "Por favor, preencha seu nome e telefone.", variant: "destructive" });
+                  return;
+                }
+                setStep("summary");
+              }}
+              className="w-full rounded-none bg-primary py-8 text-[11px] font-black tracking-[0.3em] uppercase text-white hover:bg-primary/90"
+            >
+              PRÓXIMO PASSO
+            </Button>
+          </div>
+        );
       case "summary":
         return (
           <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-8 space-y-10">
@@ -461,7 +509,8 @@ export default function BookingFlow() {
                     {step === "barber" && "2. Profissional"}
                     {step === "date" && "3. Data"}
                     {step === "time" && "4. Horário"}
-                    {step === "summary" && "5. Confirmação"}
+                    {step === "guest-info" && "5. Seus Dados"}
+                    {step === "summary" && "6. Confirmação"}
                     {step === "confirmation" && "Pronto!"}
                   </h3>
                 </div>
@@ -471,7 +520,11 @@ export default function BookingFlow() {
                       if (step === "barber") setStep("service");
                       if (step === "date") setStep("barber");
                       if (step === "time") setStep("date");
-                      if (step === "summary") setStep("time");
+                      if (step === "guest-info") setStep("time");
+                      if (step === "summary") {
+                        if (user) setStep("time");
+                        else setStep("guest-info");
+                      }
                     }}
                     className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/50 hover:text-primary transition-colors"
                   >
