@@ -253,6 +253,22 @@ export default function BookingFlow() {
             Escolha o serviço, seu barbeiro favorito e o horário ideal. 
             Ambiente exclusivo com atendimento premium.
           </p>
+          
+          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-4 text-left md:grid-cols-3">
+            {[
+              { title: "Agendamento Online", desc: "Reserve em segundos pelo celular" },
+              { title: "Gestão de Agenda", desc: "Controle total para o barbeiro" },
+              { title: "Histórico Completo", desc: "Acompanhe todos os seus cortes" },
+              { title: "Notificações", desc: "Avisos via WhatsApp e Sistema" },
+              { title: "Tipos de Cortes", desc: "Catálogo completo de serviços" },
+              { title: "Dashboard Real-time", desc: "Métricas e status em tempo real" }
+            ].map((feature, i) => (
+              <div key={i} className="rounded-xl border border-border/20 bg-background/40 p-4 backdrop-blur-sm">
+                <h3 className="text-sm font-bold text-primary">{feature.title}</h3>
+                <p className="text-xs text-muted-foreground">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -380,6 +396,9 @@ export default function BookingFlow() {
           <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
         </div>
       </footer>
+      <div className="fixed bottom-0 left-0 right-0 bg-primary/95 py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground backdrop-blur-sm">
+        Sistema ON-TESTE: Agendamento • Gestão • Histórico • Notificações • Administrativo
+      </div>
     </div>
   );
 }
