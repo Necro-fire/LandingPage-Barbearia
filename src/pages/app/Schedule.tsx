@@ -276,20 +276,20 @@ export default function Schedule() {
                             {config.hours?.map((block: any, idx: number) => (
                               <Badge key={idx} variant="secondary" className="rounded-lg px-3 py-1 flex items-center gap-2 bg-secondary/80 border-none group">
                                 <Clock className="h-3 w-3 text-muted-foreground" />
-                                <span className="font-bold">{block.start} — {block.end}</span>
+                                <span className="font-bold text-[10px]">{block.start} — {block.end}</span>
                                 <Trash2 className="h-3 w-3 text-muted-foreground hover:text-red-500 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity" />
                               </Badge>
                             ))}
-                            <Button variant="ghost" size="sm" className="h-8 rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[10px] uppercase font-bold">
+                            <Button variant="ghost" size="sm" className="h-8 rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[9px] font-black uppercase tracking-widest">
                               <Plus className="h-3 w-3 mr-1" /> Adicionar Intervalo
                             </Button>
                           </div>
                         ) : (
-                          <span className="text-xs text-muted-foreground italic uppercase tracking-widest">Fechado</span>
+                          <span className="text-[10px] text-muted-foreground italic uppercase tracking-widest">Fechado</span>
                         )}
                       </div>
 
-                      <Button variant="outline" size="sm" className="rounded-xl border-border/60 h-8 text-[10px] uppercase font-bold">
+                      <Button variant="outline" size="sm" className="rounded-xl border-border/60 h-8 text-[9px] font-black uppercase tracking-[0.2em]">
                         {config.active ? "Desativar" : "Ativar"}
                       </Button>
                     </div>
@@ -304,9 +304,9 @@ export default function Schedule() {
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-lg font-heading">Exceções de Funcionamento</CardTitle>
-                  <CardDescription className="text-xs uppercase tracking-widest">Feriados, datas comemorativas ou horários especiais.</CardDescription>
+                  <CardDescription className="text-xs uppercase tracking-widest">Feriados ou horários especiais.</CardDescription>
                 </div>
-                <Button size="sm" variant="outline" className="rounded-xl gap-2 border-border/60">
+                <Button size="sm" variant="outline" className="rounded-xl gap-2 border-border/60 text-[9px] font-black uppercase h-8 px-4">
                   <Plus className="h-4 w-4" /> Nova Exceção
                 </Button>
               </div>
@@ -322,11 +322,11 @@ export default function Schedule() {
                         </div>
                         <div>
                           <p className="font-bold text-sm uppercase tracking-tighter">{format(new Date(ex.date), "dd 'de' MMMM", { locale: ptBR })}</p>
-                          <p className="text-xs text-muted-foreground">{ex.reason || "Sem motivo informado"}</p>
+                          <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{ex.reason || "Sem motivo informado"}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
-                        <Badge variant="outline" className={cn("rounded-lg uppercase font-bold text-[10px]", ex.is_closed ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500")}>
+                        <Badge variant="outline" className={cn("rounded-lg uppercase font-black text-[9px] tracking-widest px-3", ex.is_closed ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500")}>
                           {ex.is_closed ? "Fechado" : `${ex.start_time} - ${ex.end_time}`}
                         </Badge>
                         <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-red-500">
@@ -337,7 +337,7 @@ export default function Schedule() {
                   ))}
                 </div>
               ) : (
-                <div className="py-10 text-center border border-dashed border-border/40 rounded-xl text-muted-foreground italic text-sm">
+                <div className="py-10 text-center border border-dashed border-border/40 rounded-xl text-muted-foreground italic text-xs uppercase tracking-widest opacity-40">
                   Nenhuma exceção configurada.
                 </div>
               )}
@@ -353,7 +353,7 @@ export default function Schedule() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Agenda" 
-          description="Calendário administrativo com visualização dos agendamentos."
+          description="Controle total de horários, intervalos e exceções."
         />
         
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full sm:w-auto">

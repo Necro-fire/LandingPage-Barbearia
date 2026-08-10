@@ -78,7 +78,7 @@ export default function NotificationsPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <PageHeader 
         title="Notificações" 
-        description="Gerenciamento das solicitações de agendamento."
+        description="Controle e histórico de solicitações dos clientes."
       />
 
       <div className="grid gap-6 lg:grid-cols-1">
