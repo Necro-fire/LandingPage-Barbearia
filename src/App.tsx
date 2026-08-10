@@ -15,14 +15,8 @@ import NotFound from "./pages/NotFound.tsx";
 import Dashboard from "./pages/app/Dashboard.tsx";
 import Profile from "./pages/app/Profile.tsx";
 import {
-  Appointments,
-  Audit,
-  Barbers,
   SettingsPage,
 } from "./pages/app/Modules.tsx";
-import Finance from "./pages/app/Finance.tsx";
-import Reports from "./pages/app/Reports.tsx";
-import Loyalty from "./pages/app/Loyalty.tsx";
 import Notifications from "./pages/app/Notifications.tsx";
 import Booking from "./pages/app/Booking.tsx";
 import Schedule from "./pages/app/Schedule.tsx";
@@ -55,10 +49,7 @@ const App = () => (
                 >
                   <Route index element={<Dashboard />} />
                   <Route path="perfil" element={<Profile />} />
-                   <Route
-                    path="agendamentos"
-                    element={<ProtectedRoute permission="appointments.view"><Appointments /></ProtectedRoute>}
-                  />
+                  <Route path="perfil" element={<Profile />} />
                   <Route
                     path="agendar"
                     element={<ProtectedRoute permission="appointments.view"><Booking /></ProtectedRoute>}
@@ -72,24 +63,8 @@ const App = () => (
                     element={<ProtectedRoute permission="clients.view"><Clients /></ProtectedRoute>}
                   />
                   <Route
-                    path="barbeiros"
-                    element={<ProtectedRoute permission="barbers.manage"><Barbers /></ProtectedRoute>}
-                  />
-                  <Route
                     path="servicos"
                     element={<ProtectedRoute permission="services.manage"><Services /></ProtectedRoute>}
-                  />
-                  <Route
-                    path="financeiro"
-                    element={<ProtectedRoute permission="finance.view"><Finance /></ProtectedRoute>}
-                  />
-                  <Route
-                    path="relatorios"
-                    element={<ProtectedRoute permission="reports.view"><Reports /></ProtectedRoute>}
-                  />
-                  <Route
-                    path="fidelidade"
-                    element={<ProtectedRoute permission="loyalty.view"><Loyalty /></ProtectedRoute>}
                   />
                   <Route
                     path="notificacoes"
@@ -98,10 +73,6 @@ const App = () => (
                   <Route
                     path="configuracoes"
                     element={<ProtectedRoute permission="settings.manage"><SettingsPage /></ProtectedRoute>}
-                  />
-                  <Route
-                    path="auditoria"
-                    element={<ProtectedRoute permission="audit.view"><Audit /></ProtectedRoute>}
                   />
                 </Route>
 
