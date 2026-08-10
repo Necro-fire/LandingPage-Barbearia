@@ -40,7 +40,6 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: "Sistema",
     items: [
-      { title: "Minha Conta", url: "/app/perfil", icon: Settings, permission: "dashboard.view" },
       { title: "Configurações", url: "/app/configuracoes", icon: Settings, permission: "settings.manage" },
     ],
   },
