@@ -20,6 +20,14 @@ export function MobileNav() {
             key={item.url}
             to={item.url}
             end={item.url === "/app"}
+            onClick={(e) => {
+              if (item.url === "/") {
+                e.preventDefault();
+                if (window.confirm("Você deseja realmente ir para a página da barbearia?")) {
+                  window.open(item.url, "_blank");
+                }
+              }
+            }}
             className={({ isActive: linkActive }) => cn(
               "flex flex-col items-center justify-center gap-1 shrink-0 px-2 py-1 transition-colors whitespace-nowrap",
               isActive(item.url) ? "text-primary" : "text-muted-foreground"
