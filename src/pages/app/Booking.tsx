@@ -447,14 +447,14 @@ export default function BookingFlow() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
         </div>
         
-        <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
-          <span className="mb-6 block text-[10px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-8 font-heading text-6xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.85]">
+        <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
+          <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
+          <h1 className="mb-6 font-heading text-5xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.9]">
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-12 text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
-            A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br />
+          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
+            A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
           
