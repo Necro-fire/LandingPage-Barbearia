@@ -112,38 +112,16 @@ export default function Auth() {
   };
 
   return (
-    <main className="min-h-screen bg-black flex flex-col lg:flex-row overflow-x-hidden">
-      {/* Visual Side - Immersive Image */}
-      <div className="relative w-full h-[30vh] lg:h-screen lg:w-1/2 overflow-hidden">
-        <img 
-          src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
-          className="absolute inset-0 h-full w-full object-cover grayscale brightness-[0.3]" 
-          alt="Login Background"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black via-black/40 to-transparent" />
-        
-        <div className="absolute inset-0 flex flex-col justify-end lg:justify-center p-8 lg:p-20">
-          <Link to="/" className="mb-4 lg:mb-8 flex items-center gap-3 text-white">
-            <span className="flex h-10 w-10 lg:h-12 lg:w-12 items-center justify-center rounded-xl bg-primary text-black shrink-0">
-              <Scissors className="h-5 w-5 lg:h-6 lg:w-6" />
+    <main className="min-h-screen bg-black flex flex-col items-center justify-center p-6 overflow-x-hidden">
+      <div className="w-full max-w-sm space-y-10">
+        <div className="flex justify-center mb-10">
+          <Link to="/" className="flex items-center gap-3 text-white">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-black">
+              <Scissors className="h-6 w-6" />
             </span>
-            <span className="font-heading text-xl lg:text-3xl font-black tracking-tighter uppercase">ON-TESTE</span>
+            <span className="font-heading text-3xl font-black tracking-tighter uppercase">ON-TESTE</span>
           </Link>
-          <h2 className="text-2xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-tight mb-4 lg:mb-6 max-w-xl">
-            GESTÃO PROFISSIONAL PARA <span className="text-primary italic">SUA BARBEARIA</span>
-          </h2>
-          <p className="hidden md:block text-white/50 text-[10px] lg:text-[11px] font-black tracking-[0.3em] uppercase leading-relaxed max-w-sm">
-            ACESSE SEU PAINEL E GERENCIE SEUS AGENDAMENTOS COM A EFICIÊNCIA QUE SEU NEGÓCIO MERECE.
-          </p>
         </div>
-      </div>
-
-      {/* Form Side */}
-      <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12 lg:p-20 bg-black min-h-[70vh] lg:min-h-screen">
-        <div className="w-full max-w-sm space-y-8 lg:space-y-10">
-          <div className="hidden lg:block">
-            {/* Logo placeholder removed as it's in the visual side */}
-          </div>
           <div className="lg:hidden">
             {/* Logo is now handled in the visual banner at the top */}
           </div>
@@ -230,7 +208,6 @@ export default function Auth() {
                 : "JÁ TEM UMA CONTA? ENTRAR"}
             </button>
           </div>
-        </div>
       </div>
     </main>
   );
