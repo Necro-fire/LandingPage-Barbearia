@@ -42,6 +42,7 @@ const App = () => (
                 
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+                <Route path="/debug-login" element={<DebugLogin />} />
 
                 {/* Private Owner Part */}
                 <Route
