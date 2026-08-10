@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+/* Font stack simplified to Arial as requested */
 
 @tailwind base;
 @tailwind components;
@@ -45,8 +45,8 @@
     --sidebar-border: 0 0% 18%;
     --sidebar-ring: 36 50% 55%;
 
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Outfit', sans-serif;
+    --font-heading: 'Arial', sans-serif;
+    --font-body: 'Arial', sans-serif;
 
     --red-gradient: linear-gradient(135deg, hsl(0 72% 51%), hsl(0 80% 60%));
     --gold-gradient: var(--red-gradient);
