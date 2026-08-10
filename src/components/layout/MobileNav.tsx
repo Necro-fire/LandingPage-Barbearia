@@ -2,13 +2,15 @@ import { NavLink, useLocation } from "react-router-dom";
 import { NAV_GROUPS } from "@/lib/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { BarbershopConfirmModal } from "./BarbershopConfirmModal";
 
 export function MobileNav() {
   const { pathname } = useLocation();
   const { can } = useAuth();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const allItems = NAV_GROUPS.flatMap(group => group.items);
-  // Removida filtragem de permissão e limite para garantir que todos os itens apareçam no mobile
 
   const isActive = (url: string) => (url === "/app" ? pathname === "/app" : pathname.startsWith(url));
 
@@ -23,9 +25,7 @@ export function MobileNav() {
             onClick={(e) => {
               if (item.url === "/") {
                 e.preventDefault();
-                if (window.confirm("Você deseja realmente ir para a página da barbearia?")) {
-                  window.open(item.url, "_blank");
-                }
+                setShowConfirm(true);
               }
             }}
             className={({ isActive: linkActive }) => cn(
@@ -40,6 +40,15 @@ export function MobileNav() {
           </NavLink>
         ))}
       </div>
+
+      <BarbershopConfirmModal 
+        isOpen={showConfirm} 
+        onClose={() => setShowConfirm(false)}
+        onConfirm={() => {
+          setShowConfirm(false);
+          window.open("/", "_blank");
+        }}
+      />
     </nav>
   );
 }

@@ -1,6 +1,7 @@
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Scissors } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from "react";
+import { BarbershopConfirmModal } from "./BarbershopConfirmModal";
 import {
   Sidebar,
   SidebarContent,
@@ -20,15 +21,13 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { can } = useAuth();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleBarbershopClick = (e: React.MouseEvent, url: string) => {
     if (url === "/") {
       e.preventDefault();
-      if (window.confirm("Você deseja realmente ir para a página da barbearia?")) {
-        window.open(url, "_blank");
-      }
+      setShowConfirm(true);
     }
   };
 
@@ -75,6 +74,15 @@ export function AppSidebar() {
           );
         })}
       </SidebarContent>
+      
+      <BarbershopConfirmModal 
+        isOpen={showConfirm} 
+        onClose={() => setShowConfirm(false)}
+        onConfirm={() => {
+          setShowConfirm(false);
+          window.open("/", "_blank");
+        }}
+      />
     </Sidebar>
   );
 }
