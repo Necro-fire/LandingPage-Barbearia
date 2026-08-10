@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A navegação foi otimizada para dispositivos móveis, garantindo que todos os módulos estejam acessíveis e responsivos na barra inferior.</p>
+        <p>A organização dos elementos na página da barbearia foi corrigida, ajustando o espaçamento e a responsividade do menu de navegação e do botão de agendamento.</p>
       </div>
     </>
   );

@@ -417,19 +417,20 @@ export default function BookingFlow() {
           <div className="flex items-center gap-2">
             <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
           </div>
-          <div className="hidden items-center gap-10 md:flex">
-            {["INÍCIO", "SERVIÇOS", "SOBRE", "CONTATO"].map((item) => (
-              <a key={item} href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors">{item}</a>
-            ))}
+          <div className="hidden items-center gap-10 lg:flex">
+            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">INÍCIO</a>
+            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SERVIÇOS</a>
+            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SOBRE</a>
+            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">CONTATO</a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <Button 
               size="sm" 
               onClick={() => {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
+              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase whitespace-nowrap"
             >
               AGENDAR HORÁRIO
             </Button>
