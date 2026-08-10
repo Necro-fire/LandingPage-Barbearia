@@ -253,6 +253,22 @@ export default function BookingFlow() {
             Escolha o serviço, seu barbeiro favorito e o horário ideal. 
             Ambiente exclusivo com atendimento premium.
           </p>
+          
+          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-4 text-left md:grid-cols-3">
+            {[
+              { title: "Agendamento Online", desc: "Reserve em segundos pelo celular" },
+              { title: "Gestão de Agenda", desc: "Controle total para o barbeiro" },
+              { title: "Histórico Completo", desc: "Acompanhe todos os seus cortes" },
+              { title: "Notificações", desc: "Avisos via WhatsApp e Sistema" },
+              { title: "Tipos de Cortes", desc: "Catálogo completo de serviços" },
+              { title: "Dashboard Real-time", desc: "Métricas e status em tempo real" }
+            ].map((feature, i) => (
+              <div key={i} className="rounded-xl border border-border/20 bg-background/40 p-4 backdrop-blur-sm">
+                <h3 className="text-sm font-bold text-primary">{feature.title}</h3>
+                <p className="text-xs text-muted-foreground">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
