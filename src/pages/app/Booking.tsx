@@ -167,8 +167,8 @@ export default function BookingFlow() {
         return (
           <div className="space-y-0" id="booking-section">
             <div className="mb-20 text-center">
-              <h3 className="text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
-              <p className="text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
+              <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
+              <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
             <div className="grid gap-x-20 gap-y-0 md:grid-cols-2">
               {services.map((s) => (
