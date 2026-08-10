@@ -42,8 +42,8 @@ export default function ServicesPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
-          title="Serviços & Preços" 
-          description="Configure o catálogo de serviços, duração e valores."
+          title="Serviços" 
+          description="Gerencie os serviços oferecidos, preços e durações."
         />
         <Button className="rounded-xl shadow-lg shadow-primary/20">
           <Plus className="h-4 w-4 mr-2" /> Novo Serviço
