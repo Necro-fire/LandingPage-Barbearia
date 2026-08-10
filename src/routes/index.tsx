@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Todas as opções de navegação foram restauradas e estão totalmente acessíveis tanto na versão desktop quanto na mobile, sem restrições de permissão para usuários logados.</p>
+        <p>A barra de navegação mobile foi fixada permanentemente na base da tela com alta prioridade de camada para evitar qualquer movimento indesejado durante a rolagem.</p>
       </div>
     </>
   );
