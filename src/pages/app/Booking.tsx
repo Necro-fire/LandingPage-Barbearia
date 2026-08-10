@@ -8,6 +8,7 @@ import { toast } from "@/hooks/use-toast";
 import { Spinner } from "@/components/common/Loading";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import referenceAsset from "@/assets/reference.png.asset.json";
 
 type Step = "service" | "barber" | "date" | "time" | "summary" | "confirmation";
 
@@ -219,55 +220,73 @@ export default function BookingFlow() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
       {/* Navbar Premium */}
-      <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/60 px-4 py-4 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-border/40 bg-black/80 px-4 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20 text-primary-foreground">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
               <Scissors className="h-5 w-5" />
             </div>
             <div>
-              <span className="block font-heading text-xl font-bold tracking-tight leading-none">ON-TESTE</span>
-              <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Premium Barbershop</span>
+              <span className="block font-heading text-xl font-bold tracking-tighter leading-none text-white">ON-TESTE</span>
             </div>
           </div>
+          <div className="hidden items-center gap-8 md:flex">
+            {["INÍCIO", "SERVIÇOS", "BARBEIROS", "CONTATO"].map((item) => (
+              <a key={item} href="#" className="text-[10px] font-bold tracking-[0.2em] text-white/70 hover:text-primary transition-colors">{item}</a>
+            ))}
+          </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" asChild className="hidden rounded-xl md:flex">
-              <a href="/auth">Entrar</a>
-            </Button>
-            <Button size="sm" asChild className="rounded-xl shadow-lg shadow-primary/10">
-              <a href="/auth">Administração</a>
+            <Button size="sm" asChild className="rounded-none bg-primary px-6 text-[10px] font-bold tracking-widest text-white hover:bg-primary/90">
+              <a href="/auth">ADMIN</a>
             </Button>
           </div>
         </div>
       </nav>
 
       {/* Hero Section Simplificado para Agendamento */}
-      <section className="relative overflow-hidden border-b border-border/40 bg-muted/20 py-16 md:py-24">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(191,155,81,0.15),transparent)]" />
-        <div className="container relative mx-auto max-w-4xl px-4 text-center">
-          <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-            Sua melhor versão <br /> 
-            <span className="text-primary italic">começa aqui.</span>
+      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-black py-20">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" 
+            className="h-full w-full object-cover opacity-40 grayscale" 
+            alt="Hero Background"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+        </div>
+        
+        <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
+          <div className="mb-6 flex justify-center">
+            <div className="h-1 w-12 bg-primary" />
+          </div>
+          <h1 className="mb-6 font-heading text-5xl font-black uppercase tracking-tighter text-white md:text-7xl lg:text-8xl">
+            VAMOS MANTER VOCÊ <br /> 
+            <span className="text-white/90">COM UM VISUAL IMPECÁVEL.</span>
           </h1>
-          <p className="mx-auto max-w-xl text-lg text-muted-foreground">
-            Escolha o serviço, seu barbeiro favorito e o horário ideal. 
-            Ambiente exclusivo com atendimento premium.
-          </p>
+          <div className="flex flex-col items-center justify-center gap-6 md:flex-row">
+            <div className="flex items-center gap-2 text-white/60">
+              <Phone className="h-4 w-4 text-primary" />
+              <span className="text-sm font-bold tracking-widest">+55 11 99999-9999</span>
+            </div>
+          </div>
           
-          <div className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-4 text-left md:grid-cols-3">
-            {[
-              { title: "Agendamento Online", desc: "Reserve em segundos pelo celular" },
-              { title: "Gestão de Agenda", desc: "Controle total para o barbeiro" },
-              { title: "Histórico Completo", desc: "Acompanhe todos os seus cortes" },
-              { title: "Notificações", desc: "Avisos via WhatsApp e Sistema" },
-              { title: "Tipos de Cortes", desc: "Catálogo completo de serviços" },
-              { title: "Dashboard Real-time", desc: "Métricas e status em tempo real" }
-            ].map((feature, i) => (
-              <div key={i} className="rounded-xl border border-border/20 bg-background/40 p-4 backdrop-blur-sm">
-                <h3 className="text-sm font-bold text-primary">{feature.title}</h3>
-                <p className="text-xs text-muted-foreground">{feature.desc}</p>
-              </div>
-            ))}
+          <div className="mt-16 flex flex-wrap justify-center gap-8 border-t border-white/10 pt-16">
+            <div className="text-left">
+              <h3 className="text-[10px] font-black tracking-[0.3em] text-white">BARBEARIA PROFISSIONAL</h3>
+              <p className="text-[10px] font-bold tracking-[0.2em] text-primary">APENAS PARA HOMENS</p>
+            </div>
+            <div className="max-w-[250px] text-left">
+              <p className="text-[10px] leading-relaxed text-white/50 tracking-wider">
+                O salão oferece cortes "sempre" elegantes de alta qualidade. Nosso foco é manter um visual impecável para o homem moderno.
+              </p>
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black tracking-[0.2em] text-white">DESDE 2015</p>
+              <p className="text-[10px] font-bold text-white/40 tracking-wider">Tradição em cada detalhe</p>
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black tracking-[0.2em] text-white">MAIS DE 1000 CLIENTES</p>
+              <p className="text-[10px] font-bold text-white/40 tracking-wider">Satisfação garantida</p>
+            </div>
           </div>
         </div>
       </section>
