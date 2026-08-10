@@ -35,6 +35,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
       { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
       { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
+      { title: "Página Pública", url: "/agendamento", icon: CalendarDays, permission: "dashboard.view" },
     ],
   },
 ];
