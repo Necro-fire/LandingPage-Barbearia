@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { z } from "zod";
-import { Scissors } from "lucide-react";
+import { Scissors, Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,7 @@ export default function Auth() {
   const navigate = useNavigate();
   const { session, loading } = useAuth();
   const [busy, setBusy] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (!loading && session) navigate("/app", { replace: true });
@@ -130,7 +131,23 @@ export default function Auth() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signin-password">Senha</Label>
-                    <Input id="signin-password" name="password" type="password" autoComplete="current-password" required className="rounded-xl" />
+                    <div className="relative">
+                      <Input 
+                        id="signin-password" 
+                        name="password" 
+                        type={showPassword ? "text" : "password"} 
+                        autoComplete="current-password" 
+                        required 
+                        className="rounded-xl pr-10" 
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
                   <Button type="submit" disabled={busy} className="w-full rounded-xl">
                     {busy ? <Spinner className="h-4 w-4" /> : "Entrar"}
@@ -155,7 +172,23 @@ export default function Auth() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Senha</Label>
-                    <Input id="signup-password" name="password" type="password" autoComplete="new-password" required className="rounded-xl" />
+                    <div className="relative">
+                      <Input 
+                        id="signup-password" 
+                        name="password" 
+                        type={showPassword ? "text" : "password"} 
+                        autoComplete="new-password" 
+                        required 
+                        className="rounded-xl pr-10" 
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
                   <Button type="submit" disabled={busy} className="w-full rounded-xl">
                     {busy ? <Spinner className="h-4 w-4" /> : "Criar conta"}
