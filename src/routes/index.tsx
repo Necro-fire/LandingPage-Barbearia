@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>As opções de navegação foram restauradas e estão agora visíveis para todos os usuários autenticados na barra lateral.</p>
+        <p>A navegação foi otimizada para dispositivos móveis, garantindo que todos os módulos estejam acessíveis e responsivos na barra inferior.</p>
       </div>
     </>
   );
