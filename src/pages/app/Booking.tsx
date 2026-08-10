@@ -170,7 +170,7 @@ export default function BookingFlow() {
               <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
               <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
-            <div className="grid gap-x-20 gap-y-0 md:grid-cols-2">
+            <div className="grid gap-x-20 gap-y-0 lg:grid-cols-2">
               {services.map((s) => (
                 <div 
                   key={s.id} 
@@ -290,7 +290,7 @@ export default function BookingFlow() {
                 <p className="text-[11px] font-black uppercase tracking-widest">O horário que você escolheu acaba de ser ocupado. Por favor, selecione outro.</p>
               </div>
             )}
-            <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5">
               {loadingTimes ? (
                 Array.from({ length: 12 }).map((_, i) => (
                   <div key={i} className="h-16 border border-white/5 bg-white/[0.02] animate-pulse" />
@@ -412,7 +412,7 @@ export default function BookingFlow() {
 
   return (
     <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-6 py-5 backdrop-blur-xl">
+      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
@@ -429,7 +429,7 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-8 py-6 text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
+              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase"
             >
               AGENDAR HORÁRIO
             </Button>
