@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft } from "lucide-react";
+import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/common/PageHeader";
 import { toast } from "@/hooks/use-toast";
 import { Spinner } from "@/components/common/Loading";
@@ -217,58 +217,168 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navbar Minimalista */}
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 px-4 py-4 backdrop-blur-xl">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+      {/* Navbar Premium */}
+      <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/60 px-4 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
-              OT
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-lg shadow-primary/20 text-primary-foreground">
+              <Scissors className="h-5 w-5" />
             </div>
-            <span className="font-heading text-xl font-bold tracking-tight">ON-TESTE</span>
+            <div>
+              <span className="block font-heading text-xl font-bold tracking-tight leading-none">ON-TESTE</span>
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Premium Barbershop</span>
+            </div>
           </div>
-          <Button variant="ghost" size="sm" asChild className="rounded-xl">
-            <a href="/auth">Área Administrativa</a>
-          </Button>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm" asChild className="hidden rounded-xl md:flex">
+              <a href="/auth">Entrar</a>
+            </Button>
+            <Button size="sm" asChild className="rounded-xl shadow-lg shadow-primary/10">
+              <a href="/auth">Administração</a>
+            </Button>
+          </div>
         </div>
       </nav>
 
-      <main className="mx-auto max-w-2xl px-4 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <PageHeader 
-          title="Novo Agendamento" 
-          description={
-            step === "service" ? "Selecione o serviço desejado para começar" :
-            step === "barber" ? "Escolha seu barbeiro de preferência" :
-            step === "date" ? "Qual o melhor dia para você?" :
-            step === "time" ? "Escolha um horário disponível" :
-            step === "summary" ? "Confira os detalhes da sua reserva" :
-            "Tudo pronto!"
-          }
-        />
+      {/* Hero Section Simplificado para Agendamento */}
+      <section className="relative overflow-hidden border-b border-border/40 bg-muted/20 py-16 md:py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_-20%,rgba(191,155,81,0.15),transparent)]" />
+        <div className="container relative mx-auto max-w-4xl px-4 text-center">
+          <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+            Sua melhor versão <br /> 
+            <span className="text-primary italic">começa aqui.</span>
+          </h1>
+          <p className="mx-auto max-w-xl text-lg text-muted-foreground">
+            Escolha o serviço, seu barbeiro favorito e o horário ideal. 
+            Ambiente exclusivo com atendimento premium.
+          </p>
+        </div>
+      </section>
 
-        {step !== "service" && step !== "confirmation" && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => {
-              if (step === "barber") setStep("service");
-              if (step === "date") setStep("barber");
-              if (step === "time") setStep("date");
-              if (step === "summary") setStep("time");
-            }}
-            className="mb-4 gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" /> Voltar
-          </Button>
-        )}
+      <main className="mx-auto max-w-4xl px-4 py-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="grid gap-12 lg:grid-cols-[1fr,350px]">
+          <div className="space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-bold tracking-tight font-heading">
+                  {step === "service" && "1. Escolha o Corte"}
+                  {step === "barber" && "2. Profissional"}
+                  {step === "date" && "3. Data"}
+                  {step === "time" && "4. Horário"}
+                  {step === "summary" && "5. Confirmação"}
+                  {step === "confirmation" && "Pronto!"}
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  {step === "service" && "Selecione o estilo que mais combina com você"}
+                  {step === "barber" && "Nossos especialistas estão à sua disposição"}
+                  {step === "date" && "Selecione o melhor dia na agenda"}
+                  {step === "time" && "Horários disponíveis para hoje e próximos dias"}
+                  {step === "summary" && "Verifique todos os detalhes antes de finalizar"}
+                  {step === "confirmation" && "Seu pedido foi recebido"}
+                </p>
+              </div>
 
-        <div className="mt-4 pb-20">
-          {renderStep()}
+              {step !== "service" && step !== "confirmation" && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => {
+                    if (step === "barber") setStep("service");
+                    if (step === "date") setStep("barber");
+                    if (step === "time") setStep("date");
+                    if (step === "summary") setStep("time");
+                  }}
+                  className="rounded-xl gap-2 border-border/60 hover:bg-secondary"
+                >
+                  <ArrowLeft className="h-4 w-4" /> Voltar
+                </Button>
+              )}
+            </div>
+
+            <div className="min-h-[400px]">
+              {renderStep()}
+            </div>
+          </div>
+
+          {/* Sidebar de Informações/Reviews */}
+          <aside className="space-y-8">
+            <Card className="rounded-2xl border-border/40 bg-card/40 backdrop-blur-sm overflow-hidden">
+              <CardHeader className="bg-muted/30 pb-4 border-b border-border/20">
+                <CardTitle className="text-sm font-bold uppercase tracking-widest text-primary">Localização</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="flex gap-3">
+                  <MapPin className="h-5 w-5 text-primary shrink-0" />
+                  <p className="text-sm">Av. Paulista, 1000 - Bela Vista, São Paulo - SP</p>
+                </div>
+                <Button variant="link" className="p-0 h-auto text-primary text-xs" asChild>
+                  <a href="https://maps.google.com" target="_blank">Ver no Google Maps →</a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-primary px-2">Avaliações</h3>
+              {[
+                { name: "Carlos Silva", text: "Melhor degradê da cidade. O atendimento é nota 10!", stars: 5 },
+                { name: "João Pedro", text: "Ambiente muito agradável e profissionais excelentes.", stars: 5 }
+              ].map((review, i) => (
+                <div key={i} className="space-y-2 p-4 rounded-xl bg-muted/20 border border-border/10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold">{review.name}</span>
+                    <div className="flex text-primary">
+                      {Array(review.stars).fill(0).map((_, i) => <Star key={i} className="h-3 w-3 fill-primary" />)}
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed italic">"{review.text}"</p>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
       </main>
       
-      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
+      {/* Botões Flutuantes Integrados */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <a href="https://wa.me/5500000000000" target="_blank" className="flex h-12 w-12 items-center justify-center rounded-full bg-green-600 text-white shadow-lg transition-transform hover:scale-110">
+          <Phone className="h-5 w-5" />
+        </a>
+        <a href="https://instagram.com" target="_blank" className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 text-white shadow-lg transition-transform hover:scale-110">
+          <Instagram className="h-5 w-5" />
+        </a>
+      </div>
+
+      <footer className="border-t border-border/40 bg-muted/10 py-12 px-4">
+        <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-3">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <Scissors className="h-6 w-6 text-primary" />
+              <span className="font-heading text-xl font-bold">ON-TESTE</span>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-xs">
+              Excelência em barbearia clássica e moderna. O cuidado que seu visual merece.
+            </p>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold uppercase tracking-widest">Horários</h4>
+            <ul className="text-sm text-muted-foreground space-y-2">
+              <li>Seg - Sex: 09:00 - 20:00</li>
+              <li>Sábado: 09:00 - 18:00</li>
+              <li>Domingo: Fechado</li>
+            </ul>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold uppercase tracking-widest">Contato</h4>
+            <ul className="text-sm text-muted-foreground space-y-2">
+              <li>(11) 9 9999-9999</li>
+              <li>contato@onteste.com.br</li>
+            </ul>
+          </div>
+        </div>
+        <div className="mt-12 text-center text-xs text-muted-foreground border-t border-border/20 pt-8">
+          <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
+        </div>
       </footer>
     </div>
   );
