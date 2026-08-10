@@ -33,9 +33,9 @@ export const NAV_GROUPS: NavGroup[] = [
       { title: "Dashboard", url: "/app", icon: LayoutDashboard, permission: "dashboard.view" },
       { title: "Agenda", url: "/app/agenda", icon: CalendarRange, permission: "schedule.view" },
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
-      { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
       { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
-      { title: "Página Pública", url: "/agendamento", icon: CalendarDays, permission: "dashboard.view" },
+      { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
+      { title: "Agendamento Público", url: "/agendamento", icon: CalendarDays, permission: "dashboard.view" },
     ],
   },
 ];
