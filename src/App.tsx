@@ -23,6 +23,7 @@ import Booking from "./pages/app/Booking.tsx";
 import Schedule from "./pages/app/Schedule.tsx";
 import Clients from "./pages/app/Clients.tsx";
 import Services from "./pages/app/Services.tsx";
+import ClientDetails from "./pages/app/ClientDetails.tsx";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,10 @@ const App = () => (
                   <Route
                     path="clientes"
                     element={<ProtectedRoute permission="clients.view"><Clients /></ProtectedRoute>}
+                  />
+                  <Route
+                    path="clientes/:id"
+                    element={<ProtectedRoute permission="clients.view"><ClientDetails /></ProtectedRoute>}
                   />
                   <Route
                     path="servicos"
