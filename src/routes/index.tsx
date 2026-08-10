@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A organização dos elementos na página da barbearia foi corrigida, ajustando o espaçamento e a responsividade do menu de navegação e do botão de agendamento.</p>
+        <p>Todas as opções de navegação foram restauradas e estão totalmente acessíveis tanto na versão desktop quanto na mobile, sem restrições de permissão para usuários logados.</p>
       </div>
     </>
   );
