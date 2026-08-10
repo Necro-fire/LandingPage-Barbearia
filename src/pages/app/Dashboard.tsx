@@ -164,13 +164,13 @@ export default function Dashboard() {
                       <div className="space-y-1">
                         <p className="font-bold leading-none">{app.client?.full_name || "Cliente"}</p>
                         <p className="text-sm text-muted-foreground">
-                          {app.service?.name} • R$ {(app.service as any)?.price}
+                          {app.service?.name} • R$ {app.service?.price}
                         </p>
-                        <div className="flex items-center gap-2 mt-1">
+                        <div className="flex flex-wrap items-center gap-2 mt-1">
                           <Badge variant="outline" className="text-[10px] py-0 h-5 border-amber-500/50 text-amber-500 bg-amber-500/5">
                             {format(new Date(app.starts_at), "dd/MM 'às' HH:mm", { locale: ptBR })}
                           </Badge>
-                          <span className="text-[10px] text-muted-foreground">Barbeiro: {(app.barber as any)?.name}</span>
+                          <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-tighter">Profissional: {app.barber?.name}</span>
                         </div>
                       </div>
                     </div>
