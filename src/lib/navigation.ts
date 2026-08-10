@@ -28,19 +28,20 @@ export interface NavGroup {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: "Principal",
+    label: "Administração",
     items: [
       { title: "Dashboard", url: "/app", icon: LayoutDashboard, permission: "dashboard.view" },
       { title: "Agenda", url: "/app/agenda", icon: CalendarRange, permission: "schedule.view" },
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
+      { title: "Tipos de Cortes", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
       { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
     ],
   },
   {
-    label: "Configurações",
+    label: "Sistema",
     items: [
-      { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
       { title: "Minha Conta", url: "/app/perfil", icon: Settings, permission: "dashboard.view" },
+      { title: "Configurações", url: "/app/configuracoes", icon: Settings, permission: "settings.manage" },
     ],
   },
 ];
