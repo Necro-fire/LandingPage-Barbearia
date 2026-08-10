@@ -54,32 +54,57 @@ export default function Schedule() {
   const [shopHours, setShopHours] = useState<any>(null);
   const [exceptions, setExceptions] = useState<any[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const [appRes, brbRes, settingsRes, exceptionsRes] = await Promise.all([
-        supabase
-          .from("appointments")
-          .select(`
-            *,
-            service:service_id(name, duration_minutes, price),
-            barber:barber_id(display_name),
-            client:client_id(full_name)
-          `)
-          .order("starts_at", { ascending: true }),
-        supabase.from("barbers").select("*").eq("is_active", true),
-        supabase.from("settings").select("*").eq("key", "shop_working_hours").single(),
-        supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
-      ]);
+  const fetchData = async () => {
+    setLoading(true);
+    const [appRes, brbRes, settingsRes, exceptionsRes] = await Promise.all([
+      supabase
+        .from("appointments")
+        .select(`
+          *,
+          service:service_id(name, duration_minutes, price),
+          barber:barber_id(display_name),
+          client:client_id(full_name)
+        `)
+        .order("starts_at", { ascending: true }),
+      supabase.from("barbers").select("*").eq("is_active", true),
+      supabase.from("settings").select("*").eq("key", "shop_working_hours").maybeSingle(),
+      supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
+    ]);
 
-      if (appRes.data) setAppointments(appRes.data);
-      if (brbRes.data) setBarbers(brbRes.data);
-      if (settingsRes.data) setShopHours(settingsRes.data.value);
-      if (exceptionsRes.data) setExceptions(exceptionsRes.data);
-      setLoading(false);
-    }
+    if (appRes.data) setAppointments(appRes.data);
+    if (brbRes.data) setBarbers(brbRes.data);
+    if (settingsRes.data) setShopHours(settingsRes.data.value);
+    if (exceptionsRes.data) setExceptions(exceptionsRes.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
     fetchData();
   }, [currentDate]);
+
+  const saveWorkingHours = async () => {
+    const { error } = await supabase.from("settings").upsert({
+      key: "shop_working_hours",
+      value: shopHours
+    }, { onConflict: 'key' });
+
+    if (error) {
+      toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Sucesso", description: "Horários atualizados!" });
+    }
+  };
+
+  const updateAppointmentStatus = async (id: string, status: string) => {
+    const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Status atualizado", description: `Agendamento ${status}.` });
+      setSelectedAppointment(null);
+      fetchData();
+    }
+  };
 
   const navigateDate = (direction: number) => {
     const newDate = new Date(currentDate);
@@ -225,7 +250,7 @@ export default function Schedule() {
                   <CardTitle className="text-lg font-heading">Horário de Funcionamento</CardTitle>
                   <CardDescription className="text-xs uppercase tracking-widest">Defina o horário padrão de abertura e intervalos.</CardDescription>
                 </div>
-                <Button size="sm" className="rounded-xl gap-2">
+                <Button size="sm" className="rounded-xl gap-2" onClick={saveWorkingHours}>
                   <Save className="h-4 w-4" /> Salvar Alterações
                 </Button>
               </div>
@@ -507,10 +532,21 @@ export default function Schedule() {
 
               <div className="flex gap-2 pt-4">
                 {selectedAppointment.status === 'pending' && (
-                  <Button className="flex-1 rounded-xl bg-green-600 hover:bg-green-700">Confirmar</Button>
+                  <Button 
+                    className="flex-1 rounded-xl bg-green-600 hover:bg-green-700"
+                    onClick={() => updateAppointmentStatus(selectedAppointment.id, 'confirmed')}
+                  >
+                    Confirmar
+                  </Button>
                 )}
                 {(selectedAppointment.status === 'confirmed' || selectedAppointment.status === 'pending') && (
-                  <Button variant="outline" className="flex-1 rounded-xl border-border/60 text-red-500 hover:bg-red-500/10">Cancelar</Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1 rounded-xl border-border/60 text-red-500 hover:bg-red-500/10"
+                    onClick={() => updateAppointmentStatus(selectedAppointment.id, 'cancelled')}
+                  >
+                    Cancelar
+                  </Button>
                 )}
               </div>
             </div>
