@@ -232,6 +232,39 @@ export type Database = {
           },
         ]
       }
+      schedule_exceptions: {
+        Row: {
+          created_at: string
+          date: string
+          end_time: string | null
+          id: string
+          is_closed: boolean | null
+          reason: string | null
+          start_time: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          end_time?: string | null
+          id?: string
+          is_closed?: boolean | null
+          reason?: string | null
+          start_time?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          end_time?: string | null
+          id?: string
+          is_closed?: boolean | null
+          reason?: string | null
+          start_time?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           created_at: string
