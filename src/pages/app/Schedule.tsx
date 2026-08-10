@@ -331,7 +331,7 @@ export default function Schedule() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Serviço</p>
-                  <p className="text-sm font-bold flex items-center gap-2"><Scissors className="h-3 w-3 text-primary" /> {selectedAppointment.service?.name}</p>
+                  <p className="text-sm font-bold flex items-center gap-2 uppercase tracking-tighter"><Scissors className="h-3 w-3 text-primary" /> {selectedAppointment.service?.name}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Valor</p>
