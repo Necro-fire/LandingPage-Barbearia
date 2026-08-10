@@ -293,27 +293,6 @@ export default function Schedule() {
           </CardContent>
         </Card>
 
-        {/* List view / Stats */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur p-4 flex items-center gap-4">
-            <div className="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
-              <Clock className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Total de Horas</p>
-              <p className="text-lg font-heading font-black">42h</p>
-            </div>
-          </Card>
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur p-4 flex items-center gap-4">
-            <div className="h-10 w-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center">
-              <User className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Taxa de Ocupação</p>
-              <p className="text-lg font-heading font-black">78%</p>
-            </div>
-          </Card>
-        </div>
       </div>
 
       <Dialog open={!!selectedAppointment} onOpenChange={() => setSelectedAppointment(null)}>
