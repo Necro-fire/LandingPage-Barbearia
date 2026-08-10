@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>O design do login está assimetrico da parte esquerda e não está responsivo no celular.</p>
+        <p># PRD — Estrutura Principal da Administração da Barbearia...</p>
       </div>
     </>
   );
