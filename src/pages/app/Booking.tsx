@@ -138,14 +138,15 @@ export default function BookingFlow() {
                   setSelectedDate(e.target.value);
                   setStep("time");
                 }}
-                className="rounded-xl"
+                className="rounded-xl h-12 text-lg"
              />
+             <p className="text-sm text-muted-foreground text-center">Clique para selecionar o dia</p>
           </div>
         );
       case "time":
-        const times = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00", "18:00"];
+        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
         return (
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
             {times.map((t) => (
               <Button
                 key={t}
@@ -154,7 +155,10 @@ export default function BookingFlow() {
                   setSelectedTime(t);
                   setStep("summary");
                 }}
-                className="rounded-lg"
+                className={cn(
+                  "rounded-xl h-12 transition-all",
+                  selectedTime === t && "shadow-lg shadow-primary/20"
+                )}
               >
                 {t}
               </Button>
