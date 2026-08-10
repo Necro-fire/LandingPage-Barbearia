@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, differenceInMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -95,7 +96,7 @@ export default function Schedule() {
     }
   };
 
-  const updateAppointmentStatus = async (id: string, status: string) => {
+  const updateAppointmentStatus = async (id: string, status: any) => {
     const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
     if (error) {
       toast({ title: "Erro", description: error.message, variant: "destructive" });
