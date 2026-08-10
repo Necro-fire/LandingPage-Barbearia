@@ -83,8 +83,8 @@ export default function NotificationsPage() {
         description="Visualize suas notificações e acompanhe seu histórico."
       />
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-4">
+      <div className="grid gap-6 lg:grid-cols-1">
+        <div className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card/40 p-4 rounded-2xl border border-border/60">
             <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-xl w-full sm:w-auto">
               <Button 
@@ -171,55 +171,6 @@ export default function NotificationsPage() {
                 ) : (
                   <div className="p-10 text-center text-muted-foreground italic">Nenhuma notificação encontrada.</div>
                 )}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-6">
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-lg font-heading">Canais de Envio</CardTitle>
-              <CardDescription>Configurações de entrega de alertas.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                    <Bell className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">Sistema</p>
-                    <p className="text-[10px] text-muted-foreground">Notificações In-App</p>
-                  </div>
-                </div>
-                <Switch defaultChecked />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
-                    <Mail className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">E-mail</p>
-                    <p className="text-[10px] text-muted-foreground">Alertas por e-mail</p>
-                  </div>
-                </div>
-                <Switch defaultChecked />
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center">
-                    <MessageSquare className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold">WhatsApp</p>
-                    <p className="text-[10px] text-muted-foreground">Mensagens diretas</p>
-                  </div>
-                </div>
-                <Switch defaultChecked />
               </div>
             </CardContent>
           </Card>
