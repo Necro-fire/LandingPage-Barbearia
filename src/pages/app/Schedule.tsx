@@ -219,7 +219,10 @@ export default function Schedule() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="rounded-xl border-border/60">
-                <Filter className="h-4 w-4 mr-2" /> Status: {filterStatus === "all" ? "Todos" : filterStatus}
+                <Filter className="h-4 w-4 mr-2" /> Status: {filterStatus === "all" ? "Todos" : 
+                  filterStatus === "pending" ? "Pendente" :
+                  filterStatus === "confirmed" ? "Confirmado" :
+                  filterStatus === "completed" ? "Concluído" : "Cancelado"}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl">
