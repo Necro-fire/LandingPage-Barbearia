@@ -149,7 +149,7 @@ export default function Dashboard() {
         <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
           <CardHeader className="border-b border-border/40 bg-muted/30">
             <CardTitle className="text-lg font-heading flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-amber-500" /> Solicitações Pendentes
+              <Clock className="h-5 w-5 text-amber-500" /> Agendamentos Pendentes
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
