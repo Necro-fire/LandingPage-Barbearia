@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { 
   Users, 
   Plus, 
@@ -8,7 +9,8 @@ import {
   Phone, 
   Calendar,
   Filter,
-  Download
+  Download,
+  ChevronRight
 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
@@ -24,6 +26,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 
 export default function ClientsPage() {
+  const navigate = useNavigate();
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -86,7 +89,11 @@ export default function ClientsPage() {
           ))
         ) : filteredClients.length > 0 ? (
           filteredClients.map((client) => (
-            <Card key={client.id} className="rounded-2xl border-border/60 bg-card/60 backdrop-blur hover:bg-muted/20 transition-colors group">
+            <Card 
+              key={client.id} 
+              className="rounded-2xl border-border/60 bg-card/60 backdrop-blur hover:bg-muted/20 transition-colors group cursor-pointer"
+              onClick={() => navigate(`/app/clientes/${client.id}`)}
+            >
               <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center text-lg font-bold">
@@ -96,24 +103,13 @@ export default function ClientsPage() {
                     <h3 className="font-bold leading-none">{client.full_name || "Sem nome"}</h3>
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {client.phone || "N/A"}</span>
-                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> Membro desde {new Date(client.created_at).toLocaleDateString()}</span>
+                      <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest"><Calendar className="h-3 w-3" /> {new Date(client.created_at).toLocaleDateString()}</span>
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant="secondary" className="rounded-lg bg-primary/10 text-primary border-none">Fiel</Badge>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-                        <MoreVertical className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="rounded-xl">
-                      <DropdownMenuItem className="rounded-lg">Ver Perfil</DropdownMenuItem>
-                      <DropdownMenuItem className="rounded-lg">Histórico de Cortes</DropdownMenuItem>
-                      <DropdownMenuItem className="rounded-lg text-red-500">Bloquear</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <Badge variant="secondary" className="rounded-lg bg-primary/10 text-primary border-none text-[10px] uppercase font-black">Ativo</Badge>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               </CardContent>
             </Card>
