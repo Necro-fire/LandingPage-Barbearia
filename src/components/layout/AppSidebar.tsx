@@ -46,7 +46,7 @@ export function AppSidebar() {
                   {items.map((item) => (
                     <SidebarMenuItem key={item.url}>
                       <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
-                        <NavLink to={item.url} end={item.url === "/app"} className="flex items-center gap-2">
+                        <NavLink to={item.url} end={item.url === "/app"} target={item.url === "/agendamento" ? "_blank" : undefined} className="flex items-center gap-2">
                           <item.icon className="h-4 w-4" />
                           {!collapsed && <span>{item.title}</span>}
                         </NavLink>

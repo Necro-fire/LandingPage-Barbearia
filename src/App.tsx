@@ -68,11 +68,7 @@ const App = () => (
                     path="notificacoes"
                     element={<ProtectedRoute permission="notifications.view"><Notifications /></ProtectedRoute>}
                   />
-                  <Route path="perfil" element={<Profile />} />
-                  <Route
-                    path="configuracoes"
-                    element={<ProtectedRoute permission="settings.manage"><SettingsPage /></ProtectedRoute>}
-                  />
+                  
                 </Route>
 
                 <Route path="*" element={<NotFound />} />
