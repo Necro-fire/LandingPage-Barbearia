@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p># PRD — Estrutura Principal da Administração da Barbearia...</p>
+        <p>A estrutura principal da administração foi reorganizada seguindo o PRD: Dashboard focado em pendentes, módulo de Clientes com histórico detalhado, gestão completa de Serviços, Notificações para controle de agendamentos e Agenda com configurações de horários e exceções.</p>
       </div>
     </>
   );
