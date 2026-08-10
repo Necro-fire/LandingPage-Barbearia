@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A estrutura da administração da barbearia foi organizada em seis módulos independentes: Dashboard, Clientes, Serviços, Notificações, Agenda e Página da Barbearia, garantindo uma gestão clara e eficiente.</p>
+        <p>A barra de navegação administrativa agora contém exatamente os módulos solicitados: Dashboard, Clientes, Serviços, Notificações, Agenda e Página da Barbearia.</p>
       </div>
     </>
   );

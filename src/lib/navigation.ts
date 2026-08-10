@@ -28,13 +28,13 @@ export interface NavGroup {
 
 export const NAV_GROUPS: NavGroup[] = [
   {
-    label: "Administração",
+    label: "Menu",
     items: [
       { title: "Dashboard", url: "/app", icon: LayoutDashboard, permission: "dashboard.view" },
-      { title: "Agenda", url: "/app/agenda", icon: CalendarRange, permission: "schedule.view" },
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
-      { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
       { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
+      { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
+      { title: "Agenda", url: "/app/agenda", icon: CalendarRange, permission: "schedule.view" },
       { title: "Página da Barbearia", url: "/", icon: CalendarDays, permission: "dashboard.view" },
     ],
   },
