@@ -353,7 +353,7 @@ export default function Schedule() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Agenda" 
-          description="Calendário administrativo com visualização dos agendamentos."
+          description="Controle total de horários, intervalos e exceções."
         />
         
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full sm:w-auto">
