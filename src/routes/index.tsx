@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A página de login foi simplificada, removendo o banner visual lateral e focando exclusivamente no formulário de acesso para uma experiência mais direta.</p>
+        <p>A estrutura da administração da barbearia foi organizada em seis módulos independentes: Dashboard, Clientes, Serviços, Notificações, Agenda e Página da Barbearia, garantindo uma gestão clara e eficiente.</p>
       </div>
     </>
   );
