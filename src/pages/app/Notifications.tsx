@@ -6,21 +6,21 @@ import {
   CheckCircle2, 
   XCircle, 
   Clock, 
-  Calendar,
   Settings,
   AlertCircle,
-  Smartphone,
-  ChevronRight
+  ChevronRight,
+  Search
 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -135,10 +135,10 @@ export default function NotificationsPage() {
                   filteredNotifications.map((n) => (
                     <div 
                       key={n.id} 
-                      onClick={() => !n.read && markAsRead(n.id)}
+                      onClick={() => !isRead(n) && markAsRead(n.id)}
                       className={cn(
                         "p-4 flex items-start gap-4 hover:bg-muted/20 transition-colors group cursor-pointer",
-                        !n.read && "bg-primary/5"
+                        !isRead(n) && "bg-primary/5"
                       )}
                     >
                       <div className="h-10 w-10 rounded-xl bg-muted/30 flex items-center justify-center shrink-0">
@@ -147,8 +147,8 @@ export default function NotificationsPage() {
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <p className={cn("text-sm", !n.read ? "font-black" : "font-medium")}>{n.title}</p>
-                            {!n.read && <Badge className="h-2 w-2 rounded-full p-0 bg-primary" />}
+                            <p className={cn("text-sm", !isRead(n) ? "font-black" : "font-medium")}>{n.title}</p>
+                            {!isRead(n) && <Badge className="h-2 w-2 rounded-full p-0 bg-primary" />}
                           </div>
                           <span className="text-[10px] text-muted-foreground uppercase flex items-center gap-1">
                              <Clock className="h-3 w-3" /> {format(new Date(n.created_at), "dd/MM 'às' HH:mm", { locale: ptBR })}
@@ -159,7 +159,7 @@ export default function NotificationsPage() {
                           <Badge variant="outline" className="text-[9px] uppercase tracking-tighter bg-background/50">
                             {n.type?.replace('_', ' ')}
                           </Badge>
-                          {n.read && (
+                          {isRead(n) && (
                             <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">Lida</span>
                           )}
                         </div>
