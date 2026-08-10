@@ -205,7 +205,7 @@ export default function Schedule() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="rounded-xl border-border/60">
-                <Filter className="h-4 w-4 mr-2" /> Barbeiro: {filterBarber === "all" ? "Todos" : barbers.find(b => b.id === filterBarber)?.display_name}
+                <Filter className="h-4 w-4 mr-2" /> Profissional: {filterBarber === "all" ? "Todos" : barbers.find(b => b.id === filterBarber)?.display_name}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl">
