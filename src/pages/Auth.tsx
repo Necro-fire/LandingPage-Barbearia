@@ -190,12 +190,12 @@ export default function Auth() {
             {mode === "signup" && (
               <div className="space-y-2">
                 <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
-                <Input name="full_name" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14" />
+                <Input name="full_name" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14" />
               </div>
             )}
             <div className="space-y-2">
               <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">E-MAIL</label>
-              <Input name="email" type="email" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14" />
+              <Input name="email" type="email" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14" />
             </div>
             <div className="space-y-2">
               <div className="flex justify-between">
@@ -211,7 +211,8 @@ export default function Auth() {
                   name="password" 
                   type={showPassword ? "text" : "password"} 
                   required 
-                  className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] uppercase tracking-widest focus:border-primary h-14 pr-12" 
+                  className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14 pr-12" 
+
                 />
                 <button
                   type="button"
