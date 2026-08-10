@@ -38,7 +38,7 @@ const App = () => (
               <Routes>
                 {/* Public Booking Page */}
                 <Route path="/" element={<IndexRoute />} />
-                <Route path="/agendamento" element={<Booking />} />
+                <Route path="/agendamento" element={<Navigate to="/" replace />} />
                 
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/auth/forgot-password" element={<ForgotPassword />} />

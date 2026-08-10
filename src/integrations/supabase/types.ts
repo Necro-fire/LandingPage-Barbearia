@@ -17,9 +17,11 @@ export type Database = {
       appointments: {
         Row: {
           barber_id: string
-          client_id: string
+          client_id: string | null
           created_at: string
           ends_at: string
+          guest_name: string | null
+          guest_phone: string | null
           id: string
           notes: string | null
           price: number | null
@@ -30,9 +32,11 @@ export type Database = {
         }
         Insert: {
           barber_id: string
-          client_id: string
+          client_id?: string | null
           created_at?: string
           ends_at: string
+          guest_name?: string | null
+          guest_phone?: string | null
           id?: string
           notes?: string | null
           price?: number | null
@@ -43,9 +47,11 @@ export type Database = {
         }
         Update: {
           barber_id?: string
-          client_id?: string
+          client_id?: string | null
           created_at?: string
           ends_at?: string
+          guest_name?: string | null
+          guest_phone?: string | null
           id?: string
           notes?: string | null
           price?: number | null
