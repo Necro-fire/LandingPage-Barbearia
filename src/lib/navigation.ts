@@ -31,27 +31,16 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Principal",
     items: [
       { title: "Dashboard", url: "/app", icon: LayoutDashboard, permission: "dashboard.view" },
-      { title: "Agendamentos", url: "/app/agendamentos", icon: CalendarDays, permission: "appointments.view" },
       { title: "Agenda", url: "/app/agenda", icon: CalendarRange, permission: "schedule.view" },
-    ],
-  },
-  {
-    label: "Gestão",
-    items: [
       { title: "Clientes", url: "/app/clientes", icon: Users, permission: "clients.view" },
-      { title: "Barbeiros", url: "/app/barbeiros", icon: Users, permission: "barbers.manage" },
-      { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
-      { title: "Financeiro", url: "/app/financeiro", icon: Wallet, permission: "finance.view" },
-      { title: "Relatórios", url: "/app/relatorios", icon: BarChart3, permission: "reports.view" },
+      { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
     ],
   },
   {
-    label: "Sistema",
+    label: "Configurações",
     items: [
-      { title: "Fidelidade", url: "/app/fidelidade", icon: Gift, permission: "loyalty.view" },
-      { title: "Notificações", url: "/app/notificacoes", icon: Bell, permission: "notifications.view" },
-      { title: "Configurações", url: "/app/configuracoes", icon: Settings, permission: "settings.manage" },
-      { title: "Auditoria", url: "/app/auditoria", icon: ShieldCheck, permission: "audit.view" },
+      { title: "Serviços", url: "/app/servicos", icon: Scissors, permission: "services.manage" },
+      { title: "Minha Conta", url: "/app/perfil", icon: Settings, permission: "dashboard.view" },
     ],
   },
 ];

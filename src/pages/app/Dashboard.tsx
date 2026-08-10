@@ -79,43 +79,39 @@ export default function Dashboard() {
     <div className="animate-in fade-in duration-500">
       <PageHeader
         title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
-        description={`Perfil de acesso: ${roles.map((r) => ROLE_LABELS[r]).join(", ") || "—"}`}
+        description="Acompanhe o status geral da sua barbearia."
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Agendamentos hoje" value="—" hint="Aguardando módulo de agenda" icon={CalendarDays} />
-        <StatCard label="Clientes" value="—" hint="Aguardando módulo de clientes" icon={Users} />
-        <StatCard label="Serviços ativos" value="—" hint="Aguardando módulo de serviços" icon={Scissors} />
-        <StatCard label="Faturamento" value="—" hint="Aguardando módulo financeiro" icon={Wallet} />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard label="Agendamentos hoje" value="—" hint="Horários marcados para hoje" icon={CalendarDays} />
+        <StatCard label="Total de Clientes" value="—" hint="Base de dados ON-TESTE" icon={Users} />
+        <StatCard label="Notificações" value="—" hint="Alertas do sistema" icon={Wallet} />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="lg:col-span-2 rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
           <CardHeader className="bg-muted/30 border-b border-border/40">
-            <CardTitle className="text-lg font-heading">Visão Geral da Operação</CardTitle>
+            <CardTitle className="text-lg font-heading">Horários e Disponibilidade</CardTitle>
           </CardHeader>
           <CardContent className="p-6 h-[300px] flex items-center justify-center text-muted-foreground italic">
-            Gráfico de desempenho em tempo real (Aguardando dados)
+            Visualização rápida da agenda (Sincronizando...)
           </CardContent>
         </Card>
 
         <div className="space-y-6">
           <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
             <CardHeader>
-              <CardTitle className="text-lg font-heading">Gestão Rápida</CardTitle>
+              <CardTitle className="text-lg font-heading">Ações Rápidas</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-2">
-              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/agendamentos")}>
-                <CalendarDays className="h-4 w-4" /> Gerenciar Solicitações
-              </Button>
-              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/servicos")}>
-                <Scissors className="h-4 w-4" /> Tabela de Preços
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/agenda")}>
+                <CalendarDays className="h-4 w-4" /> Ver Agenda Geral
               </Button>
               <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/clientes")}>
-                <Users className="h-4 w-4" /> Base de Clientes
+                <Users className="h-4 w-4" /> Histórico de Clientes
               </Button>
-              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/financeiro")}>
-                <Wallet className="h-4 w-4" /> Fluxo de Caixa
+              <Button variant="outline" className="w-full justify-start rounded-xl gap-2 border-border/60" onClick={() => navigate("/app/servicos")}>
+                <Scissors className="h-4 w-4" /> Tipos de Corte
               </Button>
             </CardContent>
           </Card>
