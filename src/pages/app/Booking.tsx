@@ -398,7 +398,7 @@ export default function BookingFlow() {
       </nav>
 
       {/* Hero Section Simplificado para Agendamento */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-black py-20">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black py-20">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" 
