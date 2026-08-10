@@ -312,8 +312,15 @@ export default function Schedule() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Status</p>
-                  <Badge variant="outline" className={cn("text-[10px] uppercase font-bold tracking-tighter", getStatusColor(selectedAppointment.status))}>
-                    {selectedAppointment.status}
+                  <Badge variant="outline" className={cn("text-[10px] uppercase font-bold tracking-tighter", 
+                    selectedAppointment.status === 'pending' ? 'border-amber-500 text-amber-500' :
+                    selectedAppointment.status === 'confirmed' ? 'border-green-500 text-green-500' :
+                    selectedAppointment.status === 'completed' ? 'border-blue-500 text-blue-500' :
+                    'border-red-500 text-red-500'
+                  )}>
+                    {selectedAppointment.status === 'pending' ? 'PENDENTE' :
+                     selectedAppointment.status === 'confirmed' ? 'CONFIRMADO' :
+                     selectedAppointment.status === 'completed' ? 'CONCLUÍDO' : 'CANCELADO'}
                   </Badge>
                 </div>
               </div>
