@@ -123,7 +123,7 @@ export default function NotificationsPage() {
 
           <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
             <CardHeader className="bg-muted/30 border-b border-border/40 py-4">
-              <CardTitle className="text-lg font-heading">Histórico de Notificações</CardTitle>
+              <CardTitle className="text-lg font-heading">Histórico</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-border/40">
