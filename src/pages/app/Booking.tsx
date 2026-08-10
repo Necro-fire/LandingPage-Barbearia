@@ -405,40 +405,45 @@ export default function BookingFlow() {
         </a>
       </div>
 
-      <footer className="border-t border-border/40 bg-muted/10 py-12 px-4">
-        <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-3">
-          <div className="space-y-4">
+      <footer className="border-t border-white/5 bg-black py-20 px-4">
+        <div className="mx-auto max-w-7xl grid gap-12 md:grid-cols-4">
+          <div className="space-y-6">
             <div className="flex items-center gap-2">
               <Scissors className="h-6 w-6 text-primary" />
-              <span className="font-heading text-xl font-bold">ON-TESTE</span>
+              <span className="font-heading text-xl font-black uppercase tracking-tighter text-white">ON-TESTE</span>
             </div>
-            <p className="text-sm text-muted-foreground max-w-xs">
+            <p className="text-[10px] leading-relaxed tracking-wider text-white/40 uppercase">
               Excelência em barbearia clássica e moderna. O cuidado que seu visual merece.
             </p>
           </div>
-          <div className="space-y-4">
-            <h4 className="text-sm font-bold uppercase tracking-widest">Horários</h4>
-            <ul className="text-sm text-muted-foreground space-y-2">
-              <li>Seg - Sex: 09:00 - 20:00</li>
-              <li>Sábado: 09:00 - 18:00</li>
-              <li>Domingo: Fechado</li>
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black tracking-[0.3em] text-white uppercase">LINKS RÁPIDOS</h4>
+            <ul className="text-[10px] font-bold tracking-[0.2em] text-white/50 space-y-3 uppercase">
+              <li><a href="#" className="hover:text-primary transition-colors">INÍCIO</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">SERVIÇOS</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">BARBEIROS</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">ADMIN</a></li>
             </ul>
           </div>
-          <div className="space-y-4">
-            <h4 className="text-sm font-bold uppercase tracking-widest">Contato</h4>
-            <ul className="text-sm text-muted-foreground space-y-2">
-              <li>(11) 9 9999-9999</li>
-              <li>contato@onteste.com.br</li>
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black tracking-[0.3em] text-white uppercase">CONTATO</h4>
+            <ul className="text-[10px] font-bold tracking-[0.2em] text-white/50 space-y-3 uppercase">
+              <li className="flex items-center gap-2"><Phone className="h-3 w-3 text-primary" /> (11) 99999-9999</li>
+              <li className="flex items-center gap-2"><MapPin className="h-3 w-3 text-primary" /> AV. PAULISTA, 1000</li>
             </ul>
+          </div>
+          <div className="space-y-6">
+            <h4 className="text-[10px] font-black tracking-[0.3em] text-white uppercase">NEWSLETTER</h4>
+            <div className="flex">
+              <input type="email" placeholder="SEU E-MAIL" className="bg-white/5 border border-white/10 rounded-none px-4 py-2 text-[10px] w-full focus:outline-none focus:border-primary" />
+              <button className="bg-primary text-white px-4 py-2 text-[10px] font-black">OK</button>
+            </div>
           </div>
         </div>
-        <div className="mt-12 text-center text-xs text-muted-foreground border-t border-border/20 pt-8">
-          <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
+        <div className="mt-20 text-center text-[9px] font-bold tracking-[0.3em] text-white/20 border-t border-white/5 pt-10 uppercase">
+          <p>© {new Date().getFullYear()} ON-TESTE BARBEARIA. TODOS OS DIREITOS RESERVADOS.</p>
         </div>
       </footer>
-      <div className="fixed bottom-0 left-0 right-0 bg-primary/95 py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground backdrop-blur-sm">
-        Sistema ON-TESTE: Agendamento • Gestão • Histórico • Notificações • Administrativo
-      </div>
     </div>
   );
 }
