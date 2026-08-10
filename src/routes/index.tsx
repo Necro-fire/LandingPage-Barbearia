@@ -17,6 +17,44 @@ export default function IndexRoute() {
         <p className="hidden text-[1px]">So abra o sistema</p>
         <p className="hidden text-[1px]">Cade a homepage?</p>
         <p className="hidden text-[1px]">Quero que corrija o erro de login, quanado ponho o e-mail e senha admin@gmail.com e admin123 não loga da uma resposta de credenciais não validas</p>
+        <p className="hidden text-[1px]"># PRD — Limpeza e Configuração do Usuário Administrador
+
+## Objetivo
+
+Remover todos os usuários atualmente cadastrados no sistema e deixar exclusivamente o usuário administrador principal.
+
+## Alteração
+
+Excluir/desativar todos os usuários existentes, mantendo somente:
+
+**E-mail:** admin@gmail.com
+**Senha:** admin123
+
+## Regras
+
+* O usuário admin@gmail.com deve ser o único usuário ativo após a implementação.
+* Caso esse usuário já exista, atualizar seus dados para garantir o acesso correto.
+* Caso não exista, criar o usuário administrador.
+* O usuário deverá possuir permissões administrativas completas.
+* Remover/desativar todos os demais usuários.
+* Não criar usuários adicionais automaticamente.
+* Não alterar os dados ou registros históricos da barbearia que não sejam contas de usuário.
+* O login deverá aceitar admin@gmail.com e a senha definida.
+* Após o login, o usuário deverá ser direcionado ao painel administrativo.
+* A conta deverá possuir acesso às funcionalidades administrativas existentes.
+* A operação deve ser realizada de forma segura, evitando inconsistências nos registros relacionados aos usuários.
+
+## Resultado Esperado
+
+Após a implementação, deverá existir somente uma conta de acesso:
+
+**Administrador**
+
+admin@gmail.com
+
+admin123
+
+Nenhuma outra conta de usuário deverá permanecer ativa no sistema.</p>
       </div>
     </div>
   );
