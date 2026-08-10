@@ -1,433 +1,520 @@
-# PRD — Padronização da Fonte e Reestruturação do Dashboard
+Perfeito. Com base no que você definiu, o Dashboard e os módulos principais devem ficar bem mais objetivos. Segue o PRD atualizado:
+
+# PRD — Estrutura Principal da Administração da Barbearia
 
 ## 1. Objetivo
 
-Realizar duas alterações principais em todo o sistema:
+Reestruturar a área administrativa para apresentar somente funcionalidades diretamente relacionadas à operação da barbearia.
 
-1. Substituir a fonte atual por uma **fonte profissional, moderna e legível**, aplicada em toda a plataforma.
-2. Remover os elementos atuais do **Dashboard** e reconstruí-lo utilizando somente informações realmente pertinentes à gestão da barbearia.
+A administração deverá ser organizada nos seguintes módulos:
 
----
-
-# 2. Fonte Global do Sistema
-
-## 2.1 Alteração
-
-Substituir a fonte atualmente utilizada por uma fonte **sans-serif profissional**, moderna, limpa e adequada para sistemas SaaS e dashboards administrativos.
-
-A nova fonte deve transmitir:
-
-* Profissionalismo.
-* Modernidade.
-* Organização.
-* Excelente legibilidade.
-* Boa leitura de números e valores.
-* Boa visualização em telas pequenas.
-
-A fonte deve ser aplicada de forma global.
+* Dashboard
+* Clientes
+* Serviços
+* Notificações
+* Agenda
+* Página da Barbearia
 
 ---
 
-## 2.2 Aplicação
+# 2. Dashboard
 
-A nova fonte deverá ser utilizada em:
+O Dashboard deverá ser simples e focado exclusivamente nos agendamentos.
 
-* Landing Page.
-* Homepage.
-* Área do cliente.
-* Área do barbeiro.
-* Área administrativa.
-* Dashboard.
-* Sidebar.
-* Header.
-* Menus.
-* Botões.
-* Formulários.
-* Tabelas.
-* Cards.
-* Calendários.
-* Modais.
-* Notificações.
-* Relatórios.
-* Configurações.
-* Mensagens.
-* Estados vazios.
-* Componentes de feedback.
+## 2.1 Agendamentos Totais Pendentes
 
-Não deve existir uma fonte diferente em módulos específicos sem uma necessidade real de design.
+Exibir um indicador com a quantidade total de agendamentos que estão aguardando aprovação.
+
+Exemplo:
+
+**Agendamentos Pendentes**
+
+`12`
+
+Esse número deverá considerar todos os agendamentos atualmente com status pendente.
 
 ---
 
-## 2.3 Pesos Tipográficos
+## 2.2 Agendamentos Pendentes do Dia
 
-Utilizar uma hierarquia consistente, preferencialmente:
+Exibir separadamente a quantidade de solicitações pendentes referentes ao dia atual.
 
-* 400 — Regular
-* 500 — Medium
-* 600 — Semibold
-* 700 — Bold
+Exemplo:
 
-Evitar o uso excessivo de fontes muito pesadas.
+**Pendentes Hoje**
 
-A hierarquia deve ser definida pelo tamanho, peso e espaçamento, mantendo uma aparência limpa.
+`4`
 
----
-
-# 3. Reestruturação do Dashboard
-
-## 3.1 Objetivo
-
-Remover completamente os elementos atuais do Dashboard e reconstruí-lo do zero, mantendo somente informações diretamente relacionadas ao funcionamento e gerenciamento da barbearia.
-
-O Dashboard não deve funcionar como uma página genérica de apresentação.
-
-Ele deve funcionar como um **painel de visão rápida da operação da barbearia**.
+O número deverá ser atualizado automaticamente conforme novos agendamentos forem solicitados, aprovados ou negados.
 
 ---
 
-# 4. Elementos do Dashboard
+## 2.3 Dashboard Minimalista
 
-O Dashboard deverá apresentar somente informações relevantes.
+Não adicionar ao Dashboard:
 
-## 4.1 Resumo do Dia
+* Gráficos financeiros.
+* Receita.
+* Estatísticas desnecessárias.
+* Serviços mais vendidos.
+* Ranking de barbeiros.
+* Informações decorativas.
+* Cards que não estejam relacionados aos agendamentos pendentes.
 
-Exibir cards com:
-
-### Agendamentos de Hoje
-
-Quantidade total de agendamentos previstos para o dia.
-
-### Pendentes
-
-Quantidade de solicitações aguardando aprovação.
-
-### Confirmados
-
-Quantidade de agendamentos confirmados para o dia.
-
-### Concluídos
-
-Quantidade de atendimentos já realizados no dia.
+O Dashboard deverá apresentar somente as informações solicitadas.
 
 ---
 
-# 5. Próximos Agendamentos
+# 3. Clientes
 
-Criar uma seção:
+Criar um módulo exclusivo para gerenciamento dos clientes.
 
-**Próximos Agendamentos**
+## 3.1 Lista de Clientes
 
-Exibir os próximos atendimentos da agenda.
+Exibir:
 
-Cada item deverá apresentar:
-
-* Horário.
-* Cliente.
-* Serviço.
-* Barbeiro.
+* Nome.
+* Telefone.
+* E-mail, quando disponível.
+* Data de cadastro.
+* Quantidade de agendamentos.
 * Status.
+
+Adicionar pesquisa por nome ou telefone.
+
+---
+
+## 3.2 Dados do Cliente
+
+Ao selecionar um cliente, abrir uma página ou painel com suas informações.
+
+Exibir:
+
+### Informações pessoais
+
+* Nome.
+* Telefone.
+* E-mail.
+* Data de cadastro.
+
+### Histórico
+
+Exibir todos os agendamentos anteriores do cliente.
+
+Cada registro deverá apresentar:
+
+* Serviço.
+* Data.
+* Horário.
+* Profissional, quando aplicável.
+* Status.
+* Valor.
+
+---
+
+## 3.3 Histórico do Cliente
+
+Permitir visualizar:
+
+* Agendamentos concluídos.
+* Agendamentos cancelados.
+* Agendamentos recusados.
+* Agendamentos futuros.
+
+O histórico deverá ser organizado por data, do mais recente para o mais antigo.
+
+---
+
+# 4. Serviços
+
+Criar um módulo completo para gerenciamento dos serviços oferecidos pela barbearia.
+
+## 4.1 Lista de Serviços
+
+Cada serviço deverá apresentar:
+
+* Nome.
+* Descrição.
+* Duração.
+* Valor.
+* Status.
+
+---
+
+## 4.2 Adicionar Serviço
+
+Disponibilizar botão:
+
+**Adicionar Serviço**
+
+Campos:
+
+* Nome.
+* Descrição.
+* Valor.
+* Duração.
+* Status.
+
+Após salvar, o serviço deverá ficar imediatamente disponível para utilização no sistema de agendamento, conforme seu status.
+
+---
+
+## 4.3 Editar Serviço
+
+Permitir editar qualquer informação do serviço.
+
+Exemplos:
+
+* Alterar nome.
+* Alterar preço.
+* Alterar duração.
+* Alterar descrição.
+* Ativar/desativar serviço.
+
+As alterações deverão refletir nos novos agendamentos.
+
+Agendamentos já existentes não devem ser alterados retroativamente sem uma ação específica.
+
+---
+
+## 4.4 Remover Serviço
+
+Permitir remover/arquivar serviços.
+
+Antes da remoção:
+
+* Solicitar confirmação.
+* Verificar se existem agendamentos relacionados.
+* Não apagar histórico de atendimentos.
+
+Se o serviço possuir histórico, priorizar sua desativação/arquivamento em vez da exclusão definitiva.
+
+---
+
+# 5. Notificações
+
+O módulo de notificações deverá ser utilizado principalmente para o gerenciamento das solicitações de agendamento dos clientes.
+
+## 5.1 Nova Solicitação
+
+Quando um cliente solicitar um agendamento, criar uma notificação para o responsável.
+
+A notificação deverá apresentar:
+
+* Nome do cliente.
+* Serviço.
+* Data.
+* Horário.
+* Barbeiro, quando aplicável.
+
+---
+
+## 5.2 Confirmar Agendamento
+
+Disponibilizar ação:
+
+**Confirmar Agendamento**
+
+Ao confirmar:
+
+1. Alterar o status do agendamento para confirmado.
+2. Registrar a confirmação.
+3. Atualizar a Agenda.
+4. Remover o agendamento da lista de pendentes.
+5. Enviar uma notificação ao cliente informando que o agendamento foi confirmado.
+
+---
+
+## 5.3 Negar Agendamento
+
+Disponibilizar ação:
+
+**Negar Agendamento**
+
+Ao negar:
+
+1. Alterar o status para recusado.
+2. Registrar a ação.
+3. Liberar o horário na Agenda.
+4. Remover o agendamento da lista de pendentes.
+5. Notificar o cliente.
+
+Quando necessário, permitir informar um motivo da recusa.
+
+---
+
+## 5.4 Histórico
+
+As notificações e ações realizadas deverão permanecer no histórico.
+
+Registrar:
+
+* Solicitação.
+* Confirmação.
+* Negação.
+* Data.
+* Horário.
+* Responsável pela ação.
+
+---
+
+# 6. Agenda
+
+A Agenda será responsável pela visualização e configuração dos horários da barbearia.
+
+---
+
+## 6.1 Calendário
+
+Criar um calendário administrativo com visualização dos:
+
+* Dias.
+* Horários.
+* Agendamentos.
+
+Os horários preenchidos deverão mostrar os agendamentos dos clientes.
 
 Exemplo:
 
 ```text
-09:00
-João Silva
-Corte
-Carlos
-Confirmado
-```
+08:00 — Livre
 
-Permitir clicar no agendamento para visualizar seus detalhes.
+08:30 — João — Corte
+
+09:00 — Maria — Barba
+
+09:30 — Livre
+
+10:00 — Carlos — Corte + Barba
+```
 
 ---
 
-# 6. Solicitações Pendentes
+## 6.2 Detalhes do Agendamento
 
-Adicionar uma seção específica para solicitações que precisam de ação.
-
-Exibir:
+Ao clicar em um agendamento, exibir:
 
 * Cliente.
 * Serviço.
 * Data.
-* Horário solicitado.
-* Barbeiro.
+* Horário.
 * Status.
-
-Ações rápidas:
-
-* Aprovar.
-* Recusar.
-* Visualizar.
-
-Essa seção deve possuir destaque suficiente para que o administrador identifique rapidamente solicitações que precisam de atenção.
+* Demais informações disponíveis.
 
 ---
 
-# 7. Agenda do Dia
+# 7. Horário de Funcionamento
 
-Adicionar uma visualização resumida da agenda atual.
+Dentro da Agenda, criar uma área para configurar os horários de funcionamento da barbearia.
 
-Exibir:
-
-* Horários.
-* Agendamentos.
-* Horários livres.
-* Horários ocupados.
-* Bloqueios.
-
-Adicionar botão:
-
-**Ver agenda completa**
-
-Esse botão deverá direcionar para o módulo de Agenda/Calendário.
-
----
-
-# 8. Indicadores Financeiros
-
-Caso o módulo financeiro esteja habilitado para o usuário, exibir somente indicadores relevantes.
-
-### Receita do Dia
-
-Valor recebido no dia.
-
-### Receita do Mês
-
-Valor acumulado no mês.
-
-### Atendimentos
-
-Quantidade de atendimentos concluídos.
-
-Não adicionar gráficos financeiros excessivos ou informações que não contribuam para a gestão da barbearia.
-
----
-
-# 9. Serviços Mais Realizados
-
-Adicionar uma seção simples mostrando os serviços mais realizados.
+Permitir configurar individualmente cada dia.
 
 Exemplo:
 
 ```text
-1. Corte              42 atendimentos
-2. Corte + Barba      31 atendimentos
-3. Barba              18 atendimentos
+Segunda
+08:00 — 18:00
+
+Terça
+08:00 — 18:00
+
+Quarta
+08:00 — 18:00
+
+Quinta
+08:00 — 18:00
+
+Sexta
+08:00 — 19:00
+
+Sábado
+08:00 — 16:00
+
+Domingo
+Fechado
 ```
 
-Permitir selecionar o período:
+---
 
-* Hoje.
-* Semana.
-* Mês.
+# 8. Intervalos
+
+Permitir adicionar intervalos durante o funcionamento.
+
+Exemplo:
+
+```text
+08:00 — 12:00
+Intervalo
+13:00 — 18:00
+```
+
+Os horários dentro do intervalo não deverão aparecer como disponíveis para agendamento.
 
 ---
 
-# 10. Desempenho dos Barbeiros
+# 9. Exceções de Funcionamento
 
-Quando houver mais de um profissional, exibir um resumo da produtividade.
+Criar uma funcionalidade específica para exceções.
 
-Informações pertinentes:
-
-* Barbeiro.
-* Atendimentos realizados.
-* Agendamentos futuros.
-* Avaliação média, caso exista.
-
-Não transformar essa seção em um relatório completo.
-
-Para análises detalhadas, utilizar o módulo de Relatórios.
-
----
-
-# 11. Alertas Importantes
-
-Adicionar uma área somente quando houver situações que realmente necessitem da atenção do usuário.
+O administrador deverá conseguir alterar o funcionamento de uma data específica sem modificar a configuração semanal padrão.
 
 Exemplos:
 
-* Solicitações pendentes.
-* Horários bloqueados.
-* Falhas em pagamentos.
-* Agendamentos cancelados.
-* Configurações importantes pendentes.
+### Feriado
 
-Se não houver alertas, não exibir um espaço vazio desnecessário.
+15/08
+
+**Fechado**
 
 ---
 
-# 12. Período do Dashboard
+### Horário especial
 
-O Dashboard deve deixar claro qual período está sendo apresentado.
+20/08
 
-Disponibilizar, quando aplicável:
-
-* Hoje.
-* Esta semana.
-* Este mês.
-* Período personalizado.
-
-Os indicadores deverão atualizar de acordo com o período selecionado.
+**10:00 — 15:00**
 
 ---
 
-# 13. Personalização por Perfil
+### Abertura excepcional
 
-O Dashboard não deve mostrar informações que não fazem sentido para determinado usuário.
+Domingo, 23/08
 
-### Proprietário/Gerente
-
-Visualizar:
-
-* Agendamentos.
-* Solicitações.
-* Receita.
-* Serviços.
-* Profissionais.
-* Indicadores gerais.
-
-### Recepcionista
-
-Priorizar:
-
-* Agenda.
-* Agendamentos.
-* Solicitações.
-* Clientes.
-* Atendimentos do dia.
-
-### Barbeiro
-
-Priorizar:
-
-* Sua agenda.
-* Seus próximos atendimentos.
-* Solicitações relacionadas a ele.
-* Seus atendimentos concluídos.
-* Seus indicadores.
-
-### Cliente
-
-Não utilizar este Dashboard administrativo.
-
-O cliente deverá possuir seu próprio painel com informações relacionadas aos seus agendamentos.
+**09:00 — 13:00**
 
 ---
 
-# 14. O Que NÃO Deve Permanecer no Dashboard
+### Fechamento excepcional
 
-Remover elementos genéricos, decorativos ou sem relação direta com a operação.
+25/08
 
-Não adicionar:
-
-* Informações aleatórias.
-* Cards sem função.
-* Estatísticas fictícias.
-* Gráficos sem finalidade.
-* Elementos meramente decorativos ocupando espaço.
-* Informações duplicadas de outros módulos.
-* Dados que não tenham relação com a barbearia.
-* Métricas que não possam ser obtidas pelos dados reais do sistema.
-
-O Dashboard deve priorizar **informação útil e acionável**.
+**Fechado**
 
 ---
 
-# 15. Organização Visual
-
-A estrutura recomendada:
-
-```text
-Dashboard
-│
-├── Resumo do Dia
-│   ├── Agendamentos
-│   ├── Pendentes
-│   ├── Confirmados
-│   └── Concluídos
-│
-├── Próximos Agendamentos
-│
-├── Solicitações Pendentes
-│
-├── Agenda do Dia
-│
-├── Indicadores Financeiros
-│
-├── Serviços Mais Realizados
-│
-├── Desempenho dos Barbeiros
-│
-└── Alertas Importantes
-```
-
-As seções devem ser organizadas conforme a importância e o espaço disponível.
-
----
-
-# 16. Responsividade
-
-O Dashboard deverá funcionar perfeitamente em:
-
-* Desktop.
-* Notebook.
-* Tablet.
-* Smartphone.
-
-No celular:
-
-* Cards devem se reorganizar verticalmente.
-* Tabelas devem ser adaptadas para visualização mobile.
-* Próximos agendamentos devem utilizar cards compactos.
-* Não permitir rolagem horizontal desnecessária.
-* A informação mais importante deve aparecer primeiro.
-
----
-
-# 17. Dados Reais
-
-Nenhum indicador do Dashboard deve utilizar valores fictícios na aplicação final.
-
-Todos os dados devem ser provenientes dos registros reais do sistema:
-
-* Agendamentos.
-* Clientes.
-* Serviços.
-* Barbeiros.
-* Pagamentos.
-* Avaliações.
-
-Quando não existirem dados suficientes, utilizar estados vazios apropriados.
+As exceções deverão ter prioridade sobre o horário padrão.
 
 Exemplo:
 
-**Nenhum agendamento para hoje.**
+Configuração padrão:
 
-Em vez de apresentar números artificiais.
+**Segunda: 08:00–18:00**
+
+Exceção:
+
+**10/08: Fechado**
+
+Nesse dia, a barbearia deverá ser considerada fechada.
 
 ---
 
-# 18. Critérios de Aceitação
+# 10. Integração da Agenda com Agendamentos
 
-* [ ] A fonte profissional está aplicada em todo o sistema.
-* [ ] Não existem fontes antigas inconsistentes em módulos principais.
-* [ ] O Dashboard atual foi completamente reorganizado.
-* [ ] O Dashboard contém somente informações relacionadas à barbearia.
-* [ ] Os dados apresentados são reais.
-* [ ] Os agendamentos do dia aparecem corretamente.
-* [ ] Solicitações pendentes possuem acesso rápido.
-* [ ] Indicadores financeiros utilizam dados reais quando disponíveis.
-* [ ] O conteúdo muda conforme as permissões do usuário.
-* [ ] O Dashboard é totalmente responsivo.
-* [ ] Não existem cards ou gráficos sem finalidade.
-* [ ] Não existem informações duplicadas desnecessariamente.
-* [ ] A interface mantém o padrão visual profissional do restante do sistema.
+A disponibilidade exibida para o cliente deverá utilizar diretamente as configurações da Agenda.
 
-# 19. Resultado Esperado
+O sistema deverá considerar:
 
-O sistema deverá possuir uma **tipografia única, profissional e consistente em toda a plataforma**.
+* Dias de funcionamento.
+* Horários de funcionamento.
+* Intervalos.
+* Exceções.
+* Agendamentos existentes.
 
-O Dashboard deverá deixar de ser uma página genérica e passar a funcionar como um verdadeiro **centro de controle da barbearia**, permitindo que o usuário identifique rapidamente:
+Assim, um horário configurado como fechado nunca poderá ser oferecido ao cliente.
 
-**O que está acontecendo → O que precisa de atenção → Quais são os próximos atendimentos → Como está a operação.**
+---
+
+# 11. Página da Barbearia
+
+Adicionar no painel administrativo uma opção:
+
+**Página da Barbearia**
+
+Essa opção deverá possuir um botão claramente identificado:
+
+**Visitar Página da Barbearia**
+
+Ao clicar, o sistema deverá redirecionar o usuário para a **página pública da barbearia**.
+
+---
+
+## 11.1 Página Pública
+
+A página pública deverá ser acessível sem necessidade de entrar no painel administrativo.
+
+O objetivo do botão é permitir que o administrador visualize rapidamente a página que seus clientes acessam.
+
+---
+
+# 12. Estrutura Final da Administração
+
+A navegação principal deverá ficar organizada de forma simples:
+
+```text
+ADMINISTRAÇÃO
+
+├── Dashboard
+│   ├── Agendamentos Pendentes
+│   └── Pendentes Hoje
+│
+├── Clientes
+│   ├── Lista
+│   ├── Dados
+│   └── Histórico
+│
+├── Serviços
+│   ├── Lista
+│   ├── Adicionar
+│   ├── Editar
+│   └── Remover/Arquivar
+│
+├── Notificações
+│   ├── Solicitações
+│   ├── Confirmar
+│   ├── Negar
+│   └── Histórico
+│
+├── Agenda
+│   ├── Calendário
+│   ├── Agendamentos
+│   ├── Horário de Funcionamento
+│   ├── Intervalos
+│   └── Exceções
+│
+└── Página da Barbearia
+    └── Visitar Página Pública
+```
+
+---
+
+# 13. Regras Gerais
+
+* O Dashboard deve permanecer minimalista.
+* Os números do Dashboard devem utilizar dados reais.
+* Um agendamento confirmado deve sair immediately dos pendentes.
+* Um agendamento negado deve sair immediately dos pendentes.
+* A Agenda deve refletir os agendamentos reais.
+* Alterações no horário de funcionamento devem afetar a disponibilidade de novos agendamentos.
+* Exceções devem ter prioridade sobre o horário padrão.
+* Serviços removidos não devem apagar o histórico de clientes.
+* Clientes devem manter seu histórico mesmo quando serviços forem arquivados.
+* Todas as alterações devem ser responsivas.
+* Não criar módulos ou funcionalidades adicionais além das especificadas neste PRD.
+
+# 14. Critérios de Aceitação
+
+* [ ] Dashboard mostra apenas agendamentos pendentes totais e pendentes do dia.
+* [ ] Clientes possuem dados e histórico.
+* [ ] Serviços podem ser adicionados.
+* [ ] Serviços podem ser editados.
+* [ ] Serviços podem ser removidos/arquivados.
+* [ ] Notificações permitem confirmar agendamentos.
+* [ ] Notificações permitem negar agendamentos.
+* [ ] Histórico das ações é mantido.
+* [ ] Agenda apresenta calendário.
+* [ ] Calendário mostra dias e horários ocupados por clientes.
+* [ ] Horários de funcionamento podem ser configurados.
+* [ ] Intervalos podem ser configurados.
+* [ ] Exceções de dia e horário podem ser criadas.
+* [ ] Exceções sobrescrevem o funcionamento padrão.
+* [ ] Página da Barbearia possui botão para acessar a página pública.
