@@ -127,7 +127,7 @@ export default function Dashboard() {
     <div className="animate-in fade-in duration-500 space-y-6">
       <PageHeader
         title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
-        description="Agendamentos que precisam de atenção."
+        description="Gestão de solicitações pendentes."
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
