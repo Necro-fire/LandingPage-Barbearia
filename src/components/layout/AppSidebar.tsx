@@ -1,5 +1,6 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Scissors } from "lucide-react";
+import { toast } from "sonner";
 import {
   Sidebar,
   SidebarContent,
@@ -19,7 +20,17 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { can } = useAuth();
+
+  const handleBarbershopClick = (e: React.MouseEvent, url: string) => {
+    if (url === "/") {
+      e.preventDefault();
+      if (window.confirm("Você deseja realmente ir para a página da barbearia?")) {
+        window.open(url, "_blank");
+      }
+    }
+  };
 
   const isActive = (url: string) => (url === "/app" ? pathname === "/app" : pathname.startsWith(url));
 
@@ -46,7 +57,12 @@ export function AppSidebar() {
                   {items.map((item) => (
                     <SidebarMenuItem key={item.url}>
                       <SidebarMenuButton asChild isActive={isActive(item.url)} tooltip={item.title}>
-                        <NavLink to={item.url} end={item.url === "/app"} target={item.url === "/agendamento" ? "_blank" : undefined} className="flex items-center gap-2">
+                        <NavLink 
+                          to={item.url} 
+                          end={item.url === "/app"} 
+                          onClick={(e) => handleBarbershopClick(e, item.url)}
+                          className="flex items-center gap-2"
+                        >
                           <item.icon className="h-4 w-4" />
                           {!collapsed && <span>{item.title}</span>}
                         </NavLink>

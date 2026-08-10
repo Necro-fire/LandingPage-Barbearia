@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>As barras de rolagem visual foram ocultadas globalmente, mantendo a funcionalidade de navegação vertical e horizontal intacta em todos os dispositivos e navegadores.</p>
+        <p>Foi adicionada uma confirmação de segurança ao clicar na opção da Barbearia, solicitando a validação do usuário antes de redirecionar para a página externa.</p>
       </div>
     </>
   );
