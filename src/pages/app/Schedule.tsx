@@ -430,9 +430,9 @@ export default function Schedule() {
                       </Button>
                     </div>
                   )}
-                  )}
                 </>
               )}
+
             </CardContent>
           </Card>
         </>
