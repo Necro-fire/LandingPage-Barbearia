@@ -25,6 +25,8 @@ import { ptBR } from "date-fns/locale";
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<"all" | "unread" | "read">("all");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchNotifications() {
@@ -49,23 +51,79 @@ export default function NotificationsPage() {
     }
   };
 
+  const filteredNotifications = notifications.filter(n => {
+    const matchesFilter = 
+      filter === "all" ? true :
+      filter === "unread" ? !n.read :
+      n.read;
+    
+    const matchesSearch = 
+      n.title?.toLowerCase().includes(search.toLowerCase()) || 
+      n.message?.toLowerCase().includes(search.toLowerCase());
+
+    return matchesFilter && matchesSearch;
+  });
+
+  const markAsRead = async (id: string) => {
+    const { error } = await supabase
+      .from("notifications")
+      .update({ read: true })
+      .eq("id", id);
+    
+    if (!error) {
+      setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+    }
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <PageHeader 
-          title="Central de Notificações" 
-          description="Gerencie alertas do sistema, e-mails e mensagens de WhatsApp."
-        />
-        <Button variant="outline" className="rounded-xl border-border/60">
-          <Settings className="h-4 w-4 mr-2" /> Configurações de Envio
-        </Button>
-      </div>
+      <PageHeader 
+        title="Notificações" 
+        description="Visualize suas notificações e acompanhe seu histórico."
+      />
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-4">
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between bg-card/40 p-4 rounded-2xl border border-border/60">
+            <div className="flex items-center gap-2 bg-muted/50 p-1 rounded-xl w-full sm:w-auto">
+              <Button 
+                variant={filter === "all" ? "default" : "ghost"} 
+                size="sm" 
+                onClick={() => setFilter("all")}
+                className="rounded-lg text-xs uppercase font-bold h-8"
+              >
+                Todas
+              </Button>
+              <Button 
+                variant={filter === "unread" ? "default" : "ghost"} 
+                size="sm" 
+                onClick={() => setFilter("unread")}
+                className="rounded-lg text-xs uppercase font-bold h-8"
+              >
+                Não Lidas
+              </Button>
+              <Button 
+                variant={filter === "read" ? "default" : "ghost"} 
+                size="sm" 
+                onClick={() => setFilter("read")}
+                className="rounded-lg text-xs uppercase font-bold h-8"
+              >
+                Lidas
+              </Button>
+            </div>
+            <div className="relative w-full sm:w-64">
+              <Input 
+                placeholder="Pesquisar..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="rounded-xl border-border/60 bg-background/50 h-10 text-xs"
+              />
+            </div>
+          </div>
+
           <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
-            <CardHeader className="bg-muted/30 border-b border-border/40">
-              <CardTitle className="text-lg font-heading">Histórico Recente</CardTitle>
+            <CardHeader className="bg-muted/30 border-b border-border/40 py-4">
+              <CardTitle className="text-lg font-heading">Histórico de Notificações</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-border/40">
@@ -73,24 +131,39 @@ export default function NotificationsPage() {
                   Array.from({ length: 5 }).map((_, i) => (
                     <div key={i} className="p-4 h-20 animate-pulse bg-muted/10" />
                   ))
-                ) : notifications.length > 0 ? (
-                  notifications.map((n) => (
-                    <div key={n.id} className="p-4 flex items-start gap-4 hover:bg-muted/20 transition-colors group">
+                ) : filteredNotifications.length > 0 ? (
+                  filteredNotifications.map((n) => (
+                    <div 
+                      key={n.id} 
+                      onClick={() => !n.read && markAsRead(n.id)}
+                      className={cn(
+                        "p-4 flex items-start gap-4 hover:bg-muted/20 transition-colors group cursor-pointer",
+                        !n.read && "bg-primary/5"
+                      )}
+                    >
                       <div className="h-10 w-10 rounded-xl bg-muted/30 flex items-center justify-center shrink-0">
                         {getIcon(n.type)}
                       </div>
                       <div className="flex-1 space-y-1">
                         <div className="flex items-center justify-between">
-                          <p className="text-sm font-bold">{n.title}</p>
+                          <div className="flex items-center gap-2">
+                            <p className={cn("text-sm", !n.read ? "font-black" : "font-medium")}>{n.title}</p>
+                            {!n.read && <Badge className="h-2 w-2 rounded-full p-0 bg-primary" />}
+                          </div>
                           <span className="text-[10px] text-muted-foreground uppercase flex items-center gap-1">
                              <Clock className="h-3 w-3" /> {format(new Date(n.created_at), "dd/MM 'às' HH:mm", { locale: ptBR })}
                            </span>
                         </div>
                         <p className="text-xs text-muted-foreground line-clamp-2">{n.message}</p>
+                        <div className="flex items-center gap-2 pt-1">
+                          <Badge variant="outline" className="text-[9px] uppercase tracking-tighter bg-background/50">
+                            {n.type?.replace('_', ' ')}
+                          </Badge>
+                          {n.read && (
+                            <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">Lida</span>
+                          )}
+                        </div>
                       </div>
-                      <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg opacity-0 group-hover:opacity-100">
-                        <ChevronRight className="h-4 w-4" />
-                      </Button>
                     </div>
                   ))
                 ) : (
@@ -105,7 +178,7 @@ export default function NotificationsPage() {
           <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
             <CardHeader>
               <CardTitle className="text-lg font-heading">Canais de Envio</CardTitle>
-              <CardDescription>Defina por onde os clientes recebem avisos.</CardDescription>
+              <CardDescription>Configurações de entrega de alertas.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex items-center justify-between">
@@ -115,7 +188,7 @@ export default function NotificationsPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold">Sistema</p>
-                    <p className="text-[10px] text-muted-foreground">App e Painel</p>
+                    <p className="text-[10px] text-muted-foreground">Notificações In-App</p>
                   </div>
                 </div>
                 <Switch defaultChecked />
@@ -128,7 +201,7 @@ export default function NotificationsPage() {
                   </div>
                   <div>
                     <p className="text-sm font-bold">E-mail</p>
-                    <p className="text-[10px] text-muted-foreground">Alertas por correio</p>
+                    <p className="text-[10px] text-muted-foreground">Alertas por e-mail</p>
                   </div>
                 </div>
                 <Switch defaultChecked />
@@ -146,19 +219,6 @@ export default function NotificationsPage() {
                 </div>
                 <Switch defaultChecked />
               </div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur border-dashed">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                <AlertCircle className="h-3 w-3 text-primary" /> Dica de Automação
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-[11px] text-muted-foreground leading-relaxed">
-                Lembretes enviados 2h antes do atendimento via WhatsApp reduzem faltas em até 40%.
-              </p>
             </CardContent>
           </Card>
         </div>
