@@ -68,9 +68,6 @@ export function AppHeader() {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/app/perfil")}>
-            <UserIcon className="mr-2 h-4 w-4" /> Meu Perfil
-          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={async () => {
               await signOut();
