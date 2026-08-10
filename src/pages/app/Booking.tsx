@@ -75,143 +75,154 @@ export default function BookingFlow() {
     switch (step) {
       case "service":
         return (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {services.map((s) => (
-              <Card 
+              <div 
                 key={s.id} 
                 className={cn(
-                  "cursor-pointer transition-all border-border/60 hover:border-primary/50",
-                  selectedService?.id === s.id && "border-primary bg-primary/5 shadow-lg shadow-primary/10"
+                  "group cursor-pointer transition-all border border-white/5 bg-white/[0.02] p-6 hover:border-primary/50",
+                  selectedService?.id === s.id && "border-primary bg-white/[0.05]"
                 )}
                 onClick={() => {
                   setSelectedService(s);
                   setStep("barber");
                 }}
               >
-                <CardContent className="p-6 flex justify-between items-center">
-                  <div>
-                    <p className="font-heading font-bold">{s.name}</p>
-                    <p className="text-sm text-muted-foreground">{s.duration_minutes} min • R$ {s.price}</p>
-                  </div>
-                  {selectedService?.id === s.id && <Check className="text-primary" />}
-                </CardContent>
-              </Card>
+                <div className="flex justify-between items-start mb-4">
+                  <div className="h-1 w-6 bg-primary group-hover:w-12 transition-all" />
+                  <span className="text-[10px] font-bold text-primary tracking-widest">R$ {s.price}</span>
+                </div>
+                <h4 className="text-sm font-black uppercase tracking-widest text-white mb-1">{s.name}</h4>
+                <p className="text-[10px] text-white/40 tracking-wider mb-4 uppercase">{s.duration_minutes} MINUTOS</p>
+                <button className="text-[9px] font-black tracking-[0.2em] text-white underline decoration-primary underline-offset-4">SELECIONAR</button>
+              </div>
             ))}
           </div>
         );
       case "barber":
         return (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {barbers.map((b) => (
-              <Card 
+              <div 
                 key={b.id} 
                 className={cn(
-                  "cursor-pointer transition-all border-border/60 hover:border-primary/50",
-                  selectedBarber?.id === b.id && "border-primary bg-primary/5"
+                  "group cursor-pointer transition-all border border-white/5 bg-white/[0.02] p-6 hover:border-primary/50",
+                  selectedBarber?.id === b.id && "border-primary bg-white/[0.05]"
                 )}
                 onClick={() => {
                   setSelectedBarber(b);
                   setStep("date");
                 }}
               >
-                <CardContent className="p-6 flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center overflow-hidden">
-                    {b.avatar_url ? <img src={b.avatar_url} alt={b.display_name} className="h-full w-full object-cover" /> : <User className="text-muted-foreground" />}
+                <div className="flex gap-4 items-center">
+                  <div className="h-16 w-16 overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
+                    {b.avatar_url ? (
+                      <img src={b.avatar_url} alt={b.display_name} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="h-full w-full bg-white/5 flex items-center justify-center">
+                        <User className="h-6 w-6 text-white/20" />
+                      </div>
+                    )}
                   </div>
-                  <div className="flex-1">
-                    <p className="font-heading font-bold">{b.display_name}</p>
-                    <p className="text-sm text-muted-foreground">{b.specialties?.join(", ") || "Barbeiro Especialista"}</p>
+                  <div>
+                    <h4 className="text-sm font-black uppercase tracking-widest text-white mb-1">{b.display_name}</h4>
+                    <p className="text-[9px] text-white/40 tracking-wider uppercase leading-relaxed">
+                      {b.specialties?.join(" / ") || "ESPECIALISTA EM CORTES"}
+                    </p>
                   </div>
-                  {selectedBarber?.id === b.id && <Check className="text-primary" />}
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         );
       case "date":
         return (
-          <div className="space-y-4">
-             <Input 
-                type="date" 
-                min={new Date().toISOString().split("T")[0]}
-                value={selectedDate}
-                onChange={(e) => {
-                  setSelectedDate(e.target.value);
-                  setStep("time");
-                }}
-                className="rounded-xl h-12 text-lg"
-             />
-             <p className="text-sm text-muted-foreground text-center">Clique para selecionar o dia</p>
+          <div className="max-w-md mx-auto space-y-6">
+             <div className="p-4 border border-white/5 bg-white/[0.02]">
+               <Input 
+                  type="date" 
+                  min={new Date().toISOString().split("T")[0]}
+                  value={selectedDate}
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                    setStep("time");
+                  }}
+                  className="rounded-none border-white/10 bg-black text-white text-[10px] font-bold tracking-widest uppercase h-12"
+               />
+             </div>
+             <p className="text-[9px] text-white/30 tracking-[0.2em] text-center uppercase">CLIQUE ACIMA PARA SELECIONAR A DATA</p>
           </div>
         );
       case "time":
         const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
         return (
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5">
             {times.map((t) => (
-              <Button
+              <button
                 key={t}
-                variant={selectedTime === t ? "default" : "outline"}
                 onClick={() => {
                   setSelectedTime(t);
                   setStep("summary");
                 }}
                 className={cn(
-                  "rounded-xl h-12 transition-all",
-                  selectedTime === t && "shadow-lg shadow-primary/20"
+                  "border border-white/5 bg-white/[0.02] py-4 text-[10px] font-black tracking-widest text-white transition-all hover:border-primary hover:text-primary",
+                  selectedTime === t && "border-primary text-primary bg-white/[0.05]"
                 )}
               >
                 {t}
-              </Button>
+              </button>
             ))}
           </div>
         );
       case "summary":
         return (
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
-            <CardContent className="p-6 space-y-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Scissors className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Serviço</p>
-                    <p className="font-bold">{selectedService.name}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <User className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Barbeiro</p>
-                    <p className="font-bold">{selectedBarber.display_name}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Calendar className="h-5 w-5 text-primary" />
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider">Data e Hora</p>
-                    <p className="font-bold">{selectedDate} às {selectedTime}</p>
-                  </div>
-                </div>
+          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-8 space-y-10">
+            <div className="space-y-6">
+              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                <span className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">SERVIÇO</span>
+                <span className="text-[10px] font-black tracking-[0.1em] text-white uppercase">{selectedService.name}</span>
               </div>
-              <Button onClick={handleBooking} disabled={loading} className="w-full rounded-xl gap-2 shadow-lg shadow-primary/20">
-                {loading ? <Spinner className="h-4 w-4" /> : <>Solicitar Agendamento <ArrowRight className="h-4 w-4" /></>}
-              </Button>
-            </CardContent>
-          </Card>
+              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                <span className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">BARBEIRO</span>
+                <span className="text-[10px] font-black tracking-[0.1em] text-white uppercase">{selectedBarber.display_name}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+                <span className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">DATA E HORA</span>
+                <span className="text-[10px] font-black tracking-[0.1em] text-white uppercase">{selectedDate} - {selectedTime}</span>
+              </div>
+              <div className="flex justify-between items-center pt-2">
+                <span className="text-[9px] font-black tracking-[0.2em] text-white uppercase">TOTAL</span>
+                <span className="text-xl font-black tracking-tighter text-primary">R$ {selectedService.price}</span>
+              </div>
+            </div>
+            
+            <Button 
+              onClick={handleBooking} 
+              disabled={loading} 
+              className="w-full rounded-none bg-primary py-8 text-[11px] font-black tracking-[0.3em] uppercase text-white hover:bg-primary/90"
+            >
+              {loading ? <Spinner className="h-4 w-4" /> : "CONFIRMAR AGENDAMENTO"}
+            </Button>
+          </div>
         );
       case "confirmation":
         return (
-          <div className="text-center space-y-6 py-10 animate-in fade-in zoom-in duration-300">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10 text-green-500 ring-8 ring-green-500/5">
+          <div className="text-center space-y-8 py-12">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center border-2 border-primary text-primary">
               <Check className="h-10 w-10" />
             </div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-heading font-bold">Solicitação Enviada!</h3>
-              <p className="text-muted-foreground max-w-sm mx-auto">Seu agendamento está aguardando aprovação da barbearia. Você receberá uma notificação em breve.</p>
+            <div className="space-y-4">
+              <h3 className="text-3xl font-black uppercase tracking-tighter text-white">SOLICITAÇÃO ENVIADA</h3>
+              <p className="text-[10px] leading-relaxed tracking-wider text-white/40 max-w-sm mx-auto uppercase">
+                SEU AGENDAMENTO ESTÁ AGUARDANDO APROVAÇÃO. VOCÊ RECEBERÁ UMA CONFIRMAÇÃO EM BREVE.
+              </p>
             </div>
-            <Button variant="outline" onClick={() => window.location.href = "/app"} className="rounded-xl border-border/60 hover:bg-secondary">
-              Voltar ao Início
-            </Button>
+            <button 
+              onClick={() => setStep("service")} 
+              className="text-[10px] font-black tracking-[0.3em] text-white underline decoration-primary decoration-2 underline-offset-8"
+            >
+              NOVO AGENDAMENTO
+            </button>
           </div>
         );
     }
