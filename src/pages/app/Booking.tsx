@@ -213,38 +213,59 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <PageHeader 
-        title="Novo Agendamento" 
-        description={
-          step === "service" ? "Selecione o serviço desejado" :
-          step === "barber" ? "Escolha seu barbeiro de preferência" :
-          step === "date" ? "Qual o melhor dia para você?" :
-          step === "time" ? "Escolha um horário disponível" :
-          step === "summary" ? "Confira os dados do seu agendamento" :
-          "Tudo pronto!"
-        }
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Navbar Minimalista */}
+      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 px-4 py-4 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
+              OT
+            </div>
+            <span className="font-heading text-xl font-bold tracking-tight">ON-TESTE</span>
+          </div>
+          <Button variant="ghost" size="sm" asChild className="rounded-xl">
+            <a href="/auth">Área Administrativa</a>
+          </Button>
+        </div>
+      </nav>
 
-      {step !== "service" && step !== "confirmation" && (
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => {
-            if (step === "barber") setStep("service");
-            if (step === "date") setStep("barber");
-            if (step === "time") setStep("date");
-            if (step === "summary") setStep("time");
-          }}
-          className="gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" /> Voltar
-        </Button>
-      )}
+      <main className="mx-auto max-w-2xl px-4 py-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <PageHeader 
+          title="Novo Agendamento" 
+          description={
+            step === "service" ? "Selecione o serviço desejado para começar" :
+            step === "barber" ? "Escolha seu barbeiro de preferência" :
+            step === "date" ? "Qual o melhor dia para você?" :
+            step === "time" ? "Escolha um horário disponível" :
+            step === "summary" ? "Confira os detalhes da sua reserva" :
+            "Tudo pronto!"
+          }
+        />
 
-      <div className="mt-4">
-        {renderStep()}
-      </div>
+        {step !== "service" && step !== "confirmation" && (
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => {
+              if (step === "barber") setStep("service");
+              if (step === "date") setStep("barber");
+              if (step === "time") setStep("date");
+              if (step === "summary") setStep("time");
+            }}
+            className="mb-4 gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" /> Voltar
+          </Button>
+        )}
+
+        <div className="mt-4 pb-20">
+          {renderStep()}
+        </div>
+      </main>
+      
+      <footer className="border-t border-border py-8 text-center text-sm text-muted-foreground">
+        <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
+      </footer>
     </div>
   );
 }
