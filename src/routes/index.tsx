@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Todas as restrições de acesso foram removidas. Agora, qualquer usuário autenticado tem acesso total e irrestrito a todos os módulos do sistema.</p>
+        <p>A barra de navegação mobile foi bloqueada para rolagem lateral, tornando-se estática e fixa no rodapé para evitar movimentação com o toque ou mouse.</p>
       </div>
     </>
   );
