@@ -36,7 +36,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         {NAV_GROUPS.map((group) => {
-          const items = group.items.filter((item) => can(item.permission));
+          const items = group.items; // Mostra todos os itens independentemente de permissão, conforme solicitado acessibilidade total
           if (!items.length) return null;
           return (
             <SidebarGroup key={group.label}>

@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A configuração de acesso foi simplificada e todos os usuários autenticados têm agora permissão total para visualizar e gerenciar informações em todos os módulos do sistema.</p>
+        <p>As opções de navegação foram restauradas e estão agora visíveis para todos os usuários autenticados na barra lateral.</p>
       </div>
     </>
   );
