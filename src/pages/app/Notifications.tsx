@@ -6,8 +6,6 @@ import {
   CheckCircle2, 
   XCircle, 
   Clock, 
-  Settings,
-  AlertCircle,
   ChevronRight,
   Search
 } from "lucide-react";
@@ -42,38 +40,41 @@ export default function NotificationsPage() {
     fetchNotifications();
   }, []);
 
+  const isRead = (notification: any) => !!notification.read_at;
+
   const getIcon = (type: string) => {
     switch (type) {
-      case 'appointment_confirmed': return <CheckCircle2 className="h-5 w-5 text-green-500" />;
-      case 'appointment_cancelled': return <XCircle className="h-5 w-5 text-red-500" />;
-      case 'reminder': return <Clock className="h-5 w-5 text-amber-500" />;
+      case 'appointment': return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+      case 'warning': return <AlertCircle className="h-5 w-5 text-amber-500" />;
+      case 'error': return <XCircle className="h-5 w-5 text-red-500" />;
       default: return <Bell className="h-5 w-5 text-primary" />;
+    }
+  };
+
+  const markAsRead = async (id: string) => {
+    const now = new Date().toISOString();
+    const { error } = await supabase
+      .from("notifications")
+      .update({ read_at: now })
+      .eq("id", id);
+    
+    if (!error) {
+      setNotifications(prev => prev.map(n => n.id === id ? { ...n, read_at: now } : n));
     }
   };
 
   const filteredNotifications = notifications.filter(n => {
     const matchesFilter = 
       filter === "all" ? true :
-      filter === "unread" ? !n.read :
-      n.read;
+      filter === "unread" ? !isRead(n) :
+      isRead(n);
     
     const matchesSearch = 
       n.title?.toLowerCase().includes(search.toLowerCase()) || 
-      n.message?.toLowerCase().includes(search.toLowerCase());
+      n.body?.toLowerCase().includes(search.toLowerCase());
 
     return matchesFilter && matchesSearch;
   });
-
-  const markAsRead = async (id: string) => {
-    const { error } = await supabase
-      .from("notifications")
-      .update({ read: true })
-      .eq("id", id);
-    
-    if (!error) {
-      setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
-    }
-  };
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -112,11 +113,12 @@ export default function NotificationsPage() {
               </Button>
             </div>
             <div className="relative w-full sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
               <Input 
                 placeholder="Pesquisar..." 
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="rounded-xl border-border/60 bg-background/50 h-10 text-xs"
+                className="rounded-xl border-border/60 bg-background/50 h-10 text-xs pl-9"
               />
             </div>
           </div>
@@ -154,13 +156,13 @@ export default function NotificationsPage() {
                              <Clock className="h-3 w-3" /> {format(new Date(n.created_at), "dd/MM 'às' HH:mm", { locale: ptBR })}
                            </span>
                         </div>
-                        <p className="text-xs text-muted-foreground line-clamp-2">{n.message}</p>
+                        <p className="text-xs text-muted-foreground line-clamp-2">{n.body}</p>
                         <div className="flex items-center gap-2 pt-1">
                           <Badge variant="outline" className="text-[9px] uppercase tracking-tighter bg-background/50">
-                            {n.type?.replace('_', ' ')}
+                            {n.type}
                           </Badge>
                           {isRead(n) && (
-                            <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">Lida</span>
+                            <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">Lida em {format(new Date(n.read_at), "dd/MM HH:mm")}</span>
                           )}
                         </div>
                       </div>
@@ -226,3 +228,5 @@ export default function NotificationsPage() {
     </div>
   );
 }
+
+import { AlertCircle } from "lucide-react";
