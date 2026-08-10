@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Foi adicionada uma confirmação de segurança ao clicar na opção da Barbearia, solicitando a validação do usuário antes de redirecionar para a página externa.</p>
+        <p>A confirmação de segurança foi aprimorada com uma janela customizada, centralizada e totalmente responsiva, substituindo o alerta nativo por uma experiência mais premium e intuitiva.</p>
       </div>
     </>
   );
