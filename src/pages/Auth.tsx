@@ -144,13 +144,8 @@ export default function Auth() {
           <div className="hidden lg:block">
             {/* Logo placeholder removed as it's in the visual side */}
           </div>
-          <div className="lg:hidden flex justify-center mb-10">
-            <Link to="/" className="flex items-center gap-2 text-white">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-black">
-                <Scissors className="h-5 w-5" />
-              </span>
-              <span className="font-heading text-xl font-black tracking-tighter uppercase">ON-TESTE</span>
-            </Link>
+          <div className="lg:hidden">
+            {/* Logo is now handled in the visual banner at the top */}
           </div>
 
           <div className="space-y-4 text-center lg:text-left">

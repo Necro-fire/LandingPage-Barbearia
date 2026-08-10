@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A parte de login, remova a parte que tem APPLE deixe somente o google</p>
+        <p>O design do login está assimetrico da parte esquerda e não está responsivo no celular.</p>
       </div>
     </>
   );
