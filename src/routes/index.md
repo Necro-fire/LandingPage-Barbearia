@@ -491,8 +491,8 @@ ADMINISTRAÇÃO
 
 * O Dashboard deve permanecer minimalista.
 * Os números do Dashboard devem utilizar dados reais.
-* Um agendamento confirmado deve sair immediately dos pendentes.
-* Um agendamento negado deve sair immediately dos pendentes.
+* Um agendamento confirmado deve sair imediatamente dos pendentes.
+* Um agendamento negado deve sair imediatamente dos pendentes.
 * A Agenda deve refletir os agendamentos reais.
 * Alterações no horário de funcionamento devem afetar a disponibilidade de novos agendamentos.
 * Exceções devem ter prioridade sobre o horário padrão.

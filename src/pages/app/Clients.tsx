@@ -52,7 +52,7 @@ export default function ClientsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Clientes" 
-          description="Gerencie o cadastro e visualize o histórico dos seus clientes."
+          description="Lista e histórico de clientes."
         />
         <div className="flex items-center gap-2">
           <Button variant="outline" className="rounded-xl border-border/60">

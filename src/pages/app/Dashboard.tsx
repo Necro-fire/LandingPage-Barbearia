@@ -126,7 +126,7 @@ export default function Dashboard() {
   return (
     <div className="animate-in fade-in duration-500 space-y-6">
       <PageHeader
-        title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
+        title="Dashboard"
         description="Gestão de solicitações pendentes."
       />
 

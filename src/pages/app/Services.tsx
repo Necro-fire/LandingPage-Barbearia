@@ -43,7 +43,7 @@ export default function ServicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
           title="Serviços" 
-          description="Gerencie os serviços oferecidos, preços e durações."
+          description="Lista de serviços oferecidos pela barbearia."
         />
         <Button className="rounded-xl shadow-lg shadow-primary/20">
           <Plus className="h-4 w-4 mr-2" /> Novo Serviço
