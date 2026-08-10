@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A barra de navegação administrativa agora contém exatamente os módulos solicitados: Dashboard, Clientes, Serviços, Notificações, Agenda e Página da Barbearia.</p>
+        <p>A configuração de acesso foi simplificada e todos os usuários autenticados têm agora permissão total para visualizar e gerenciar informações em todos os módulos do sistema.</p>
       </div>
     </>
   );
