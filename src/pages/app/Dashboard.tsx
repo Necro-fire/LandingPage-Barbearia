@@ -37,7 +37,7 @@ export default function Dashboard() {
 
       const [pendingRes, todayRes, nextRes, latestRes] = await Promise.all([
         supabase.from("appointments").select("id", { count: "exact" }).eq("status", "pending"),
-        supabase.from("appointments").select("id", { count: "exact" }).gte("starts_at", todayStart.toISOString()).lt("starts_at", todayEnd.toISOString()),
+        supabase.from("appointments").select("id", { count: "exact" }).eq("status", "pending").gte("starts_at", todayStart.toISOString()).lt("starts_at", todayEnd.toISOString()),
         supabase.from("appointments")
           .select("*, service:service_id(name), client:client_id(full_name), barber:barber_id(display_name)")
           .gte("starts_at", new Date().toISOString())
@@ -76,25 +76,25 @@ export default function Dashboard() {
         description="Bem-vindo à central de comando da sua barbearia."
       />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2">
         <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur transition-all hover:shadow-lg hover:shadow-primary/5">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Agendamentos Pendentes</CardTitle>
             <AlertTriangle className="h-4 w-4 text-amber-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-heading font-black tracking-tighter text-primary">{loading ? "..." : stats.pending}</div>
+            <div className="text-4xl font-heading font-black tracking-tighter text-primary">{loading ? "..." : stats.pending}</div>
             <p className="text-[9px] uppercase tracking-wider text-muted-foreground mt-1">Aguardando aprovação</p>
           </CardContent>
         </Card>
 
         <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur transition-all hover:shadow-lg hover:shadow-primary/5">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Agendamentos Hoje</CardTitle>
+            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Pendentes Hoje</CardTitle>
             <Calendar className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-heading font-black tracking-tighter text-foreground">{loading ? "..." : stats.today}</div>
+            <div className="text-4xl font-heading font-black tracking-tighter text-foreground">{loading ? "..." : stats.today}</div>
             <p className="text-[9px] uppercase tracking-wider text-muted-foreground mt-1">Total para {format(new Date(), "dd/MM")}</p>
           </CardContent>
         </Card>
