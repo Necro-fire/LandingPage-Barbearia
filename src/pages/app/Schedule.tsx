@@ -430,8 +430,15 @@ export default function Schedule() {
                       </Button>
                     </div>
                   )}
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
         </>
       ) : renderConfigView()}
+
+
 
       <Dialog open={!!selectedAppointment} onOpenChange={() => setSelectedAppointment(null)}>
         <DialogContent className="rounded-2xl border-border/60 bg-card/95 backdrop-blur-xl sm:max-w-[425px]">
