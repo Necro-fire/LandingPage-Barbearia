@@ -15,8 +15,8 @@
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 92%;
 
-    --primary: 36 50% 55%;
-    --primary-foreground: 0 0% 5%;
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 92%;
@@ -24,15 +24,15 @@
     --muted: 0 0% 16%;
     --muted-foreground: 0 0% 50%;
 
-    --accent: 36 50% 55%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 18%;
     --input: 0 0% 14%;
-    --ring: 36 50% 55%;
+    --ring: 0 72% 51%;
 
     --radius: 0.75rem;
 
@@ -48,11 +48,12 @@
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Outfit', sans-serif;
 
-    --gold-gradient: linear-gradient(135deg, hsl(36 50% 55%), hsl(40 60% 65%));
+    --red-gradient: linear-gradient(135deg, hsl(0 72% 51%), hsl(0 80% 60%));
+    --gold-gradient: var(--red-gradient);
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --glow-shadow: 0 0 30px rgba(191, 155, 81, 0.08);
+    --glow-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
     --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 }
@@ -167,21 +168,21 @@
     --card-foreground: 0 0% 92%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 92%;
-    --primary: 36 50% 55%;
-    --primary-foreground: 0 0% 5%;
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 92%;
     --muted: 0 0% 16%;
     --muted-foreground: 0 0% 50%;
-    --accent: 36 50% 55%;
-    --accent-foreground: 0 0% 5%;
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
     --border: 0 0% 18%;
     --input: 0 0% 14%;
-    --ring: 36 50% 55%;
+    --ring: 0 72% 51%;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    --glow-shadow: 0 0 30px rgba(191, 155, 81, 0.08);
+    --glow-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
     --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
