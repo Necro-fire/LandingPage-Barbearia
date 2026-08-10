@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Pelo visto o erro de login está por causa que eu não consigo fazer login se o e-mail não tiver:  número tipo esse: admin123@gmail.com, e o que está adicionado é esse: admin@gmail.com</p>
+        <p>Adicione um design mais minimalista na parte de homepage, não deixe de forma tão crua. Melhore adicione design e elementos para visualização, e mude a parte de Marque uma Consulta para Agendar Horário.</p>
       </div>
     </>
   );
