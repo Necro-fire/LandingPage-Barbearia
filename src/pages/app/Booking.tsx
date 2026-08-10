@@ -167,28 +167,38 @@ export default function BookingFlow() {
     switch (step) {
       case "service":
         return (
-          <div className="grid gap-6 sm:grid-cols-2">
-            {services.map((s) => (
-              <div 
-                key={s.id} 
-                className={cn(
-                  "group cursor-pointer transition-all border border-white/5 bg-white/[0.02] p-6 hover:border-primary/50",
-                  selectedService?.id === s.id && "border-primary bg-white/[0.05]"
-                )}
-                onClick={() => {
-                  setSelectedService(s);
-                  setStep("barber");
-                }}
-              >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="h-1 w-6 bg-primary group-hover:w-12 transition-all" />
-                  <span className="text-[10px] font-bold text-primary tracking-widest">R$ {s.price}</span>
+          <div className="space-y-0">
+            <div className="mb-12 text-center">
+              <h3 className="text-4xl font-black tracking-tighter text-white uppercase mb-2">Nossos Preços</h3>
+              <p className="text-[10px] tracking-[0.2em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
+            </div>
+            <div className="grid gap-x-12 gap-y-0 md:grid-cols-2">
+              {services.map((s) => (
+                <div 
+                  key={s.id} 
+                  className={cn(
+                    "group cursor-pointer border-b border-white/10 py-8 transition-all hover:bg-white/[0.02]",
+                    selectedService?.id === s.id && "bg-white/[0.04]"
+                  )}
+                  onClick={() => {
+                    setSelectedService(s);
+                    setStep("barber");
+                  }}
+                >
+                  <div className="flex justify-between items-baseline mb-2">
+                    <h4 className="text-sm font-black uppercase tracking-widest text-white group-hover:text-primary transition-colors">
+                      {s.name}
+                    </h4>
+                    <span className="text-sm font-bold text-primary tracking-widest">
+                      ${s.price}+
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-white/40 tracking-wider leading-relaxed pr-8">
+                    {s.description || "Um ótimo corte de cabelo é o melhor acessório que um homem pode ter."}
+                  </p>
                 </div>
-                <h4 className="text-sm font-black uppercase tracking-widest text-white mb-1">{s.name}</h4>
-                <p className="text-[10px] text-white/40 tracking-wider mb-4 uppercase">{s.duration_minutes} MINUTOS</p>
-                <button className="text-[9px] font-black tracking-[0.2em] text-white underline decoration-primary underline-offset-4">SELECIONAR</button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         );
       case "barber":
