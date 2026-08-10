@@ -372,7 +372,7 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
       {/* Navbar Premium */}
       <nav className="sticky top-0 z-50 border-b border-border/40 bg-black/80 px-4 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
