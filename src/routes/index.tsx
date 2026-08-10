@@ -15,6 +15,7 @@ export default function IndexRoute() {
         <p className="hidden text-[1px]">Veja esse erro</p>
         <p className="hidden text-[1px]">So abra o sistema dentro da parte do admin para eu entrar</p>
         <p className="hidden text-[1px]">So abra o sistema</p>
+        <p className="hidden text-[1px]">Cade a homepage?</p>
       </div>
     </div>
   );
