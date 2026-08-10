@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>A estrutura principal da administração foi reorganizada seguindo o PRD: Dashboard focado em pendentes, módulo de Clientes com histórico detalhado, gestão completa de Serviços, Notificações para controle de agendamentos e Agenda com configurações de horários e exceções.</p>
+        <p>A página de login foi simplificada, removendo o banner visual lateral e focando exclusivamente no formulário de acesso para uma experiência mais direta.</p>
       </div>
     </>
   );
