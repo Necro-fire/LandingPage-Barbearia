@@ -405,7 +405,7 @@ export default function BookingFlow() {
             className="h-full w-full object-cover opacity-40 grayscale" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/80 to-black" />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">
