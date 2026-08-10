@@ -8,7 +8,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { ErrorBoundary } from "@/components/common/ErrorBoundary";
 import AppLayout from "@/components/layout/AppLayout";
-
+import IndexRoute from "./routes/index.tsx";
 import Auth from "./pages/Auth.tsx";
 import DebugLogin from "./pages/DebugLogin.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
@@ -37,7 +37,7 @@ const App = () => (
             <AuthProvider>
               <Routes>
                 {/* Public Booking Page */}
-                <Route path="/" element={<Navigate to="/app" replace />} />
+                <Route path="/" element={<IndexRoute />} />
                 <Route path="/agendamento" element={<Booking />} />
                 
                 <Route path="/auth" element={<Auth />} />
