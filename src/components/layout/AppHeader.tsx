@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Bell, LogOut, User as UserIcon } from "lucide-react";
+import { Bell, LogOut, Scissors, User as UserIcon } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -24,7 +24,11 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-border bg-background/80 px-3 backdrop-blur-xl md:px-6">
-      <SidebarTrigger className="rounded-xl" />
+      <SidebarTrigger className="hidden rounded-xl md:flex" />
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary md:hidden">
+        <Scissors className="h-5 w-5" />
+      </div>
+      <span className="font-heading text-lg tracking-wide md:hidden">ON-TESTE</span>
 
       <div className="ml-1 hidden flex-1 md:block">
         <GlobalSearch />

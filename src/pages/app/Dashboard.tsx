@@ -76,7 +76,7 @@ export default function Dashboard() {
             title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
             description="Acompanhe seus agendamentos e preferências."
           />
-          <Button onClick={() => navigate("/app/agendar")} className="rounded-xl gap-2 shadow-lg shadow-primary/20">
+          <Button onClick={() => navigate("/app/agendar")} className="w-full rounded-xl gap-2 shadow-lg shadow-primary/20 md:w-auto">
             <CalendarDays className="h-4 w-4" /> Novo Agendamento
           </Button>
         </div>
