@@ -69,7 +69,7 @@ export function AppHeader() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => navigate("/app/perfil")}>
-            <UserIcon className="mr-2 h-4 w-4" /> Meu perfil
+            <UserIcon className="mr-2 h-4 w-4" /> Meu Perfil
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={async () => {
