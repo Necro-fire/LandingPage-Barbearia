@@ -105,7 +105,7 @@ export default function BarberDashboard() {
       setPendingAppointments(prev => prev.filter(a => a.id !== appointmentId));
       toast({ 
         title: newStatus === 'confirmed' ? "Agendamento Confirmado" : "Agendamento Recusado",
-        description: `O cliente será notificado.`
+        description: `O status do agendamento foi atualizado.`
       });
     }
   };
