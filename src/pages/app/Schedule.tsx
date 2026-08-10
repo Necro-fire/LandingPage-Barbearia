@@ -198,8 +198,8 @@ export default function Schedule() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
-          title="Agenda Inteligente" 
-          description="Gerencie horários, bloqueios e disponibilidade."
+          title="Agenda" 
+          description="Acompanhe os horários e atendimentos da sua barbearia."
         />
         <div className="flex items-center gap-2">
           <DropdownMenu>
