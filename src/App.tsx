@@ -37,7 +37,7 @@ const App = () => (
             <AuthProvider>
               <Routes>
                 {/* Public Booking Page */}
-                <Route path="/" element={<Booking />} />
+                <Route path="/" element={<IndexRoute />} />
                 <Route path="/agendamento" element={<Navigate to="/" replace />} />
                 
                 <Route path="/auth" element={<Auth />} />
