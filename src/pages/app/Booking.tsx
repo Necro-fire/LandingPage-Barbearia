@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone } from "lucide-react";
+import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,8 @@ import { toast } from "@/hooks/use-toast";
 import { Spinner } from "@/components/common/Loading";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { format, isSameDay, startOfMonth, endOfMonth, eachDayOfInterval, isBefore, startOfDay, addMonths, subMonths, isSameMonth } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import referenceAsset from "@/assets/reference.png.asset.json";
 
 type Step = "service" | "barber" | "date" | "time" | "summary" | "confirmation";
@@ -23,8 +25,12 @@ export default function BookingFlow() {
   // Selections
   const [selectedService, setSelectedService] = useState<any>(null);
   const [selectedBarber, setSelectedBarber] = useState<any>(null);
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
+  const [loadingTimes, setLoadingTimes] = useState(false);
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [isSlotTaken, setIsSlotTaken] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -136,42 +142,104 @@ export default function BookingFlow() {
           </div>
         );
       case "date":
+        const start = startOfMonth(currentMonth);
+        const end = endOfMonth(currentMonth);
+        const days = eachDayOfInterval({ start, end });
+        
+        // Add empty days for the first week
+        const firstDayOfWeek = start.getDay();
+        const blanks = Array.from({ length: firstDayOfWeek });
+
         return (
-          <div className="max-w-md mx-auto space-y-6">
-             <div className="p-4 border border-white/5 bg-white/[0.02]">
-               <Input 
-                  type="date" 
-                  min={new Date().toISOString().split("T")[0]}
-                  value={selectedDate}
-                  onChange={(e) => {
-                    setSelectedDate(e.target.value);
-                    setStep("time");
-                  }}
-                  className="rounded-none border-white/10 bg-black text-white text-[10px] font-bold tracking-widest uppercase h-12"
-               />
-             </div>
-             <p className="text-[9px] text-white/30 tracking-[0.2em] text-center uppercase">CLIQUE ACIMA PARA SELECIONAR A DATA</p>
+          <div className="max-w-md mx-auto space-y-8">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronLeft className="h-5 w-5" /></button>
+              <h3 className="text-sm font-black uppercase tracking-widest text-white">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
+              <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronRight className="h-5 w-5" /></button>
+            </div>
+
+            <div className="grid grid-cols-7 gap-2 text-center">
+              {["D", "S", "T", "Q", "Q", "S", "S"].map(d => (
+                <div key={d} className="text-[9px] font-black text-white/30 py-2">{d}</div>
+              ))}
+              {blanks.map((_, i) => <div key={`blank-${i}`} />)}
+              {days.map((day) => {
+                const isPast = isBefore(day, startOfDay(new Date()));
+                const isSelected = selectedDate && isSameDay(day, selectedDate);
+                const isSunday = day.getDay() === 0;
+
+                return (
+                  <button
+                    key={day.toString()}
+                    disabled={isPast || isSunday}
+                    onClick={() => {
+                      setSelectedDate(day);
+                      setStep("time");
+                    }}
+                    className={cn(
+                      "aspect-square text-[10px] font-black tracking-tighter flex items-center justify-center transition-all border border-transparent",
+                      isSelected ? "bg-primary text-white" : "text-white/70 hover:border-primary/50 hover:text-white",
+                      (isPast || isSunday) && "opacity-10 cursor-not-allowed"
+                    )}
+                  >
+                    {format(day, "d")}
+                  </button>
+                );
+              })}
+            </div>
+            
+            <div className="flex justify-center gap-6 pt-4">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 bg-primary" />
+                <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">SELECIONADO</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 border border-white/20" />
+                <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">DISPONÍVEL</span>
+              </div>
+              <div className="flex items-center gap-2 opacity-30">
+                <div className="h-2 w-2 bg-white/10" />
+                <span className="text-[8px] font-bold text-white/40 uppercase tracking-widest">INDISPONÍVEL</span>
+              </div>
+            </div>
           </div>
         );
       case "time":
-        const times = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"];
         return (
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5">
-            {times.map((t) => (
-              <button
-                key={t}
-                onClick={() => {
-                  setSelectedTime(t);
-                  setStep("summary");
-                }}
-                className={cn(
-                  "border border-white/5 bg-white/[0.02] py-4 text-[10px] font-black tracking-widest text-white transition-all hover:border-primary hover:text-primary",
-                  selectedTime === t && "border-primary text-primary bg-white/[0.05]"
-                )}
-              >
-                {t}
-              </button>
-            ))}
+          <div className="space-y-8">
+            {isSlotTaken && (
+              <div className="p-4 bg-red-500/10 border border-red-500/50 flex items-center gap-3 text-red-500 rounded-none">
+                <AlertCircle className="h-5 w-5 shrink-0" />
+                <p className="text-[10px] font-black uppercase tracking-widest">O horário que você escolheu acaba de ser ocupado. Por favor, selecione outro.</p>
+              </div>
+            )}
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-5">
+              {loadingTimes ? (
+                Array.from({ length: 12 }).map((_, i) => (
+                  <div key={i} className="h-12 border border-white/5 bg-white/[0.02] animate-pulse" />
+                ))
+              ) : availableTimes.length > 0 ? (
+                availableTimes.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => {
+                      setSelectedTime(t);
+                      setStep("summary");
+                    }}
+                    className={cn(
+                      "border border-white/5 bg-white/[0.02] py-4 text-[10px] font-black tracking-widest text-white transition-all hover:border-primary hover:text-primary",
+                      selectedTime === t && "border-primary text-primary bg-white/[0.05]"
+                    )}
+                  >
+                    {t}
+                  </button>
+                ))
+              ) : (
+                <div className="col-span-full py-12 text-center">
+                  <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">NÃO HÁ HORÁRIOS DISPONÍVEIS NESTA DATA.</p>
+                </div>
+              )}
+            </div>
           </div>
         );
       case "summary":
@@ -188,7 +256,7 @@ export default function BookingFlow() {
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-4">
                 <span className="text-[9px] font-black tracking-[0.2em] text-white/40 uppercase">DATA E HORA</span>
-                <span className="text-[10px] font-black tracking-[0.1em] text-white uppercase">{selectedDate} - {selectedTime}</span>
+                <span className="text-[10px] font-black tracking-[0.1em] text-white uppercase">{selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}</span>
               </div>
               <div className="flex justify-between items-center pt-2">
                 <span className="text-[9px] font-black tracking-[0.2em] text-white uppercase">TOTAL</span>
