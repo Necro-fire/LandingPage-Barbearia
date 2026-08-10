@@ -476,13 +476,13 @@ export default function BookingFlow() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-6 py-32">
-        <div className="space-y-32">
+      <main className="mx-auto max-w-7xl px-6 py-20 md:py-32">
+        <div className="space-y-20 md:space-y-32">
           <div>
-            <div className="flex items-center justify-between border-b border-white/10 pb-8 mb-16">
-              <h2 className="text-4xl font-black uppercase tracking-tighter text-white md:text-5xl">
-                OFERECEMOS SERVIÇOS DE <br /> 
-                <span className="text-primary text-2xl tracking-[0.2em]">PRIMEIRA CLASSE</span>
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-8 mb-12 md:mb-16 gap-6">
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-white md:text-5xl leading-tight">
+                OFERECEMOS SERVIÇOS DE <br className="hidden md:block" /> 
+                <span className="text-primary text-xl md:text-2xl tracking-[0.2em]">PRIMEIRA CLASSE</span>
               </h2>
               {step !== "service" && step !== "confirmation" && (
                 <button 
