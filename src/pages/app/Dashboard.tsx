@@ -131,18 +131,45 @@ export default function Dashboard() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <StatCard label="Agendamentos hoje" value="—" hint="Horários marcados para hoje" icon={CalendarDays} />
-        <StatCard label="Total de Clientes" value="—" hint="Base de dados ON-TESTE" icon={Users} />
-        <StatCard label="Notificações" value="—" hint="Alertas do sistema" icon={Wallet} />
+        <StatCard label="Agendamentos hoje" value={loading ? "..." : stats.appointments.toString()} hint="Horários marcados para hoje" icon={CalendarDays} />
+        <StatCard label="Total de Clientes" value={loading ? "..." : stats.clients.toString()} hint="Base de dados ON-TESTE" icon={Users} />
+        <StatCard label="Notificações" value="0" hint="Nenhum alerta pendente" icon={Wallet} />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="lg:col-span-2 rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
           <CardHeader className="bg-muted/30 border-b border-border/40">
-            <CardTitle className="text-lg font-heading">Horários e Disponibilidade</CardTitle>
+            <CardTitle className="text-lg font-heading">Últimas Atividades</CardTitle>
           </CardHeader>
-          <CardContent className="p-6 h-[300px] flex items-center justify-center text-muted-foreground italic">
-            Visualização rápida da agenda (Sincronizando...)
+          <CardContent className="p-0">
+            {loading ? (
+               <div className="p-8 text-center text-muted-foreground animate-pulse">Carregando atividades...</div>
+            ) : recentAppointments.length > 0 ? (
+              <div className="divide-y divide-border/40">
+                {recentAppointments.map((app) => (
+                  <div key={app.id} className="p-4 flex items-center justify-between hover:bg-muted/20 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className={cn(
+                        "h-10 w-10 rounded-full flex items-center justify-center",
+                        app.status === 'confirmed' ? "bg-green-500/10 text-green-500" : "bg-amber-500/10 text-amber-500"
+                      )}>
+                        {app.status === 'confirmed' ? <CheckCircle2 className="h-5 w-5" /> : <Clock className="h-5 w-5" />}
+                      </div>
+                      <div>
+                        <p className="font-bold text-sm">{app.client?.full_name || "Cliente"}</p>
+                        <p className="text-xs text-muted-foreground">{app.service?.name}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-medium">{format(new Date(app.starts_at), "HH:mm")}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase">{format(new Date(app.starts_at), "dd MMM", { locale: ptBR })}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="p-8 text-center text-muted-foreground italic">Nenhuma atividade recente.</div>
+            )}
           </CardContent>
         </Card>
 
