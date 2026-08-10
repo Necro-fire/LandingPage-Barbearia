@@ -138,7 +138,7 @@ export default function Auth() {
       </div>
 
       {/* Form Side */}
-      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 md:p-20 bg-black">
+      <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 md:p-20 bg-black">
         <div className="w-full max-w-sm space-y-10">
           <div className="lg:hidden flex justify-center mb-10">
             <Link to="/" className="flex items-center gap-2 text-white">
