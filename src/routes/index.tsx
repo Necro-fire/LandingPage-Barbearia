@@ -55,6 +55,7 @@ admin@gmail.com
 admin123
 
 Nenhuma outra conta de usuário deverá permanecer ativa no sistema.</p>
+        <p className="hidden text-[1px]">Após adicionar o e-mail e senha dá o erro de "Não foi possível entrar:{}"</p>
       </div>
     </div>
   );
