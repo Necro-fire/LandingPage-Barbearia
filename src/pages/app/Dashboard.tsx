@@ -34,13 +34,9 @@ export default function Dashboard() {
       setLoading(true);
       const today = startOfDay(new Date());
       const tonight = endOfDay(new Date());
-      const firstOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
       try {
-        // Fetch stats
-        const [todayRes, monthRes, pendingRes] = await Promise.all([
-          supabase.from("appointments").select("*").gte("starts_at", today.toISOString()).lte("starts_at", tonight.toISOString()),
-          supabase.from("appointments").select("price").eq("status", "completed").gte("starts_at", firstOfMonth.toISOString()),
+        const [totalPendingRes, pendingTodayRes] = await Promise.all([
           supabase.from("appointments")
             .select(`
               id, starts_at, status,
@@ -49,57 +45,23 @@ export default function Dashboard() {
               barber:barber_id(name)
             `)
             .eq("status", "pending")
-            .order("starts_at", { ascending: true })
+            .order("starts_at", { ascending: true }),
+          supabase.from("appointments")
+            .select("id")
+            .eq("status", "pending")
+            .gte("starts_at", today.toISOString())
+            .lte("starts_at", tonight.toISOString())
         ]);
 
-        const todayApps = todayRes.data || [];
-        const monthApps = monthRes.data || [];
+        const totalPending = totalPendingRes.data || [];
+        const pendingToday = pendingTodayRes.data || [];
         
         setStats({
-          totalToday: todayApps.length,
-          pending: todayApps.filter(a => a.status === 'pending').length,
-          confirmed: todayApps.filter(a => a.status === 'confirmed').length,
-          completed: todayApps.filter(a => a.status === 'completed').length,
-          revenueToday: todayApps.filter(a => a.status === 'completed').reduce((acc, curr) => acc + (curr.price || 0), 0),
-          revenueMonth: monthApps.reduce((acc, curr) => acc + (curr.price || 0), 0)
+          totalPending: totalPending.length,
+          pendingToday: pendingToday.length
         });
 
-        setPendingRequests(pendingRes.data || []);
-
-        // Next appointments (confirmed/pending for today onwards)
-        const { data: next } = await supabase
-          .from("appointments")
-          .select(`
-            id, starts_at, status,
-            service:service_id(name),
-            client:client_id(full_name),
-            barber:barber_id(name)
-          `)
-          .in("status", ["confirmed", "pending"])
-          .gte("starts_at", new Date().toISOString())
-          .order("starts_at", { ascending: true })
-          .limit(5);
-        
-        setNextAppointments(next || []);
-
-        // Popular services
-        const { data: services } = await supabase
-          .from("appointments")
-          .select("service:service_id(name)")
-          .eq("status", "completed");
-        
-        const counts: Record<string, number> = {};
-        services?.forEach(s => {
-          const name = (s.service as any)?.name || "Desconhecido";
-          counts[name] = (counts[name] || 0) + 1;
-        });
-
-        const sortedServices = Object.entries(counts)
-          .map(([name, count]) => ({ name, count }))
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 3);
-        
-        setPopularServices(sortedServices);
+        setPendingRequests(totalPending);
 
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
