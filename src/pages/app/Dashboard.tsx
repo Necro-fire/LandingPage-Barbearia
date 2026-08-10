@@ -10,6 +10,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { ROLE_LABELS } from "@/lib/permissions";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
 import BarberDashboard from "./BarberDashboard";
 
 export default function Dashboard() {
