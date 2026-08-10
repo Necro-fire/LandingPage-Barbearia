@@ -117,93 +117,41 @@ export default function Auth() {
             <CardDescription>Entre para gerenciar seus agendamentos</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="signin">
-              <TabsList className="mb-4 grid w-full grid-cols-2 rounded-xl">
-                <TabsTrigger value="signin" className="rounded-lg">Entrar</TabsTrigger>
-                <TabsTrigger value="signup" className="rounded-lg">Criar conta</TabsTrigger>
-              </TabsList>
+            <form onSubmit={handleSignIn} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="signin-email">E-mail</Label>
+                <Input id="signin-email" name="email" type="email" autoComplete="email" required className="rounded-xl" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="signin-password">Senha</Label>
+                <div className="relative">
+                  <Input 
+                    id="signin-password" 
+                    name="password" 
+                    type={showPassword ? "text" : "password"} 
+                    autoComplete="current-password" 
+                    required 
+                    className="rounded-xl pr-10" 
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+              <Button type="submit" disabled={busy} className="w-full rounded-xl">
+                {busy ? <Spinner className="h-4 w-4" /> : "Entrar"}
+              </Button>
+              <div className="text-center">
+                <Link to="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary transition-colors">
+                  Esqueceu sua senha?
+                </Link>
+              </div>
+            </form>
 
-              <TabsContent value="signin">
-                <form onSubmit={handleSignIn} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-email">E-mail</Label>
-                    <Input id="signin-email" name="email" type="email" autoComplete="email" required className="rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signin-password">Senha</Label>
-                    <div className="relative">
-                      <Input 
-                        id="signin-password" 
-                        name="password" 
-                        type={showPassword ? "text" : "password"} 
-                        autoComplete="current-password" 
-                        required 
-                        className="rounded-xl pr-10" 
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
-                  </div>
-                  <Button type="submit" disabled={busy} className="w-full rounded-xl">
-                    {busy ? <Spinner className="h-4 w-4" /> : "Entrar"}
-                  </Button>
-                  <div className="text-center">
-                    <Link to="/auth/forgot-password" className="text-xs text-muted-foreground hover:text-primary transition-colors">
-                      Esqueceu sua senha?
-                    </Link>
-                  </div>
-                </form>
-              </TabsContent>
-
-              <TabsContent value="signup">
-                <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Nome completo</Label>
-                    <Input id="signup-name" name="full_name" maxLength={45} required className="rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">E-mail</Label>
-                    <Input id="signup-email" name="email" type="email" autoComplete="email" required className="rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Senha</Label>
-                    <div className="relative">
-                      <Input 
-                        id="signup-password" 
-                        name="password" 
-                        type={showPassword ? "text" : "password"} 
-                        autoComplete="new-password" 
-                        required 
-                        className="rounded-xl pr-10" 
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
-                  </div>
-                  <Button type="submit" disabled={busy} className="w-full rounded-xl">
-                    {busy ? <Spinner className="h-4 w-4" /> : "Criar conta"}
-                  </Button>
-                </form>
-              </TabsContent>
-            </Tabs>
-
-            <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
-              <span className="h-px flex-1 bg-border" /> ou <span className="h-px flex-1 bg-border" />
-            </div>
-
-            <Button variant="outline" onClick={handleGoogle} disabled={busy} className="w-full rounded-xl">
-              Continuar com Google
-            </Button>
           </CardContent>
         </Card>
       </div>
