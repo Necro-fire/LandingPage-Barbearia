@@ -21,15 +21,8 @@ export function ProtectedRoute({ children, permission }: ProtectedRouteProps) {
     return <Navigate to="/auth" state={{ from: location.pathname }} replace />;
   }
 
-  if (permission && !can(permission)) {
-    return (
-      <EmptyState
-        icon={ShieldAlert}
-        title="Acesso restrito"
-        description="Você não possui permissão para acessar este módulo. Fale com um administrador."
-      />
-    );
-  }
+  // Removida restrição de permissão para garantir acesso total a usuários logados
+  return <>{children}</>;
 
   return <>{children}</>;
 }
