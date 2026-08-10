@@ -396,6 +396,9 @@ export default function BookingFlow() {
           <p>© {new Date().getFullYear()} ON-TESTE Barbearia. Todos os direitos reservados.</p>
         </div>
       </footer>
+      <div className="fixed bottom-0 left-0 right-0 bg-primary/95 py-2 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-primary-foreground backdrop-blur-sm">
+        Sistema ON-TESTE: Agendamento • Gestão • Histórico • Notificações • Administrativo
+      </div>
     </div>
   );
 }
