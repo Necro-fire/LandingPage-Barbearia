@@ -44,7 +44,63 @@ export default function BookingFlow() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (selectedDate && selectedBarber && selectedService) {
+      fetchAvailableTimes();
+    }
+  }, [selectedDate, selectedBarber, selectedService]);
+
+  const fetchAvailableTimes = async () => {
+    if (!selectedDate || !selectedBarber || !selectedService) return;
+    
+    setLoadingTimes(true);
+    setIsSlotTaken(false);
+    
+    const startOfSelectedDay = startOfDay(selectedDate);
+    const endOfSelectedDay = new Date(startOfSelectedDay);
+    endOfSelectedDay.setHours(23, 59, 59, 999);
+
+    const { data: existingApps } = await supabase
+      .from("appointments")
+      .select("starts_at, ends_at")
+      .eq("barber_id", selectedBarber.id)
+      .gte("starts_at", startOfSelectedDay.toISOString())
+      .lte("starts_at", endOfSelectedDay.toISOString())
+      .neq("status", "cancelled");
+
+    const slots: string[] = [];
+    let current = new Date(startOfSelectedDay);
+    current.setHours(9, 0, 0, 0);
+    const endDay = new Date(startOfSelectedDay);
+    endDay.setHours(19, 0, 0, 0);
+
+    const serviceDuration = selectedService.duration_minutes;
+
+    while (current < endDay) {
+      const slotStart = new Date(current);
+      const slotEnd = new Date(current.getTime() + serviceDuration * 60000);
+      
+      const isOccupied = existingApps?.some(app => {
+        const appStart = new Date(app.starts_at);
+        const appEnd = new Date(app.ends_at);
+        return (slotStart < appEnd && slotEnd > appStart);
+      });
+
+      const isPast = isBefore(slotStart, new Date());
+
+      if (!isOccupied && !isPast) {
+        slots.push(format(slotStart, "HH:mm"));
+      }
+      
+      current.setMinutes(current.getMinutes() + 30);
+    }
+
+    setAvailableTimes(slots);
+    setLoadingTimes(false);
+  };
+
   const handleBooking = async () => {
+    if (!selectedDate || !selectedTime) return;
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     
@@ -54,16 +110,35 @@ export default function BookingFlow() {
       return;
     }
 
-    const startDateTime = `${selectedDate}T${selectedTime}:00`;
-    // Calculate end time based on service duration
-    const startDate = new Date(startDateTime);
-    const endDate = new Date(startDate.getTime() + selectedService.duration_minutes * 60000);
+    const startDateTime = new Date(selectedDate);
+    const [hours, mins] = selectedTime.split(":").map(Number);
+    startDateTime.setHours(hours, mins, 0, 0);
+    
+    const endDate = new Date(startDateTime.getTime() + selectedService.duration_minutes * 60000);
+
+    const { data: conflict } = await supabase
+      .from("appointments")
+      .select("id")
+      .eq("barber_id", selectedBarber.id)
+      .gte("starts_at", startDateTime.toISOString())
+      .lt("starts_at", endDate.toISOString())
+      .neq("status", "cancelled")
+      .maybeSingle();
+
+    if (conflict) {
+      setIsSlotTaken(true);
+      setStep("time");
+      toast({ title: "Horário Indisponível", description: "Infelizmente esse horário acabou de ser preenchido.", variant: "destructive" });
+      setLoading(false);
+      fetchAvailableTimes();
+      return;
+    }
 
     const { error } = await supabase.from("appointments").insert({
       client_id: user.id,
       service_id: selectedService.id,
       barber_id: selectedBarber.id,
-      starts_at: startDate.toISOString(),
+      starts_at: startDateTime.toISOString(),
       ends_at: endDate.toISOString(),
       status: "pending",
       price: selectedService.price
