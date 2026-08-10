@@ -45,7 +45,16 @@ export default function Auth() {
     }
 
     setBusy(true);
-    const { error } = await supabase.auth.signInWithPassword({ email: parsed.data.email, password: parsed.data.password });
+    
+    // Admin specific handling for better logging/recovery
+    if (parsed.data.email === "admin@gmail.com") {
+      console.log("Admin login attempt...");
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({ 
+      email: parsed.data.email, 
+      password: parsed.data.password 
+    });
     setBusy(false);
 
     if (error) {
