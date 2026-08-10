@@ -161,23 +161,15 @@ export default function Auth() {
           </div>
 
           {/* Social Logins */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             <Button 
               type="button" 
               variant="outline" 
               onClick={handleGoogle} 
               disabled={busy}
-              className="rounded-none border-white/10 bg-white/[0.02] text-white hover:bg-white/[0.05] h-14 text-[10px] font-black tracking-[0.2em] uppercase"
+              className="rounded-none border-white/10 bg-white/[0.02] text-white hover:bg-white/[0.05] h-14 text-[10px] font-black tracking-[0.2em] uppercase w-full"
             >
-              <Chrome className="mr-3 h-4 w-4 text-primary" /> GOOGLE
-            </Button>
-            <Button 
-              type="button" 
-              variant="outline" 
-              disabled={true}
-              className="rounded-none border-white/10 bg-white/[0.02] text-white/30 h-14 text-[10px] font-black tracking-[0.2em] uppercase cursor-not-allowed opacity-50"
-            >
-              <Mail className="mr-3 h-4 w-4" /> APPLE
+              <Chrome className="mr-3 h-4 w-4 text-primary" /> CONTINUAR COM GOOGLE
             </Button>
           </div>
 

@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Nem todos os elementos do login como a senha não podem está em caixa alta.</p>
+        <p>A parte de login, remova a parte que tem APPLE deixe somente o google</p>
       </div>
     </>
   );
