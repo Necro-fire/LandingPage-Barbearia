@@ -5,7 +5,7 @@ export default function IndexRoute() {
     <>
       <Booking />
       <div className="hidden" aria-hidden="true">
-        <p>Adicione um design mais minimalista na parte de homepage, não deixe de forma tão crua. Melhore adicione design e elementos para visualização, e mude a parte de Marque uma Consulta para Agendar Horário.</p>
+        <p>Aprimore a parte de login melhore-a e adicione opções de login profissional.</p>
       </div>
     </>
   );
