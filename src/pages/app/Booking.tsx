@@ -291,84 +291,94 @@ export default function BookingFlow() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-4xl px-4 py-16 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="grid gap-12 lg:grid-cols-[1fr,350px]">
-          <div className="space-y-8">
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <h2 className="text-2xl font-bold tracking-tight font-heading">
-                  {step === "service" && "1. Escolha o Corte"}
-                  {step === "barber" && "2. Profissional"}
-                  {step === "date" && "3. Data"}
-                  {step === "time" && "4. Horário"}
-                  {step === "summary" && "5. Confirmação"}
-                  {step === "confirmation" && "Pronto!"}
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  {step === "service" && "Selecione o estilo que mais combina com você"}
-                  {step === "barber" && "Nossos especialistas estão à sua disposição"}
-                  {step === "date" && "Selecione o melhor dia na agenda"}
-                  {step === "time" && "Horários disponíveis para hoje e próximos dias"}
-                  {step === "summary" && "Verifique todos os detalhes antes de finalizar"}
-                  {step === "confirmation" && "Seu pedido foi recebido"}
-                </p>
+      <main className="mx-auto max-w-7xl px-4 py-24">
+        <div className="grid gap-20 lg:grid-cols-[1fr,400px]">
+          <div className="space-y-12">
+            <div className="space-y-4">
+              <div className="h-1 w-12 bg-primary" />
+              <h2 className="text-3xl font-black uppercase tracking-tighter text-white md:text-4xl">
+                OFERECEMOS SERVIÇOS DA MAIS <br /> 
+                <span className="text-primary">ALTA QUALIDADE</span>
+              </h2>
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="space-y-1">
+                  <h3 className="text-[10px] font-black tracking-[0.3em] text-white uppercase">
+                    {step === "service" && "1. Selecione o Corte"}
+                    {step === "barber" && "2. Profissional"}
+                    {step === "date" && "3. Data"}
+                    {step === "time" && "4. Horário"}
+                    {step === "summary" && "5. Confirmação"}
+                    {step === "confirmation" && "Pronto!"}
+                  </h3>
+                </div>
+                {step !== "service" && step !== "confirmation" && (
+                  <button 
+                    onClick={() => {
+                      if (step === "barber") setStep("service");
+                      if (step === "date") setStep("barber");
+                      if (step === "time") setStep("date");
+                      if (step === "summary") setStep("time");
+                    }}
+                    className="flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/50 hover:text-primary transition-colors"
+                  >
+                    <ArrowLeft className="h-3 w-3" /> VOLTAR
+                  </button>
+                )}
               </div>
-
-              {step !== "service" && step !== "confirmation" && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={() => {
-                    if (step === "barber") setStep("service");
-                    if (step === "date") setStep("barber");
-                    if (step === "time") setStep("date");
-                    if (step === "summary") setStep("time");
-                  }}
-                  className="rounded-xl gap-2 border-border/60 hover:bg-secondary"
-                >
-                  <ArrowLeft className="h-4 w-4" /> Voltar
-                </Button>
-              )}
             </div>
 
-            <div className="min-h-[400px]">
+            <div className="min-h-[500px]">
               {renderStep()}
             </div>
           </div>
 
-          {/* Sidebar de Informações/Reviews */}
-          <aside className="space-y-8">
-            <Card className="rounded-2xl border-border/40 bg-card/40 backdrop-blur-sm overflow-hidden">
-              <CardHeader className="bg-muted/30 pb-4 border-b border-border/20">
-                <CardTitle className="text-sm font-bold uppercase tracking-widest text-primary">Localização</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div className="flex gap-3">
-                  <MapPin className="h-5 w-5 text-primary shrink-0" />
-                  <p className="text-sm">Av. Paulista, 1000 - Bela Vista, São Paulo - SP</p>
-                </div>
-                <Button variant="link" className="p-0 h-auto text-primary text-xs" asChild>
-                  <a href="https://maps.google.com" target="_blank">Ver no Google Maps →</a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <div className="space-y-4">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-primary px-2">Avaliações</h3>
-              {[
-                { name: "Carlos Silva", text: "Melhor degradê da cidade. O atendimento é nota 10!", stars: 5 },
-                { name: "João Pedro", text: "Ambiente muito agradável e profissionais excelentes.", stars: 5 }
-              ].map((review, i) => (
-                <div key={i} className="space-y-2 p-4 rounded-xl bg-muted/20 border border-border/10">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold">{review.name}</span>
-                    <div className="flex text-primary">
-                      {Array(review.stars).fill(0).map((_, i) => <Star key={i} className="h-3 w-3 fill-primary" />)}
+          <aside className="space-y-12">
+            <div className="space-y-6">
+              <div className="h-1 w-12 bg-primary" />
+              <h3 className="text-2xl font-black uppercase tracking-tighter text-white">ESTA ESPERA POR VOCÊ</h3>
+              <p className="text-[10px] leading-relaxed tracking-wider text-white/50">
+                Reserve seu horário e garanta um atendimento exclusivo em um ambiente preparado para o homem moderno.
+              </p>
+              
+              <div className="space-y-8 pt-8">
+                <h4 className="text-[10px] font-black tracking-[0.3em] text-white uppercase underline decoration-primary decoration-2 underline-offset-8">HORÁRIO ESPECIAL DE FUNCIONAMENTO</h4>
+                <div className="space-y-4">
+                  {[
+                    { day: "SEGUNDA-FEIRA", time: "9:00 - 19:00" },
+                    { day: "TERÇA-FEIRA", time: "9:00 - 19:00" },
+                    { day: "QUARTA-FEIRA", time: "9:00 - 19:00" },
+                    { day: "QUINTA-FEIRA", time: "9:00 - 19:00" },
+                    { day: "SEXTA-FEIRA", time: "9:00 - 19:00" },
+                    { day: "SÁBADO", time: "9:00 - 18:00" },
+                    { day: "DOMINGO", time: "FECHADO" },
+                  ].map((item) => (
+                    <div key={item.day} className="flex justify-between border-b border-white/5 pb-2">
+                      <span className="text-[10px] font-black tracking-[0.2em] text-white">{item.day}</span>
+                      <span className="text-[10px] font-bold tracking-[0.1em] text-white/50">{item.time}</span>
                     </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed italic">"{review.text}"</p>
+                  ))}
                 </div>
-              ))}
+              </div>
+            </div>
+
+            <div className="space-y-6 pt-12">
+              <h3 className="text-[10px] font-black tracking-[0.3em] text-white uppercase">AVALIAÇÕES RECENTES</h3>
+              <div className="space-y-4">
+                {[
+                  { name: "CARLOS SILVA", text: "Melhor degradê da cidade. O atendimento é nota 10!", stars: 5 },
+                  { name: "JOÃO PEDRO", text: "Ambiente muito agradável e profissionais excelentes.", stars: 5 }
+                ].map((review, i) => (
+                  <div key={i} className="space-y-2 border-l-2 border-primary/30 pl-4 py-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black tracking-[0.2em] text-white">{review.name}</span>
+                      <div className="flex text-primary">
+                        {Array(review.stars).fill(0).map((_, i) => <Star key={i} className="h-2 w-2 fill-primary" />)}
+                      </div>
+                    </div>
+                    <p className="text-[10px] italic leading-relaxed tracking-wider text-white/40">"{review.text}"</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </aside>
         </div>
