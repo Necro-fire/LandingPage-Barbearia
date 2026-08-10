@@ -127,123 +127,29 @@ export default function Dashboard() {
     <div className="animate-in fade-in duration-500 space-y-6">
       <PageHeader
         title={`Olá, ${profile?.full_name?.split(" ")[0] ?? user?.email ?? "bem-vindo"}`}
-        description="Visão geral da operação da sua barbearia hoje."
+        description="Agendamentos que precisam de atenção."
       />
 
-      {/* 4. Resumo do Dia */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Agendamentos Hoje" value={loading ? "..." : stats.totalToday.toString()} icon={CalendarDays} />
-        <StatCard label="Pendentes" value={loading ? "..." : stats.pending.toString()} icon={Clock} />
-        <StatCard label="Confirmados" value={loading ? "..." : stats.confirmed.toString()} icon={CheckCircle2} />
-        <StatCard label="Concluídos" value={loading ? "..." : stats.completed.toString()} icon={Scissors} />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <StatCard 
+          label="Agendamentos Pendentes" 
+          value={loading ? "..." : stats.totalPending.toString()} 
+          hint="Total de solicitações aguardando aprovação"
+          icon={Clock} 
+        />
+        <StatCard 
+          label="Pendentes Hoje" 
+          value={loading ? "..." : stats.pendingToday.toString()} 
+          hint="Solicitações pendentes para a data atual"
+          icon={CalendarDays} 
+        />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
-        {/* 5. Próximos Agendamentos */}
-        <Card className="lg:col-span-2 rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
-          <CardHeader className="bg-muted/30 border-b border-border/40">
-            <CardTitle className="text-lg font-heading">Próximos Agendamentos</CardTitle>
-          </CardHeader>
-          <CardContent className="p-0">
-            {loading ? (
-              <div className="p-8 text-center text-muted-foreground animate-pulse">Carregando agendamentos...</div>
-            ) : nextAppointments.length > 0 ? (
-              <div className="divide-y divide-border/40">
-                {nextAppointments.map((app) => (
-                  <div key={app.id} className="p-4 flex items-center justify-between hover:bg-muted/20 transition-colors">
-                    <div className="flex items-center gap-3">
-                      <div className={cn(
-                        "h-10 w-10 rounded-full flex items-center justify-center font-bold text-xs",
-                        app.status === 'confirmed' ? "bg-green-500/10 text-green-500" : "bg-amber-500/10 text-amber-500"
-                      )}>
-                        {format(new Date(app.starts_at), "HH:mm")}
-                      </div>
-                      <div>
-                        <p className="font-bold text-sm">{app.client?.full_name || "Cliente"}</p>
-                        <p className="text-xs text-muted-foreground">{app.service?.name} • {(app.barber as any)?.name}</p>
-                      </div>
-                    </div>
-                    <Badge variant="outline" className={cn(
-                      "text-[10px] uppercase",
-                      app.status === 'confirmed' ? "border-green-500/50 text-green-500" : "border-amber-500/50 text-amber-500"
-                    )}>
-                      {app.status === 'confirmed' ? 'Confirmado' : 'Pendente'}
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-8 text-center text-muted-foreground italic">Nenhum agendamento para hoje.</div>
-            )}
-            <div className="p-4 bg-muted/10">
-               <Button variant="ghost" className="w-full text-xs" onClick={() => navigate("/app/agenda")}>
-                 Ver agenda completa <ChevronRight className="ml-1 h-3 w-3" />
-               </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 8. Indicadores Financeiros */}
-        <div className="space-y-6">
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur">
-            <CardHeader>
-              <CardTitle className="text-lg font-heading">Financeiro</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500">
-                    <TrendingUp className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase">Receita Hoje</p>
-                    <p className="text-lg font-bold">R$ {stats.revenueToday.toFixed(2)}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                    <Wallet className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase">Receita no Mês</p>
-                    <p className="text-lg font-bold">R$ {stats.revenueMonth.toFixed(2)}</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 9. Serviços Mais Realizados */}
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-heading uppercase text-muted-foreground">Serviços Populares</CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-               <div className="divide-y divide-border/40">
-                  {popularServices.map((service, idx) => (
-                    <div key={service.name} className="p-3 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-muted-foreground">{idx + 1}.</span>
-                        <span className="text-sm">{service.name}</span>
-                      </div>
-                      <span className="text-xs font-medium bg-secondary px-2 py-0.5 rounded-full">{service.count} atend.</span>
-                    </div>
-                  ))}
-                  {popularServices.length === 0 && (
-                    <p className="p-4 text-xs text-muted-foreground italic text-center">Aguardando dados...</p>
-                  )}
-               </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* 6. Solicitações Pendentes */}
-        <Card className="lg:col-span-3 rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
+      <div className="grid gap-6">
+        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
           <CardHeader className="border-b border-border/40 bg-muted/30">
             <CardTitle className="text-lg font-heading flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-amber-500" /> Solicitações que precisam de atenção
+              <AlertCircle className="h-5 w-5 text-amber-500" /> Solicitações Pendentes
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
@@ -299,6 +205,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+    </div>
     </div>
   );
 }
