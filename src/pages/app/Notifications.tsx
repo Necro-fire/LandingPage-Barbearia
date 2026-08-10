@@ -40,7 +40,9 @@ export default function NotificationsPage() {
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'appointment': return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+      case 'appointment': return <Clock className="h-5 w-5 text-amber-500" />;
+      case 'confirmed': return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+      case 'cancelled': return <XCircle className="h-5 w-5 text-red-500" />;
       case 'warning': return <AlertCircle className="h-5 w-5 text-amber-500" />;
       case 'error': return <XCircle className="h-5 w-5 text-red-500" />;
       default: return <Bell className="h-5 w-5 text-primary" />;
@@ -76,7 +78,7 @@ export default function NotificationsPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <PageHeader 
         title="Notificações" 
-        description="Visualize suas notificações e acompanhe seu histórico."
+        description="Acompanhe as solicitações e atualizações de agendamentos."
       />
 
       <div className="grid gap-6 lg:grid-cols-1">
@@ -121,7 +123,7 @@ export default function NotificationsPage() {
 
           <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
             <CardHeader className="bg-muted/30 border-b border-border/40 py-4">
-              <CardTitle className="text-lg font-heading">Histórico de Notificações</CardTitle>
+              <CardTitle className="text-lg font-heading">Histórico</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               <div className="divide-y divide-border/40">

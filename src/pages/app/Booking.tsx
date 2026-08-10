@@ -372,7 +372,7 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30">
+    <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
       {/* Navbar Premium */}
       <nav className="sticky top-0 z-50 border-b border-border/40 bg-black/80 px-4 py-4 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -398,14 +398,14 @@ export default function BookingFlow() {
       </nav>
 
       {/* Hero Section Simplificado para Agendamento */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-black py-20">
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black py-20">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop" 
             className="h-full w-full object-cover opacity-40 grayscale" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/80 to-black" />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-4 text-center">

@@ -198,14 +198,14 @@ export default function Schedule() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
-          title="Agenda Inteligente" 
-          description="Gerencie horários, bloqueios e disponibilidade."
+          title="Agenda" 
+          description="Acompanhe os horários e atendimentos da sua barbearia."
         />
         <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="rounded-xl border-border/60">
-                <Filter className="h-4 w-4 mr-2" /> Barbeiro: {filterBarber === "all" ? "Todos" : barbers.find(b => b.id === filterBarber)?.display_name}
+                <Filter className="h-4 w-4 mr-2" /> Profissional: {filterBarber === "all" ? "Todos" : barbers.find(b => b.id === filterBarber)?.display_name}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl">
@@ -219,7 +219,10 @@ export default function Schedule() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="rounded-xl border-border/60">
-                <Filter className="h-4 w-4 mr-2" /> Status: {filterStatus === "all" ? "Todos" : filterStatus}
+                <Filter className="h-4 w-4 mr-2" /> Status: {filterStatus === "all" ? "Todos" : 
+                  filterStatus === "pending" ? "Pendente" :
+                  filterStatus === "confirmed" ? "Confirmado" :
+                  filterStatus === "completed" ? "Concluído" : "Cancelado"}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="rounded-xl">
@@ -293,27 +296,6 @@ export default function Schedule() {
           </CardContent>
         </Card>
 
-        {/* List view / Stats */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur p-4 flex items-center gap-4">
-            <div className="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
-              <Clock className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Total de Horas</p>
-              <p className="text-lg font-heading font-black">42h</p>
-            </div>
-          </Card>
-          <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur p-4 flex items-center gap-4">
-            <div className="h-10 w-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center">
-              <User className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-[10px] text-muted-foreground uppercase font-bold">Taxa de Ocupação</p>
-              <p className="text-lg font-heading font-black">78%</p>
-            </div>
-          </Card>
-        </div>
       </div>
 
       <Dialog open={!!selectedAppointment} onOpenChange={() => setSelectedAppointment(null)}>
@@ -329,12 +311,19 @@ export default function Schedule() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Cliente</p>
-                  <p className="text-sm font-bold flex items-center gap-2"><User className="h-3 w-3 text-primary" /> {selectedAppointment.client?.full_name}</p>
+                  <p className="text-sm font-bold flex items-center gap-2 uppercase tracking-tighter"><User className="h-3 w-3 text-primary" /> {selectedAppointment.client?.full_name}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Status</p>
-                  <Badge variant="outline" className={cn("text-[10px] uppercase font-bold tracking-tighter", getStatusColor(selectedAppointment.status))}>
-                    {selectedAppointment.status}
+                  <Badge variant="outline" className={cn("text-[10px] uppercase font-bold tracking-tighter", 
+                    selectedAppointment.status === 'pending' ? 'border-amber-500 text-amber-500' :
+                    selectedAppointment.status === 'confirmed' ? 'border-green-500 text-green-500' :
+                    selectedAppointment.status === 'completed' ? 'border-blue-500 text-blue-500' :
+                    'border-red-500 text-red-500'
+                  )}>
+                    {selectedAppointment.status === 'pending' ? 'PENDENTE' :
+                     selectedAppointment.status === 'confirmed' ? 'CONFIRMADO' :
+                     selectedAppointment.status === 'completed' ? 'CONCLUÍDO' : 'CANCELADO'}
                   </Badge>
                 </div>
               </div>
@@ -342,7 +331,7 @@ export default function Schedule() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Serviço</p>
-                  <p className="text-sm font-bold flex items-center gap-2"><Scissors className="h-3 w-3 text-primary" /> {selectedAppointment.service?.name}</p>
+                  <p className="text-sm font-bold flex items-center gap-2 uppercase tracking-tighter"><Scissors className="h-3 w-3 text-primary" /> {selectedAppointment.service?.name}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Valor</p>
@@ -353,7 +342,7 @@ export default function Schedule() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Profissional</p>
-                  <p className="text-sm font-bold">{selectedAppointment.barber?.display_name}</p>
+                  <p className="text-sm font-bold uppercase tracking-tighter">{selectedAppointment.barber?.display_name}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Duração</p>
