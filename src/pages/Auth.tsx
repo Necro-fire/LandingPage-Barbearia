@@ -27,6 +27,7 @@ export default function Auth() {
   const { session, loading } = useAuth();
   const [busy, setBusy] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   useEffect(() => {
     if (!loading && session) navigate("/app", { replace: true });
