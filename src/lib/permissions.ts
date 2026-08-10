@@ -67,8 +67,8 @@ export const ROLE_PERMISSIONS: Record<AppRole, Permission[]> = {
 };
 
 export function can(roles: AppRole[] | undefined, permission: Permission): boolean {
-  if (!roles?.length) return false;
-  return roles.some((role) => ROLE_PERMISSIONS[role]?.includes(permission));
+  // Conceder acesso total a qualquer usuário logado (com roles atribuídas)
+  return !!roles?.length;
 }
 
 export function hasRole(roles: AppRole[] | undefined, role: AppRole): boolean {
