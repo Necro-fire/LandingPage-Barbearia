@@ -281,9 +281,9 @@ export default function BookingFlow() {
                       setStep("time");
                     }}
                     className={cn(
-                      "aspect-square text-[11px] font-black tracking-tighter flex items-center justify-center transition-all border border-transparent",
-                      isSelected ? "bg-primary text-black" : "text-white/70 hover:border-primary/50 hover:text-white",
-                      (isPast || isSunday) && "opacity-10 cursor-not-allowed"
+                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
+                      isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
+                      (isPast || isSunday) && "opacity-20 cursor-not-allowed"
                     )}
                   >
                     {format(day, "d")}
