@@ -94,8 +94,7 @@ export default function ClientsPage() {
     // Creating a profile manually for a client
     const { error } = await supabase.from("profiles").insert({
       full_name: formData.full_name,
-      phone: formData.phone,
-      email: formData.email || null
+      phone: formData.phone
     });
 
     if (error) {
