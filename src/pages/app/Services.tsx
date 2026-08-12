@@ -103,7 +103,7 @@ export default function ServicesPage() {
         {loading ? (
           Array.from({ length: 3 }).map((_, i) => <div key={i} className="h-48 bg-muted/20 animate-pulse rounded-2xl" />)
         ) : services.map((s) => (
-          <Card key={s.id} className="rounded-2xl border-border/60 bg-card/60 p-4 space-y-3">
+          <Card key={s.id} className="rounded-2xl border-none bg-white shadow-sm hover:shadow-md transition-all p-4 space-y-3">
             <div className="flex justify-between items-start">
               <h3 className="font-bold text-lg uppercase tracking-tighter">{s.name}</h3>
               <div className="flex gap-2">

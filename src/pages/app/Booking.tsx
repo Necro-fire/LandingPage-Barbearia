@@ -179,16 +179,16 @@ export default function BookingFlow() {
         return (
           <div className="space-y-0" id="booking-section">
             <div className="mb-20 text-center">
-              <h3 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase mb-4">Nossos Preços</h3>
-              <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-white/40 uppercase">Obtenha uma gama completa de serviços premium.</p>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 uppercase mb-4">Nossos Preços</h3>
+              <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-slate-400 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
             <div className="grid gap-x-20 gap-y-0 lg:grid-cols-2">
               {services.map((s) => (
                 <div 
                   key={s.id} 
                   className={cn(
-                    "group cursor-pointer border-b border-white/10 py-10 transition-all hover:bg-white/[0.02]",
-                    selectedService?.id === s.id && "bg-white/[0.04]"
+                    "group cursor-pointer border-b border-slate-100 py-10 transition-all hover:bg-slate-50",
+                    selectedService?.id === s.id && "bg-slate-100/50"
                   )}
                   onClick={() => {
                     setSelectedService(s);
@@ -196,14 +196,14 @@ export default function BookingFlow() {
                   }}
                 >
                   <div className="flex justify-between items-baseline mb-3">
-                    <h4 className="text-base font-black uppercase tracking-widest text-white group-hover:text-primary transition-colors">
+                    <h4 className="text-base font-bold uppercase tracking-widest text-slate-900 group-hover:text-primary transition-colors">
                       {s.name}
                     </h4>
                     <span className="text-base font-bold text-primary tracking-widest">
                       ${s.price}+
                     </span>
                   </div>
-                  <p className="text-[11px] text-white/40 tracking-wider leading-relaxed pr-10">
+                  <p className="text-[11px] text-slate-500 tracking-wider leading-relaxed pr-10">
                     {s.description || "Um ótimo corte de cabelo é o melhor acessório que um homem pode ter."}
                   </p>
                 </div>
@@ -218,8 +218,8 @@ export default function BookingFlow() {
               <div 
                 key={b.id} 
                 className={cn(
-                  "group cursor-pointer transition-all border border-white/5 bg-white/[0.02] p-8 hover:border-primary/50",
-                  selectedBarber?.id === b.id && "border-primary bg-white/[0.05]"
+                  "group cursor-pointer transition-all border border-slate-100 bg-white p-8 rounded-2xl shadow-sm hover:border-primary/50",
+                  selectedBarber?.id === b.id && "border-primary bg-primary/5 shadow-md shadow-primary/5"
                 )}
                 onClick={() => {
                   setSelectedBarber(b);
@@ -227,18 +227,18 @@ export default function BookingFlow() {
                 }}
               >
                 <div className="flex gap-6 items-center">
-                  <div className="h-24 w-24 overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
+                  <div className="h-24 w-24 overflow-hidden border border-slate-100 rounded-xl grayscale group-hover:grayscale-0 transition-all">
                     {b.avatar_url ? (
                       <img src={b.avatar_url} alt={b.display_name} className="h-full w-full object-cover" />
                     ) : (
-                      <div className="h-full w-full bg-white/5 flex items-center justify-center">
-                        <User className="h-10 w-10 text-white/20" />
+                      <div className="h-full w-full bg-slate-50 flex items-center justify-center">
+                        <User className="h-10 w-10 text-slate-300" />
                       </div>
                     )}
                   </div>
                   <div>
-                    <h4 className="text-lg font-black uppercase tracking-widest text-white mb-2">{b.display_name}</h4>
-                    <p className="text-[10px] text-white/40 tracking-wider uppercase leading-relaxed">
+                    <h4 className="text-lg font-bold uppercase tracking-widest text-slate-900 mb-2">{b.display_name}</h4>
+                    <p className="text-[10px] text-slate-400 tracking-wider uppercase leading-relaxed">
                       {b.specialties?.join(" / ") || "ESPECIALISTA EM CORTES"}
                     </p>
                   </div>
@@ -256,15 +256,15 @@ export default function BookingFlow() {
 
         return (
           <div className="max-w-md mx-auto space-y-12">
-            <div className="flex items-center justify-between border-b border-white/10 pb-6">
-              <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronLeft className="h-6 w-6" /></button>
-              <h3 className="text-base font-black uppercase tracking-widest text-white">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
-              <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronRight className="h-6 w-6" /></button>
+            <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+              <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronLeft className="h-6 w-6" /></button>
+              <h3 className="text-base font-bold uppercase tracking-widest text-slate-900">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
+              <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronRight className="h-6 w-6" /></button>
             </div>
 
             <div className="grid grid-cols-7 gap-3 text-center">
               {["D", "S", "T", "Q", "Q", "S", "S"].map(d => (
-                <div key={d} className="text-[10px] font-black text-white/30 py-3">{d}</div>
+                <div key={d} className="text-[10px] font-bold text-slate-300 py-3">{d}</div>
               ))}
               {blanks.map((_, i) => <div key={`blank-${i}`} />)}
               {days.map((day) => {
@@ -281,9 +281,9 @@ export default function BookingFlow() {
                       setStep("time");
                     }}
                     className={cn(
-                      "aspect-square text-[11px] font-black tracking-tighter flex items-center justify-center transition-all border border-transparent",
-                      isSelected ? "bg-primary text-black" : "text-white/70 hover:border-primary/50 hover:text-white",
-                      (isPast || isSunday) && "opacity-10 cursor-not-allowed"
+                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
+                      isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
+                      (isPast || isSunday) && "opacity-20 cursor-not-allowed"
                     )}
                   >
                     {format(day, "d")}
@@ -305,7 +305,7 @@ export default function BookingFlow() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5">
               {loadingTimes ? (
                 Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="h-16 border border-white/5 bg-white/[0.02] animate-pulse" />
+                  <div key={i} className="h-16 border border-slate-100 bg-slate-50 animate-pulse rounded-xl" />
                 ))
               ) : availableTimes.length > 0 ? (
                 availableTimes.map((t) => (
@@ -316,8 +316,8 @@ export default function BookingFlow() {
                       setStep("summary");
                     }}
                     className={cn(
-                      "border border-white/5 bg-white/[0.02] py-6 text-[11px] font-black tracking-widest text-white transition-all hover:border-primary hover:text-primary",
-                      selectedTime === t && "border-primary text-primary bg-white/[0.05]"
+                      "border border-slate-100 bg-white py-6 text-[11px] font-bold tracking-widest text-slate-900 transition-all rounded-xl shadow-sm hover:border-primary hover:text-primary hover:shadow-md",
+                      selectedTime === t && "border-primary text-white bg-primary shadow-lg shadow-primary/30"
                     )}
                   >
                     {t}
@@ -325,7 +325,7 @@ export default function BookingFlow() {
                 ))
               ) : (
                 <div className="col-span-full py-16 text-center">
-                  <p className="text-[11px] font-black text-white/40 uppercase tracking-widest">NÃO HÁ HORÁRIOS DISPONÍVEIS NESTA DATA.</p>
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">NÃO HÁ HORÁRIOS DISPONÍVEIS NESTA DATA.</p>
                 </div>
               )}
             </div>
@@ -333,23 +333,23 @@ export default function BookingFlow() {
         );
       case "guest-info":
         return (
-          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-10 space-y-10">
+          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-10 rounded-3xl shadow-sm">
             <div className="space-y-8">
               <div className="space-y-3">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">NOME COMPLETO</label>
                 <Input 
                   value={guestName} 
                   onChange={(e) => setGuestName(e.target.value)}
-                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[11px] uppercase tracking-widest focus:border-primary h-14"
+                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
                   placeholder="DIGITE SEU NOME"
                 />
               </div>
               <div className="space-y-3">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">WHATSAPP / TELEFONE</label>
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">WHATSAPP / TELEFONE</label>
                 <Input 
                   value={guestPhone} 
                   onChange={(e) => setGuestPhone(e.target.value)}
-                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[11px] uppercase tracking-widest focus:border-primary h-14"
+                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
                   placeholder="(99) 9 9999-9999"
                 />
               </div>
@@ -362,7 +362,7 @@ export default function BookingFlow() {
                 }
                 setStep("summary");
               }}
-              className="w-full rounded-none bg-primary py-10 text-[12px] font-black tracking-[0.4em] uppercase text-black hover:bg-primary/90 transition-all"
+              className="w-full rounded-xl bg-primary py-10 text-[12px] font-bold tracking-widest uppercase text-white hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
             >
               PRÓXIMO PASSO
             </Button>
@@ -370,30 +370,30 @@ export default function BookingFlow() {
         );
       case "summary":
         return (
-          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-10 space-y-12">
+          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-12 rounded-3xl shadow-sm">
             <div className="space-y-8">
-              <div className="flex justify-between items-center border-b border-white/5 pb-5">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">SERVIÇO</span>
-                <span className="text-[11px] font-black tracking-[0.1em] text-white uppercase">{selectedService.name}</span>
+              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">SERVIÇO</span>
+                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedService.name}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-white/5 pb-5">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">BARBEIRO</span>
-                <span className="text-[11px] font-black tracking-[0.1em] text-white uppercase">{selectedBarber.display_name}</span>
+              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">BARBEIRO</span>
+                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedBarber.display_name}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-white/5 pb-5">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">DATA E HORA</span>
-                <span className="text-[11px] font-black tracking-[0.1em] text-white uppercase">{selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}</span>
+              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">DATA E HORA</span>
+                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}</span>
               </div>
               <div className="flex justify-between items-center pt-4">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white uppercase">TOTAL</span>
-                <span className="text-2xl font-black tracking-tighter text-primary">R$ {selectedService.price}</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-900 uppercase">TOTAL</span>
+                <span className="text-2xl font-bold tracking-tight text-primary">R$ {selectedService.price}</span>
               </div>
             </div>
             
             <Button 
               onClick={handleBooking} 
               disabled={loading} 
-              className="w-full rounded-none bg-primary py-10 text-[12px] font-black tracking-[0.4em] uppercase text-black hover:bg-primary/90 transition-all"
+              className="w-full rounded-xl bg-primary py-10 text-[12px] font-bold tracking-widest uppercase text-white hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
             >
               {loading ? <Spinner className="h-6 w-6" /> : "CONFIRMAR AGENDAMENTO"}
             </Button>
@@ -450,23 +450,23 @@ export default function BookingFlow() {
         </div>
       </nav>
 
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
-            className="h-full w-full object-cover opacity-40 grayscale brightness-[0.3]" 
+            className="h-full w-full object-cover opacity-10 grayscale brightness-125" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
           <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-6 font-heading text-5xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.9]">
+          <h1 className="mb-6 font-heading text-5xl font-bold uppercase tracking-tight text-slate-900 md:text-8xl lg:text-9xl leading-[0.9]">
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
+          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-slate-400 uppercase max-w-xl mx-auto font-medium">
             A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
@@ -478,11 +478,11 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-12 py-8 text-[11px] font-black tracking-[0.3em] text-black hover:bg-primary/90 transition-all uppercase"
+              className="rounded-xl bg-primary px-12 py-8 text-[11px] font-bold tracking-[0.2em] text-white hover:bg-primary/90 shadow-lg shadow-primary/30 transition-all uppercase"
             >
               AGENDAR HORÁRIO
             </Button>
-            <button className="text-[10px] font-black tracking-[0.3em] text-white/60 hover:text-white transition-colors border-b border-white/20 pb-1">
+            <button className="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-slate-900 transition-colors border-b border-slate-200 pb-1 uppercase">
               CONHEÇA NOSSO ESPAÇO
             </button>
           </div>
@@ -492,10 +492,10 @@ export default function BookingFlow() {
       <main className="mx-auto max-w-7xl px-6 py-20 md:py-32">
         <div className="space-y-20 md:space-y-32">
           <div>
-            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-white/10 pb-8 mb-12 md:mb-16 gap-6">
-              <h2 className="text-3xl font-black uppercase tracking-tighter text-white md:text-5xl leading-tight">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-8 mb-12 md:mb-16 gap-6">
+              <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-900 md:text-5xl leading-tight">
                 OFERECEMOS SERVIÇOS DE <br className="hidden md:block" /> 
-                <span className="text-primary text-xl md:text-2xl tracking-[0.2em]">PRIMEIRA CLASSE</span>
+                <span className="text-primary text-xl md:text-2xl tracking-[0.2em] font-bold">PRIMEIRA CLASSE</span>
               </h2>
               {step !== "service" && step !== "confirmation" && (
                 <button 
@@ -509,7 +509,7 @@ export default function BookingFlow() {
                       else setStep("guest-info");
                     }
                   }}
-                  className="flex items-center gap-3 text-[11px] font-black tracking-[0.3em] text-white/50 hover:text-primary transition-colors uppercase"
+                  className="flex items-center gap-3 text-[11px] font-bold tracking-[0.3em] text-slate-400 hover:text-primary transition-colors uppercase"
                 >
                   <ArrowLeft className="h-4 w-4" /> VOLTAR
                 </button>
@@ -522,38 +522,38 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto">
-            <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full">
+          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border border-slate-100">
+            <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full shadow-lg">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>
-            <p className="text-[12px] leading-relaxed text-black tracking-wider max-w-2xl mx-auto italic mb-10">
-              "Sample text. Click to select the text box. Click again or double-click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            <p className="text-[14px] leading-relaxed text-slate-600 tracking-wide max-w-2xl mx-auto italic mb-10">
+              "A melhor barbearia que já frequentei. O atendimento é impecável e o ambiente muito profissional. Saio sempre renovado!"
             </p>
             <div className="flex justify-center text-primary mb-2">
               {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <h4 className="text-[12px] font-black tracking-[0.3em] text-black uppercase">JONATHAN SMITH</h4>
+            <h4 className="text-[12px] font-bold tracking-[0.3em] text-slate-900 uppercase">JONATHAN SMITH</h4>
           </div>
         </div>
       </main>
       
       <div className="fixed bottom-10 right-10 z-50 flex flex-col items-end gap-5">
-        <a href="https://wa.me/5500000000000" target="_blank" className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white shadow-2xl transition-transform hover:scale-110">
+        <a href="https://wa.me/5500000000000" target="_blank" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500 text-white shadow-xl shadow-green-500/20 transition-transform hover:scale-110">
           <Phone className="h-6 w-6" />
         </a>
       </div>
 
-      <footer className="border-t border-white/5 bg-black py-32 px-6">
+      <footer className="border-t border-slate-100 bg-white py-32 px-6">
         <div className="mx-auto max-w-7xl grid gap-20 md:grid-cols-4">
           <div className="space-y-8">
-            <span className="font-heading text-2xl font-black uppercase tracking-tighter text-white">BARBER</span>
-            <p className="text-[11px] leading-relaxed tracking-wider text-white/40 uppercase">
+            <span className="font-heading text-2xl font-bold uppercase tracking-tight text-slate-900">ON-TESTE</span>
+            <p className="text-[11px] leading-relaxed tracking-wider text-slate-400 uppercase font-medium">
               Excelência em barbearia clássica e moderna. O cuidado que seu visual merece.
             </p>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-black tracking-[0.4em] text-white uppercase">LINKS RÁPIDOS</h4>
-            <ul className="text-[11px] font-bold tracking-[0.3em] text-white/50 space-y-4 uppercase">
+            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">LINKS RÁPIDOS</h4>
+            <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li><a href="#" className="hover:text-primary transition-colors">HOME</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">ABOUT US</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">PAGES</a></li>
@@ -561,17 +561,17 @@ export default function BookingFlow() {
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-black tracking-[0.4em] text-white uppercase">CONTATO</h4>
-            <ul className="text-[11px] font-bold tracking-[0.3em] text-white/50 space-y-4 uppercase">
+            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">CONTATO</h4>
+            <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /> (11) 99999-9999</li>
               <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary" /> AV. PAULISTA, 1000</li>
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-black tracking-[0.4em] text-white uppercase">NEWSLETTER</h4>
+            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">NEWSLETTER</h4>
             <div className="flex">
-              <input type="email" placeholder="SEU E-MAIL" className="bg-white/5 border border-white/10 rounded-none px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary" />
-              <button className="bg-primary text-black px-6 py-4 text-[11px] font-black">OK</button>
+              <input type="email" placeholder="SEU E-MAIL" className="bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary" />
+              <button className="bg-primary text-white px-6 py-4 text-[11px] font-bold rounded-xl ml-2 shadow-lg shadow-primary/20">OK</button>
             </div>
           </div>
         </div>
