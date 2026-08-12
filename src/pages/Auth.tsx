@@ -112,14 +112,14 @@ export default function Auth() {
   };
 
   return (
-    <main className="min-h-screen bg-black flex flex-col items-center justify-center p-6 overflow-x-hidden">
-      <div className="w-full max-w-sm space-y-10">
+    <main className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 overflow-x-hidden">
+      <div className="w-full max-w-sm space-y-8 bg-white p-10 rounded-3xl shadow-sm border border-slate-100">
         <div className="flex justify-center mb-10">
-          <Link to="/" className="flex items-center gap-3 text-white">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-black">
-              <Scissors className="h-6 w-6" />
+          <Link to="/" className="flex flex-col items-center gap-2 text-slate-900">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Scissors className="h-7 w-7" />
             </span>
-            <span className="font-heading text-3xl font-black tracking-tighter uppercase">ON-TESTE</span>
+            <span className="font-heading text-2xl font-bold tracking-tight uppercase">ON-TESTE</span>
           </Link>
         </div>
           <div className="lg:hidden">
@@ -127,32 +127,32 @@ export default function Auth() {
           </div>
 
           <div className="space-y-4 text-center lg:text-left">
-            <h1 className="text-4xl font-black text-white uppercase tracking-tighter">
-              {mode === "signin" ? "BEM-VINDO DE VOLTA" : "CRIE SUA CONTA"}
+            <h1 className="text-2xl font-bold text-slate-900 uppercase tracking-tight">
+              {mode === "signin" ? "Login" : "Criar Conta"}
             </h1>
-            <p className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">
+            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">
               {mode === "signin" 
-                ? "ENTRE COM SUAS CREDENCIAIS PARA CONTINUAR" 
-                : "JUNTE-SE À ELITE DA GESTÃO DE BARBEARIAS"}
+                ? "Entre com suas credenciais" 
+                : "Cadastre-se para começar"}
             </p>
           </div>
 
           {/* Social Logins */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             <Button 
               type="button" 
               variant="outline" 
               onClick={handleGoogle} 
               disabled={busy}
-              className="rounded-none border-white/10 bg-white/[0.02] text-white hover:bg-white/[0.05] h-14 text-[10px] font-black tracking-[0.2em] uppercase w-full"
+              className="rounded-xl border-slate-200 bg-white text-slate-600 hover:bg-slate-50 h-12 text-xs font-bold w-full"
             >
-              <Chrome className="mr-3 h-4 w-4 text-primary" /> CONTINUAR COM GOOGLE
+              <Chrome className="mr-3 h-4 w-4 text-blue-500" /> CONTINUAR COM GOOGLE
             </Button>
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-white/5"></span></div>
-            <div className="relative flex justify-center text-[8px] font-black uppercase tracking-[0.5em]"><span className="bg-black px-4 text-white/20 uppercase">OU</span></div>
+            <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-slate-100"></span></div>
+            <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest"><span className="bg-white px-4 text-slate-300 uppercase">OU</span></div>
           </div>
 
           <form onSubmit={mode === "signin" ? handleSignIn : handleSignUp} className="space-y-6">

@@ -132,31 +132,36 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
-          <CardHeader className="border-b border-border/40 bg-muted/30 px-6 py-4">
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden">
+          <CardHeader className="border-b border-slate-50 px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-sm font-black uppercase tracking-widest">Próximos Clientes</CardTitle>
-                <CardDescription className="text-[9px] uppercase tracking-wider">Cronograma imediato da barbearia.</CardDescription>
+                <CardTitle className="text-sm font-bold uppercase tracking-tight text-slate-900">Próximos Agendamentos</CardTitle>
               </div>
-              <Clock className="h-4 w-4 text-muted-foreground/50" />
+              <Button variant="ghost" size="sm" className="text-[10px] uppercase font-bold text-primary hover:text-primary/80">Ver todos</Button>
             </div>
           </CardHeader>
           <CardContent className="p-0">
             {nextAppointments.length > 0 ? (
               <div className="divide-y divide-border/40">
                 {nextAppointments.map((app) => (
-                  <div key={app.id} className="flex items-center justify-between p-4 hover:bg-muted/20 transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center font-black text-primary text-xs uppercase">
-                        {format(new Date(app.starts_at), "HH:mm")}
+                  <div key={app.id} className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors">
+                    <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-2 text-blue-500">
+                        <Clock className="h-4 w-4" />
+                        <span className="font-bold text-sm tracking-tight">
+                          {format(new Date(app.starts_at), "HH:mm")}
+                        </span>
                       </div>
                       <div>
-                        <p className="font-bold text-sm uppercase tracking-tighter">{app.client?.full_name || app.guest_name}</p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{app.service?.name} • {app.barber?.display_name}</p>
+                        <p className="font-bold text-sm text-slate-900">{app.client?.full_name || app.guest_name}</p>
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground/30" />
+                    <div className="flex items-center gap-12">
+                      <span className="text-xs text-slate-500 font-medium">{app.service?.name}</span>
+                      <span className="text-xs text-slate-500 font-medium">{app.barber?.display_name}</span>
+                      <Badge className="bg-green-50 text-green-600 hover:bg-green-100 border-none px-3 py-0.5 rounded-full text-[10px] font-bold">Confirmado</Badge>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -169,44 +174,48 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur overflow-hidden">
-          <CardHeader className="border-b border-border/40 bg-muted/30 px-6 py-4">
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden">
+          <CardHeader className="border-b border-slate-50 px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-sm font-black uppercase tracking-widest">Solicitações Pendentes</CardTitle>
-                <CardDescription className="text-[9px] uppercase tracking-wider">Ações rápidas para aprovar ou negar.</CardDescription>
+                <CardTitle className="text-sm font-bold uppercase tracking-tight text-slate-900">Solicitações Pendentes</CardTitle>
               </div>
-              <Bell className="h-4 w-4 text-muted-foreground/50" />
+              <Button variant="ghost" size="sm" className="text-[10px] uppercase font-bold text-primary hover:text-primary/80">Ver todas</Button>
             </div>
           </CardHeader>
           <CardContent className="p-0">
             {latestRequests.length > 0 ? (
               <div className="divide-y divide-border/40">
                 {latestRequests.map((req) => (
-                  <div key={req.id} className="p-4 hover:bg-muted/20 transition-colors space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="font-bold text-sm uppercase tracking-tighter">{req.client?.full_name || req.guest_name}</p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{req.service?.name} — {format(new Date(req.starts_at), "dd/MM 'às' HH:mm")}</p>
-                      </div>
-                      <Badge variant="outline" className="text-[8px] uppercase font-black border-amber-500/50 text-amber-500 bg-amber-500/5">Pendente</Badge>
+                  <div key={req.id} className="p-4 hover:bg-slate-50 transition-colors flex items-center justify-between border-b border-slate-50 last:border-0">
+                    <div className="grid grid-cols-3 flex-1 gap-4 items-center">
+                      <p className="font-bold text-sm text-slate-900">{req.client?.full_name || req.guest_name}</p>
+                      <p className="text-xs text-slate-500 font-medium">{req.service?.name}</p>
+                      <p className="text-xs text-slate-500 font-medium">{format(new Date(req.starts_at), "dd/MM - HH:mm")}</p>
                     </div>
                     <div className="flex gap-2">
                       <Button 
-                        size="sm" 
+                        size="icon" 
                         variant="ghost" 
-                        className="flex-1 h-8 rounded-lg text-[9px] font-black uppercase tracking-widest bg-green-500/10 text-green-500 hover:bg-green-500/20"
+                        className="h-8 w-8 rounded-lg bg-green-50 text-green-600 hover:bg-green-100"
                         onClick={() => handleQuickAction(req.id, 'confirmed')}
                       >
-                        <CheckCircle2 className="h-3 w-3 mr-1.5" /> Aprovar
+                        <CheckCircle2 className="h-4 w-4" />
                       </Button>
                       <Button 
-                        size="sm" 
+                        size="icon" 
                         variant="ghost" 
-                        className="flex-1 h-8 rounded-lg text-[9px] font-black uppercase tracking-widest bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                        className="h-8 w-8 rounded-lg bg-red-50 text-red-600 hover:bg-red-100"
                         onClick={() => handleQuickAction(req.id, 'cancelled')}
                       >
-                        <XCircle className="h-3 w-3 mr-1.5" /> Recusar
+                        <XCircle className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        size="icon" 
+                        variant="ghost" 
+                        className="h-8 w-8 rounded-lg bg-slate-50 text-slate-400 hover:bg-slate-100"
+                      >
+                        <Eye className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
