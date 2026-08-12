@@ -221,8 +221,9 @@ export default function BookingFlow() {
                 <div 
                   key={s.id} 
                   className={cn(
-                    "group cursor-pointer border-b border-slate-100 py-10 transition-all hover:bg-slate-50",
-                    selectedService?.id === s.id && "bg-slate-100/50"
+                    "group cursor-pointer border-b py-10 transition-all duration-500",
+                    theme === 'dark' ? "border-slate-800 hover:bg-slate-900" : "border-slate-100 hover:bg-slate-50",
+                    selectedService?.id === s.id && (theme === 'dark' ? "bg-slate-900/50" : "bg-slate-100/50")
                   )}
                   onClick={() => {
                     setSelectedService(s);
