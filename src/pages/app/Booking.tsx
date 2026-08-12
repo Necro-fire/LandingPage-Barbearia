@@ -370,7 +370,7 @@ export default function BookingFlow() {
         );
       case "summary":
         return (
-          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-10 space-y-12">
+          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-12 rounded-3xl shadow-sm">
             <div className="space-y-8">
               <div className="flex justify-between items-center border-b border-white/5 pb-5">
                 <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">SERVIÇO</span>
