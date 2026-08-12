@@ -345,11 +345,11 @@ export default function BookingFlow() {
                 />
               </div>
               <div className="space-y-3">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">WHATSAPP / TELEFONE</label>
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">WHATSAPP / TELEFONE</label>
                 <Input 
                   value={guestPhone} 
                   onChange={(e) => setGuestPhone(e.target.value)}
-                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[11px] uppercase tracking-widest focus:border-primary h-14"
+                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
                   placeholder="(99) 9 9999-9999"
                 />
               </div>
