@@ -568,7 +568,7 @@ export default function BookingFlow() {
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-black tracking-[0.4em] text-white uppercase">NEWSLETTER</h4>
+            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">NEWSLETTER</h4>
             <div className="flex">
               <input type="email" placeholder="SEU E-MAIL" className="bg-white/5 border border-white/10 rounded-none px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary" />
               <button className="bg-primary text-black px-6 py-4 text-[11px] font-black">OK</button>
