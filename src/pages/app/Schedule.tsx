@@ -102,7 +102,7 @@ export default function Schedule() {
       intervals: config.hours || []
     }));
 
-    const { error } = await supabase.from("shop_working_hours").upsert(updates);
+    const { error } = await (supabase.from("shop_working_hours") as any).upsert(updates);
 
     if (error) {
       toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
