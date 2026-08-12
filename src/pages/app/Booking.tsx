@@ -561,8 +561,8 @@ export default function BookingFlow() {
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-black tracking-[0.4em] text-white uppercase">CONTATO</h4>
-            <ul className="text-[11px] font-bold tracking-[0.3em] text-white/50 space-y-4 uppercase">
+            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">CONTATO</h4>
+            <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /> (11) 99999-9999</li>
               <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary" /> AV. PAULISTA, 1000</li>
             </ul>
