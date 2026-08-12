@@ -68,7 +68,7 @@ export default function Schedule() {
         `)
         .order("starts_at", { ascending: true }),
       supabase.from("barbers").select("*").eq("is_active", true),
-      supabase.from("shop_working_hours").select("*").order("weekday", { ascending: true }),
+      (supabase.from("shop_working_hours") as any).select("*").order("weekday", { ascending: true }),
       supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
     ]);
 
@@ -76,7 +76,7 @@ export default function Schedule() {
     if (brbRes.data) setBarbers(brbRes.data);
     if (shopRes.data) {
       const hoursMap: any = {};
-      shopRes.data.forEach(item => {
+      (shopRes.data as any[]).forEach(item => {
         hoursMap[item.weekday] = {
           active: item.active,
           hours: item.intervals
