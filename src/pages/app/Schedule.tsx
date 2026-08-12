@@ -415,7 +415,12 @@ export default function Schedule() {
                   <CardTitle className="text-lg font-heading">Exceções de Funcionamento</CardTitle>
                   <CardDescription className="text-xs uppercase tracking-widest">Feriados ou horários especiais.</CardDescription>
                 </div>
-                <Button size="sm" variant="outline" className="rounded-xl gap-2 border-border/60 text-[9px] font-black uppercase h-8 px-4">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="rounded-xl gap-2 border-border/60 text-[9px] font-black uppercase h-8 px-4"
+                  onClick={() => setIsAddExceptionOpen(true)}
+                >
                   <Plus className="h-4 w-4" /> Nova Exceção
                 </Button>
               </div>
