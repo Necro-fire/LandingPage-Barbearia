@@ -687,6 +687,80 @@ export default function Schedule() {
           )}
         </DialogContent>
       </Dialog>
+      <Dialog open={isAddExceptionOpen} onOpenChange={setIsAddExceptionOpen}>
+        <DialogContent className="rounded-2xl border-border/60 bg-card/95 backdrop-blur-xl sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-xl uppercase tracking-tighter">Nova Exceção</DialogTitle>
+            <DialogDescription className="text-xs uppercase tracking-widest text-muted-foreground">
+              Configure feriados ou horários especiais
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Data</label>
+              <input 
+                type="date" 
+                value={newException.date}
+                onChange={(e) => setNewException({...newException, date: e.target.value})}
+                className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Motivo / Nome do Feriado</label>
+              <input 
+                type="text" 
+                placeholder="Ex: Natal, Reforma, Folga..."
+                value={newException.reason}
+                onChange={(e) => setNewException({...newException, reason: e.target.value})}
+                className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
+              <input 
+                type="checkbox" 
+                id="is_closed"
+                checked={newException.is_closed}
+                onChange={(e) => setNewException({...newException, is_closed: e.target.checked})}
+                className="rounded border-border/60 text-primary focus:ring-primary"
+              />
+              <label htmlFor="is_closed" className="text-xs font-bold uppercase tracking-tighter cursor-pointer">Fechar o dia inteiro</label>
+            </div>
+
+            {!newException.is_closed && (
+              <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Início</label>
+                  <input 
+                    type="time" 
+                    value={newException.start_time}
+                    onChange={(e) => setNewException({...newException, start_time: e.target.value})}
+                    className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Fim</label>
+                  <input 
+                    type="time" 
+                    value={newException.end_time}
+                    onChange={(e) => setNewException({...newException, end_time: e.target.value})}
+                    className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+            )}
+
+            <Button 
+              className="w-full rounded-xl shadow-lg shadow-primary/20 h-12 font-bold uppercase text-xs mt-4"
+              onClick={addException}
+            >
+              <Plus className="h-4 w-4 mr-2" /> Adicionar Exceção
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
