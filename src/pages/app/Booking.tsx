@@ -264,7 +264,7 @@ export default function BookingFlow() {
 
             <div className="grid grid-cols-7 gap-3 text-center">
               {["D", "S", "T", "Q", "Q", "S", "S"].map(d => (
-                <div key={d} className="text-[10px] font-black text-white/30 py-3">{d}</div>
+                <div key={d} className="text-[10px] font-bold text-slate-300 py-3">{d}</div>
               ))}
               {blanks.map((_, i) => <div key={`blank-${i}`} />)}
               {days.map((day) => {
