@@ -203,7 +203,7 @@ export default function BookingFlow() {
                       ${s.price}+
                     </span>
                   </div>
-                  <p className="text-[11px] text-white/40 tracking-wider leading-relaxed pr-10">
+                  <p className="text-[11px] text-slate-500 tracking-wider leading-relaxed pr-10">
                     {s.description || "Um ótimo corte de cabelo é o melhor acessório que um homem pode ter."}
                   </p>
                 </div>
