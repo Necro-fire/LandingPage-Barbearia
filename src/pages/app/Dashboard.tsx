@@ -41,6 +41,7 @@ export default function Dashboard() {
         supabase.from("appointments")
           .select("*, service:service_id(name), client:client_id(full_name), barber:barber_id(display_name)")
           .gte("starts_at", new Date().toISOString())
+          .neq("status", "cancelled")
           .order("starts_at", { ascending: true })
           .limit(5),
         supabase.from("appointments")
@@ -121,7 +122,7 @@ export default function Dashboard() {
                         {format(new Date(app.starts_at), "HH:mm")}
                       </div>
                       <div>
-                        <p className="font-bold text-sm uppercase tracking-tighter">{app.client?.full_name}</p>
+                        <p className="font-bold text-sm uppercase tracking-tighter">{app.client?.full_name || app.guest_name}</p>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{app.service?.name} • {app.barber?.display_name}</p>
                       </div>
                     </div>
@@ -155,7 +156,7 @@ export default function Dashboard() {
                   <div key={req.id} className="p-4 hover:bg-muted/20 transition-colors space-y-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="font-bold text-sm uppercase tracking-tighter">{req.client?.full_name}</p>
+                        <p className="font-bold text-sm uppercase tracking-tighter">{req.client?.full_name || req.guest_name}</p>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{req.service?.name} — {format(new Date(req.starts_at), "dd/MM 'às' HH:mm")}</p>
                       </div>
                       <Badge variant="outline" className="text-[8px] uppercase font-black border-amber-500/50 text-amber-500 bg-amber-500/5">Pendente</Badge>
