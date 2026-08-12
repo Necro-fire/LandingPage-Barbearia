@@ -424,6 +424,15 @@ export default function Schedule() {
                   );
                 })}
               </div>
+              <div className="flex justify-end pt-6 border-t border-border/40">
+                <Button 
+                  onClick={saveWorkingHours}
+                  className="rounded-xl shadow-lg shadow-primary/20 h-10 px-8 font-bold uppercase text-[10px] tracking-widest"
+                  disabled={loading}
+                >
+                  {loading ? "Salvando..." : "Salvar Configurações"}
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
