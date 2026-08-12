@@ -509,7 +509,7 @@ export default function BookingFlow() {
                       else setStep("guest-info");
                     }
                   }}
-                  className="flex items-center gap-3 text-[11px] font-black tracking-[0.3em] text-white/50 hover:text-primary transition-colors uppercase"
+                  className="flex items-center gap-3 text-[11px] font-bold tracking-[0.3em] text-slate-400 hover:text-primary transition-colors uppercase"
                 >
                   <ArrowLeft className="h-4 w-4" /> VOLTAR
                 </button>
