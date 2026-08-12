@@ -273,7 +273,7 @@ export default function BookingFlow() {
                     )}
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold uppercase tracking-widest text-slate-900 mb-2">{b.display_name}</h4>
+                    <h4 className={cn("text-lg font-bold uppercase tracking-widest mb-2 transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>{b.display_name}</h4>
                     <p className="text-[10px] text-slate-400 tracking-wider uppercase leading-relaxed">
                       {b.specialties?.join(" / ") || "ESPECIALISTA EM CORTES"}
                     </p>
