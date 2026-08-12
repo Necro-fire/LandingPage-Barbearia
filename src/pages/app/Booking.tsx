@@ -470,10 +470,10 @@ export default function BookingFlow() {
             <span className={cn("font-heading text-2xl font-black tracking-tighter uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>ON-TESTE</span>
           </div>
           <div className="hidden items-center gap-10 lg:flex">
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">INÍCIO</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SERVIÇOS</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SOBRE</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">CONTATO</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>INÍCIO</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>SERVIÇOS</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>SOBRE</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>CONTATO</a>
           </div>
           <div className="flex items-center gap-3">
             <Button 
