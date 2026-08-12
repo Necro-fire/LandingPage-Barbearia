@@ -506,7 +506,7 @@ export default function BookingFlow() {
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-slate-400 uppercase max-w-xl mx-auto font-medium">
+          <p className={cn("mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] uppercase max-w-xl mx-auto font-medium transition-colors duration-500", theme === 'dark' ? "text-slate-400" : "text-slate-500")}>
             A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
