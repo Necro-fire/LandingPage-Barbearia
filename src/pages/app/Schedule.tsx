@@ -57,7 +57,7 @@ export default function Schedule() {
 
   const fetchData = async () => {
     setLoading(true);
-    const [appRes, brbRes, settingsRes, exceptionsRes] = await Promise.all([
+    const [appRes, brbRes, shopRes, exceptionsRes] = await Promise.all([
       supabase
         .from("appointments")
         .select(`
@@ -68,13 +68,22 @@ export default function Schedule() {
         `)
         .order("starts_at", { ascending: true }),
       supabase.from("barbers").select("*").eq("is_active", true),
-      supabase.from("settings").select("*").eq("key", "shop_working_hours").maybeSingle(),
+      supabase.from("shop_working_hours").select("*").order("weekday", { ascending: true }),
       supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
     ]);
 
     if (appRes.data) setAppointments(appRes.data);
     if (brbRes.data) setBarbers(brbRes.data);
-    if (settingsRes.data) setShopHours(settingsRes.data.value);
+    if (shopRes.data) {
+      const hoursMap: any = {};
+      shopRes.data.forEach(item => {
+        hoursMap[item.weekday] = {
+          active: item.active,
+          hours: item.intervals
+        };
+      });
+      setShopHours(hoursMap);
+    }
     if (exceptionsRes.data) setExceptions(exceptionsRes.data);
     setLoading(false);
   };
@@ -84,16 +93,72 @@ export default function Schedule() {
   }, [currentDate]);
 
   const saveWorkingHours = async () => {
-    const { error } = await supabase.from("settings").upsert({
-      key: "shop_working_hours",
-      value: shopHours
-    }, { onConflict: 'key' });
+    if (!shopHours) return;
+    
+    setLoading(true);
+    const updates = Object.entries(shopHours).map(([weekday, config]: [string, any]) => ({
+      weekday: parseInt(weekday),
+      active: config.active,
+      intervals: config.hours || []
+    }));
+
+    const { error } = await supabase.from("shop_working_hours").upsert(updates);
 
     if (error) {
       toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
     } else {
       toast({ title: "Sucesso", description: "Horários atualizados!" });
     }
+    setLoading(false);
+  };
+
+  const toggleDayActive = (weekday: number) => {
+    setShopHours((prev: any) => ({
+      ...prev,
+      [weekday]: {
+        ...prev[weekday],
+        active: !prev[weekday].active,
+        hours: prev[weekday].active ? [] : [{ start: "09:00", end: "18:00" }]
+      }
+    }));
+  };
+
+  const addInterval = (weekday: number) => {
+    setShopHours((prev: any) => ({
+      ...prev,
+      [weekday]: {
+        ...prev[weekday],
+        hours: [...(prev[weekday].hours || []), { start: "09:00", end: "18:00" }]
+      }
+    }));
+  };
+
+  const removeInterval = (weekday: number, index: number) => {
+    setShopHours((prev: any) => {
+      const newHours = [...prev[weekday].hours];
+      newHours.splice(index, 1);
+      return {
+        ...prev,
+        [weekday]: {
+          ...prev[weekday],
+          hours: newHours
+        }
+      };
+    });
+  };
+
+  const updateInterval = (weekday: number, index: number, field: 'start' | 'end', value: string) => {
+    setShopHours((prev: any) => {
+      const newHours = [...prev[weekday].hours];
+      newHours[index] = { ...newHours[index], [field]: value };
+      return {
+        ...prev,
+        [weekday]: {
+          ...prev[weekday],
+          hours: newHours
+        }
+      };
+    });
   };
 
   const updateAppointmentStatus = async (id: string, status: any) => {
