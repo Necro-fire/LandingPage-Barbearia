@@ -5,8 +5,11 @@ import {
   Clock, 
   Trash2, 
   Edit,
-  AlertCircle
+  AlertCircle,
+  CheckCircle2,
+  XCircle
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
