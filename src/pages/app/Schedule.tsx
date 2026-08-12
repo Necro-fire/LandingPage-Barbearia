@@ -324,10 +324,10 @@ export default function Schedule() {
             <CardContent className="p-6">
               <div className="space-y-6">
                 {weekDays.map((day) => {
-                  const config = shopHours?.[day.id.toString()] || { active: false };
+                  const config = shopHours?.[day.id] || { active: false, hours: [] };
                   return (
-                    <div key={day.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-border/40 bg-background/50">
-                      <div className="flex items-center gap-3 min-w-[120px]">
+                    <div key={day.id} className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-4 rounded-xl border border-border/40 bg-background/50">
+                      <div className="flex items-center gap-3 min-w-[120px] pt-2">
                         <div className={cn(
                           "h-2 w-2 rounded-full",
                           config.active ? "bg-green-500" : "bg-red-500"
@@ -335,26 +335,57 @@ export default function Schedule() {
                         <span className="font-bold uppercase tracking-tighter text-sm">{day.name}</span>
                       </div>
 
-                      <div className="flex-1 space-y-2">
+                      <div className="flex-1 space-y-3">
                         {config.active ? (
-                          <div className="flex flex-wrap gap-2">
-                            {config.hours?.map((block: any, idx: number) => (
-                              <Badge key={idx} variant="secondary" className="rounded-lg px-3 py-1 flex items-center gap-2 bg-secondary/80 border-none group">
-                                <Clock className="h-3 w-3 text-muted-foreground" />
-                                <span className="font-bold text-[10px]">{block.start} — {block.end}</span>
-                                <Trash2 className="h-3 w-3 text-muted-foreground hover:text-red-500 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity" />
-                              </Badge>
-                            ))}
-                            <Button variant="ghost" size="sm" className="h-8 rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[9px] font-black uppercase tracking-widest">
-                              <Plus className="h-3 w-3 mr-1" /> Adicionar Intervalo
+                          <div className="flex flex-col gap-3">
+                            <div className="flex flex-wrap gap-2">
+                              {config.hours?.map((block: any, idx: number) => (
+                                <div key={idx} className="flex items-center gap-2 bg-secondary/80 rounded-lg p-2 group border border-border/40">
+                                  <Clock className="h-3 w-3 text-muted-foreground" />
+                                  <div className="flex items-center gap-1">
+                                    <input 
+                                      type="time" 
+                                      value={block.start} 
+                                      onChange={(e) => updateInterval(day.id, idx, 'start', e.target.value)}
+                                      className="bg-transparent border-none text-[10px] font-bold w-14 p-0 focus:ring-0"
+                                    />
+                                    <span className="text-[10px] font-bold text-muted-foreground">/</span>
+                                    <input 
+                                      type="time" 
+                                      value={block.end} 
+                                      onChange={(e) => updateInterval(day.id, idx, 'end', e.target.value)}
+                                      className="bg-transparent border-none text-[10px] font-bold w-14 p-0 focus:ring-0"
+                                    />
+                                  </div>
+                                  <button 
+                                    onClick={() => removeInterval(day.id, idx)}
+                                    className="text-muted-foreground hover:text-red-500 transition-colors"
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={() => addInterval(day.id)}
+                              className="h-8 w-fit rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[9px] font-black uppercase tracking-widest"
+                            >
+                              <Plus className="h-3 w-3 mr-1" /> Adicionar Turno
                             </Button>
                           </div>
                         ) : (
-                          <span className="text-[10px] text-muted-foreground italic uppercase tracking-widest">Fechado</span>
+                          <span className="text-[10px] text-muted-foreground italic uppercase tracking-widest pt-1 inline-block">Fechado</span>
                         )}
                       </div>
 
-                      <Button variant="outline" size="sm" className="rounded-xl border-border/60 h-8 text-[9px] font-black uppercase tracking-[0.2em]">
+                      <Button 
+                        variant={config.active ? "outline" : "default"}
+                        size="sm" 
+                        onClick={() => toggleDayActive(day.id)}
+                        className="rounded-xl border-border/60 h-8 text-[9px] font-black uppercase tracking-[0.2em] min-w-[100px]"
+                      >
                         {config.active ? "Desativar" : "Ativar"}
                       </Button>
                     </div>
