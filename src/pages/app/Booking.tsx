@@ -308,7 +308,7 @@ export default function BookingFlow() {
                 return (
                   <button
                     key={day.toString()}
-                    disabled={isPast || isSunday}
+                    disabled={isPast || isClosedByConfig}
                     onClick={() => {
                       setSelectedDate(day);
                       setStep("time");
