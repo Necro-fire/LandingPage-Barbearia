@@ -485,7 +485,7 @@ export default function BookingFlow() {
         </div>
       </nav>
 
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-white">
+      <section className={cn("relative min-h-[70vh] flex items-center justify-center overflow-hidden transition-colors duration-500", theme === 'dark' ? "bg-slate-950" : "bg-white")}>
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
