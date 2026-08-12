@@ -462,11 +462,11 @@ export default function BookingFlow() {
         
         <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
           <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-6 font-heading text-5xl font-black uppercase tracking-tighter text-white md:text-8xl lg:text-9xl leading-[0.9]">
+          <h1 className="mb-6 font-heading text-5xl font-bold uppercase tracking-tight text-slate-900 md:text-8xl lg:text-9xl leading-[0.9]">
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-white/50 uppercase max-w-xl mx-auto">
+          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-slate-400 uppercase max-w-xl mx-auto font-medium">
             A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
