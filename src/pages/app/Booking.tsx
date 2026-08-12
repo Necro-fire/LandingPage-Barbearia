@@ -478,11 +478,11 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-12 py-8 text-[11px] font-black tracking-[0.3em] text-black hover:bg-primary/90 transition-all uppercase"
+              className="rounded-xl bg-primary px-12 py-8 text-[11px] font-bold tracking-[0.2em] text-white hover:bg-primary/90 shadow-lg shadow-primary/30 transition-all uppercase"
             >
               AGENDAR HORÁRIO
             </Button>
-            <button className="text-[10px] font-black tracking-[0.3em] text-white/60 hover:text-white transition-colors border-b border-white/20 pb-1">
+            <button className="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-slate-900 transition-colors border-b border-slate-200 pb-1 uppercase">
               CONHEÇA NOSSO ESPAÇO
             </button>
           </div>
