@@ -441,7 +441,8 @@ export default function BookingFlow() {
             </div>
           </div>
         );
-        );
+      default:
+        return null;
     }
   };
 
