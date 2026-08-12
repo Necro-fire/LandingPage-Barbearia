@@ -376,9 +376,9 @@ export default function BookingFlow() {
                 <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">SERVIÇO</span>
                 <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedService.name}</span>
               </div>
-              <div className="flex justify-between items-center border-b border-white/5 pb-5">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">BARBEIRO</span>
-                <span className="text-[11px] font-black tracking-[0.1em] text-white uppercase">{selectedBarber.display_name}</span>
+              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">BARBEIRO</span>
+                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedBarber.display_name}</span>
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-5">
                 <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">DATA E HORA</span>
