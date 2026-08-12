@@ -182,6 +182,17 @@ export default function Schedule() {
     }
   };
 
+  const addException = async () => {
+    const { error } = await supabase.from("schedule_exceptions").insert(newException);
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Sucesso", description: "Exceção adicionada." });
+      setIsAddExceptionOpen(false);
+      fetchData();
+    }
+  };
+
   const updateAppointmentStatus = async (id: string, status: any) => {
     const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
     if (error) {
