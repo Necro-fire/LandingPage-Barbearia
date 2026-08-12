@@ -155,23 +155,23 @@ export default function Auth() {
             <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest"><span className="bg-white px-4 text-slate-300 uppercase">OU</span></div>
           </div>
 
-          <form onSubmit={mode === "signin" ? handleSignIn : handleSignUp} className="space-y-6">
+          <form onSubmit={mode === "signin" ? handleSignIn : handleSignUp} className="space-y-4">
             {mode === "signup" && (
-              <div className="space-y-2">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
-                <Input name="full_name" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14" />
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase ml-1">Nome Completo</label>
+                <Input name="full_name" required className="rounded-xl border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:border-primary h-12" />
               </div>
             )}
-            <div className="space-y-2">
-              <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">E-MAIL</label>
-              <Input name="email" type="email" required className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14" />
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase ml-1">E-mail</label>
+              <Input name="email" type="email" required className="rounded-xl border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:border-primary h-12" />
             </div>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">SENHA</label>
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center ml-1">
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Senha</label>
                 {mode === "signin" && (
-                  <Link to="/auth/forgot-password" title="ESQUECEU A SENHA?" className="text-[8px] font-black tracking-[0.2em] text-white/30 hover:text-primary uppercase transition-colors">
-                    ESQUECEU?
+                  <Link to="/auth/forgot-password" title="ESQUECEU A SENHA?" className="text-[9px] font-bold tracking-wider text-primary hover:text-primary/80 uppercase transition-colors">
+                    Esqueceu?
                   </Link>
                 )}
               </div>
@@ -180,32 +180,31 @@ export default function Auth() {
                   name="password" 
                   type={showPassword ? "text" : "password"} 
                   required 
-                  className="rounded-none border-white/10 bg-white/[0.02] text-white text-[11px] tracking-widest focus:border-primary h-14 pr-12" 
-
+                  className="rounded-xl border-slate-200 bg-slate-50/50 text-slate-900 text-sm focus:border-primary h-12 pr-12" 
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/20 hover:text-white transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-400 transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
             
-            <Button type="submit" disabled={busy} className="w-full rounded-none bg-primary py-10 text-[12px] font-black tracking-[0.4em] uppercase text-black hover:bg-primary/90 transition-all">
-              {busy ? <Spinner className="h-6 w-6" /> : (mode === "signin" ? "ENTRAR AGORA" : "CRIAR MINHA CONTA")}
+            <Button type="submit" disabled={busy} className="w-full rounded-xl bg-primary py-6 text-sm font-bold uppercase text-white hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all mt-4">
+              {busy ? <Spinner className="h-5 w-5" /> : (mode === "signin" ? "Entrar" : "Criar Conta")}
             </Button>
           </form>
 
-          <div className="text-center">
+          <div className="text-center pt-2">
             <button 
               onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-              className="text-[10px] font-black tracking-[0.3em] text-white/40 hover:text-white uppercase transition-colors"
+              className="text-[10px] font-bold tracking-wider text-slate-400 hover:text-primary uppercase transition-colors"
             >
               {mode === "signin" 
-                ? "NÃO TEM CONTA? CADASTRE-SE" 
-                : "JÁ TEM UMA CONTA? ENTRAR"}
+                ? "Não tem conta? Cadastre-se" 
+                : "Já tem uma conta? Entrar"}
             </button>
           </div>
       </div>

@@ -8,7 +8,9 @@ import {
   XCircle,
   ChevronRight,
   TrendingUp,
-  AlertTriangle
+  AlertTriangle,
+  Scissors,
+  Eye
 } from "lucide-react";
 import { PageHeader } from "@/components/common/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
