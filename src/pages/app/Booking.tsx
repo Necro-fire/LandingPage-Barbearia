@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone, ChevronLeft, ChevronRight, AlertCircle } from "lucide-react";
+import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone, ChevronLeft, ChevronRight, AlertCircle, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +17,7 @@ type Step = "service" | "barber" | "date" | "time" | "guest-info" | "summary" | 
 export default function BookingFlow() {
   const [step, setStep] = useState<Step>("service");
   const [loading, setLoading] = useState(false);
+  const { theme, setTheme } = useTheme();
   
   // Data from DB
   const [services, setServices] = useState<any[]>([]);
@@ -211,7 +213,7 @@ export default function BookingFlow() {
         return (
           <div className="space-y-0" id="booking-section">
             <div className="mb-20 text-center">
-              <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 uppercase mb-4">Nossos Preços</h3>
+              <h3 className={cn("text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4 transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>Nossos Preços</h3>
               <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-slate-400 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
             <div className="grid gap-x-20 gap-y-0 lg:grid-cols-2">
@@ -219,8 +221,9 @@ export default function BookingFlow() {
                 <div 
                   key={s.id} 
                   className={cn(
-                    "group cursor-pointer border-b border-slate-100 py-10 transition-all hover:bg-slate-50",
-                    selectedService?.id === s.id && "bg-slate-100/50"
+                    "group cursor-pointer border-b py-10 transition-all duration-500",
+                    theme === 'dark' ? "border-slate-800 hover:bg-slate-900" : "border-slate-100 hover:bg-slate-50",
+                    selectedService?.id === s.id && (theme === 'dark' ? "bg-slate-900/50" : "bg-slate-100/50")
                   )}
                   onClick={() => {
                     setSelectedService(s);
@@ -228,7 +231,7 @@ export default function BookingFlow() {
                   }}
                 >
                   <div className="flex justify-between items-baseline mb-3">
-                    <h4 className="text-base font-bold uppercase tracking-widest text-slate-900 group-hover:text-primary transition-colors">
+                    <h4 className={cn("text-base font-bold uppercase tracking-widest group-hover:text-primary transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
                       {s.name}
                     </h4>
                     <span className="text-base font-bold text-primary tracking-widest">
@@ -250,8 +253,9 @@ export default function BookingFlow() {
               <div 
                 key={b.id} 
                 className={cn(
-                  "group cursor-pointer transition-all border border-slate-100 bg-white p-8 rounded-2xl shadow-sm hover:border-primary/50",
-                  selectedBarber?.id === b.id && "border-primary bg-primary/5 shadow-md shadow-primary/5"
+                  "group cursor-pointer transition-all border p-8 rounded-2xl shadow-sm hover:border-primary/50 duration-500",
+                  theme === 'dark' ? "bg-slate-900 border-slate-800 shadow-none" : "bg-white border-slate-100 shadow-sm",
+                  selectedBarber?.id === b.id && (theme === 'dark' ? "border-primary bg-primary/10 shadow-md shadow-primary/5" : "border-primary bg-primary/5 shadow-md shadow-primary/5")
                 )}
                 onClick={() => {
                   setSelectedBarber(b);
@@ -269,7 +273,7 @@ export default function BookingFlow() {
                     )}
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold uppercase tracking-widest text-slate-900 mb-2">{b.display_name}</h4>
+                    <h4 className={cn("text-lg font-bold uppercase tracking-widest mb-2 transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>{b.display_name}</h4>
                     <p className="text-[10px] text-slate-400 tracking-wider uppercase leading-relaxed">
                       {b.specialties?.join(" / ") || "ESPECIALISTA EM CORTES"}
                     </p>
@@ -288,9 +292,9 @@ export default function BookingFlow() {
 
         return (
           <div className="max-w-md mx-auto space-y-12">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+            <div className={cn("flex items-center justify-between border-b pb-6 transition-colors duration-500", theme === 'dark' ? "border-slate-800" : "border-slate-100")}>
               <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronLeft className="h-6 w-6" /></button>
-              <h3 className="text-base font-bold uppercase tracking-widest text-slate-900">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
+              <h3 className={cn("text-base font-bold uppercase tracking-widest transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
               <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronRight className="h-6 w-6" /></button>
             </div>
 
@@ -314,8 +318,10 @@ export default function BookingFlow() {
                       setStep("time");
                     }}
                     className={cn(
-                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
-                      isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
+                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg duration-500",
+                      isSelected 
+                        ? (theme === 'dark' ? "bg-primary text-slate-950 shadow-lg shadow-primary/30" : "bg-primary text-white shadow-lg shadow-primary/30") 
+                        : (theme === 'dark' ? "text-slate-300 hover:border-slate-800 hover:bg-slate-900" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50"),
                       (isPast || isClosedByConfig) && "opacity-20 cursor-not-allowed"
                     )}
                   >
@@ -338,7 +344,7 @@ export default function BookingFlow() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5">
               {loadingTimes ? (
                 Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="h-16 border border-slate-100 bg-slate-50 animate-pulse rounded-xl" />
+                  <div key={i} className={cn("h-16 border animate-pulse rounded-xl transition-colors duration-500", theme === 'dark' ? "bg-slate-900 border-slate-800" : "bg-slate-50 border-slate-100")} />
                 ))
               ) : availableTimes.length > 0 ? (
                 availableTimes.map((t) => (
@@ -349,8 +355,9 @@ export default function BookingFlow() {
                       setStep("summary");
                     }}
                     className={cn(
-                      "border border-slate-100 bg-white py-6 text-[11px] font-bold tracking-widest text-slate-900 transition-all rounded-xl shadow-sm hover:border-primary hover:text-primary hover:shadow-md",
-                      selectedTime === t && "border-primary text-white bg-primary shadow-lg shadow-primary/30"
+                      "border py-6 text-[11px] font-bold tracking-widest transition-all rounded-xl shadow-sm hover:border-primary hover:text-primary hover:shadow-md duration-500",
+                      theme === 'dark' ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-slate-100 text-slate-900",
+                      selectedTime === t && (theme === 'dark' ? "border-primary text-slate-950 bg-primary shadow-lg shadow-primary/30" : "border-primary text-white bg-primary shadow-lg shadow-primary/30")
                     )}
                   >
                     {t}
@@ -456,17 +463,17 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl">
+    <div className={cn("min-h-screen transition-colors duration-500", theme === 'dark' ? "bg-slate-950" : "bg-white")}>
+      <nav className={cn("sticky top-0 z-50 border-b px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl transition-colors duration-500", theme === 'dark' ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-slate-100")}>
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
+            <span className={cn("font-heading text-2xl font-black tracking-tighter uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>ON-TESTE</span>
           </div>
           <div className="hidden items-center gap-10 lg:flex">
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">INÍCIO</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SERVIÇOS</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">SOBRE</a>
-            <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">CONTATO</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>INÍCIO</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>SERVIÇOS</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>SOBRE</a>
+            <a href="#" className={cn("text-[10px] font-black tracking-[0.2em] hover:text-primary transition-colors uppercase", theme === 'dark' ? "text-white/70" : "text-slate-500")}>CONTATO</a>
           </div>
           <div className="flex items-center gap-3">
             <Button 
@@ -475,7 +482,7 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase whitespace-nowrap"
+              className={cn("rounded-none px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] transition-all uppercase whitespace-nowrap", theme === 'dark' ? "bg-primary text-slate-950 hover:bg-primary/90" : "bg-primary text-white hover:bg-primary/90")}
             >
               AGENDAR HORÁRIO
             </Button>
@@ -483,28 +490,28 @@ export default function BookingFlow() {
         </div>
       </nav>
 
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-white">
+      <section className={cn("relative min-h-[70vh] flex items-center justify-center overflow-hidden transition-colors duration-500", theme === 'dark' ? "bg-slate-950" : "bg-white")}>
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
             className="h-full w-full object-cover opacity-10 grayscale brightness-125" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
+          <div className={cn("absolute inset-0 transition-colors duration-500", theme === 'dark' ? "bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" : "bg-gradient-to-t from-white via-white/80 to-transparent")} />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
           <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-6 font-heading text-5xl font-bold uppercase tracking-tight text-slate-900 md:text-8xl lg:text-9xl leading-[0.9]">
+          <h1 className={cn("mb-6 font-heading text-5xl font-bold uppercase tracking-tight md:text-8xl lg:text-9xl leading-[0.9] transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
-          <p className="mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] text-slate-400 uppercase max-w-xl mx-auto font-medium">
+          <p className={cn("mb-10 text-[10px] md:text-[11px] leading-relaxed tracking-[0.2em] uppercase max-w-xl mx-auto font-medium transition-colors duration-500", theme === 'dark' ? "text-slate-400" : "text-slate-500")}>
             A BARBEARIA QUE UNE O CLÁSSICO AO MODERNO. <br className="hidden md:block" />
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
             <Button 
               size="lg"
               onClick={() => {
@@ -519,6 +526,29 @@ export default function BookingFlow() {
               CONHEÇA NOSSO ESPAÇO
             </button>
           </div>
+
+          <div className="flex justify-center">
+            <div className={cn("backdrop-blur-sm border p-1.5 rounded-2xl inline-flex gap-1 shadow-sm transition-colors duration-500", theme === 'dark' ? "bg-slate-900/50 border-slate-800" : "bg-white/50 border-slate-200")}>
+              <button 
+                onClick={() => setTheme("light")}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                  theme === "light" ? "bg-white text-primary shadow-sm" : (theme === 'dark' ? "text-slate-500 hover:text-slate-300" : "text-slate-400 hover:text-slate-600")
+                )}
+              >
+                <Sun className="h-3.5 w-3.5" /> Claro
+              </button>
+              <button 
+                onClick={() => setTheme("dark")}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                  theme === "dark" ? "bg-slate-900 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"
+                )}
+              >
+                <Moon className="h-3.5 w-3.5" /> Escuro
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -526,7 +556,7 @@ export default function BookingFlow() {
         <div className="space-y-20 md:space-y-32">
           <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-8 mb-12 md:mb-16 gap-6">
-              <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-900 md:text-5xl leading-tight">
+              <h2 className={cn("text-3xl font-bold uppercase tracking-tight md:text-5xl leading-tight transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
                 OFERECEMOS SERVIÇOS DE <br className="hidden md:block" /> 
                 <span className="text-primary text-xl md:text-2xl tracking-[0.2em] font-bold">PRIMEIRA CLASSE</span>
               </h2>
@@ -555,7 +585,7 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border border-slate-100">
+          <div className={cn("p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border transition-colors duration-500", theme === 'dark' ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100")}>
             <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full shadow-lg">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>
@@ -565,7 +595,7 @@ export default function BookingFlow() {
             <div className="flex justify-center text-primary mb-2">
               {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <h4 className="text-[12px] font-bold tracking-[0.3em] text-slate-900 uppercase">JONATHAN SMITH</h4>
+            <h4 className={cn("text-[12px] font-bold tracking-[0.3em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>JONATHAN SMITH</h4>
           </div>
         </div>
       </main>
@@ -576,16 +606,16 @@ export default function BookingFlow() {
         </a>
       </div>
 
-      <footer className="border-t border-slate-100 bg-white py-32 px-6">
+      <footer className={cn("border-t py-32 px-6 transition-colors duration-500", theme === 'dark' ? "bg-slate-950 border-slate-800" : "bg-white border-slate-100")}>
         <div className="mx-auto max-w-7xl grid gap-20 md:grid-cols-4">
           <div className="space-y-8">
-            <span className="font-heading text-2xl font-bold uppercase tracking-tight text-slate-900">ON-TESTE</span>
+            <span className={cn("font-heading text-2xl font-bold uppercase tracking-tight transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>ON-TESTE</span>
             <p className="text-[11px] leading-relaxed tracking-wider text-slate-400 uppercase font-medium">
               Excelência em barbearia clássica e moderna. O cuidado que seu visual merece.
             </p>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">LINKS RÁPIDOS</h4>
+            <h4 className={cn("text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>LINKS RÁPIDOS</h4>
             <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li><a href="#" className="hover:text-primary transition-colors">HOME</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">ABOUT US</a></li>
@@ -594,16 +624,16 @@ export default function BookingFlow() {
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">CONTATO</h4>
+            <h4 className={cn("text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>CONTATO</h4>
             <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li className="flex items-center gap-3"><Phone className="h-4 w-4 text-primary" /> (11) 99999-9999</li>
               <li className="flex items-center gap-3"><MapPin className="h-4 w-4 text-primary" /> AV. PAULISTA, 1000</li>
             </ul>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">NEWSLETTER</h4>
+            <h4 className={cn("text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>NEWSLETTER</h4>
             <div className="flex">
-              <input type="email" placeholder="SEU E-MAIL" className="bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary" />
+              <input type="email" placeholder="SEU E-MAIL" className={cn("border rounded-xl px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary transition-colors duration-500", theme === 'dark' ? "bg-slate-900 border-slate-800 text-white" : "bg-slate-50 border-slate-100 text-slate-900")} />
               <button className="bg-primary text-white px-6 py-4 text-[11px] font-bold rounded-xl ml-2 shadow-lg shadow-primary/20">OK</button>
             </div>
           </div>
