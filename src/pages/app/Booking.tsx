@@ -580,7 +580,7 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border border-slate-100">
+          <div className={cn("p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border transition-colors duration-500", theme === 'dark' ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100")}>
             <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full shadow-lg">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>
@@ -601,7 +601,7 @@ export default function BookingFlow() {
         </a>
       </div>
 
-      <footer className="border-t border-slate-100 bg-white py-32 px-6">
+      <footer className={cn("border-t py-32 px-6 transition-colors duration-500", theme === 'dark' ? "bg-slate-950 border-slate-800" : "bg-white border-slate-100")}>
         <div className="mx-auto max-w-7xl grid gap-20 md:grid-cols-4">
           <div className="space-y-8">
             <span className="font-heading text-2xl font-bold uppercase tracking-tight text-slate-900">ON-TESTE</span>

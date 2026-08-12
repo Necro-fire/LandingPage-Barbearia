@@ -80,7 +80,7 @@ export default function Dashboard() {
       />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Agendamentos de Hoje</CardTitle>
             <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center">
@@ -93,7 +93,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Pendentes</CardTitle>
             <div className="h-8 w-8 rounded-lg bg-amber-50 flex items-center justify-center">
@@ -106,7 +106,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Confirmados</CardTitle>
             <div className="h-8 w-8 rounded-lg bg-green-50 flex items-center justify-center">
@@ -119,7 +119,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
             <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Concluídos</CardTitle>
             <div className="h-8 w-8 rounded-lg bg-purple-50 flex items-center justify-center">
@@ -134,7 +134,7 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden">
           <CardHeader className="border-b border-slate-50 px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
@@ -147,7 +147,7 @@ export default function Dashboard() {
             {nextAppointments.length > 0 ? (
               <div className="divide-y divide-border/40">
                 {nextAppointments.map((app) => (
-                  <div key={app.id} className="flex items-center justify-between p-4 hover:bg-slate-50 transition-colors">
+                  <div key={app.id} className="flex items-center justify-between p-4 hover:bg-secondary/50 transition-colors">
                     <div className="flex items-center gap-6">
                       <div className="flex items-center gap-2 text-blue-500">
                         <Clock className="h-4 w-4" />
@@ -176,7 +176,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden">
+        <Card className="rounded-2xl border-none shadow-sm bg-card overflow-hidden">
           <CardHeader className="border-b border-slate-50 px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
@@ -189,7 +189,7 @@ export default function Dashboard() {
             {latestRequests.length > 0 ? (
               <div className="divide-y divide-border/40">
                 {latestRequests.map((req) => (
-                  <div key={req.id} className="p-4 hover:bg-slate-50 transition-colors flex items-center justify-between border-b border-slate-50 last:border-0">
+                  <div key={req.id} className="p-4 hover:bg-secondary/50 transition-colors flex items-center justify-between border-b border-border/40 last:border-0">
                     <div className="grid grid-cols-3 flex-1 gap-4 items-center">
                       <p className="font-bold text-sm text-slate-900">{req.client?.full_name || req.guest_name}</p>
                       <p className="text-xs text-slate-500 font-medium">{req.service?.name}</p>

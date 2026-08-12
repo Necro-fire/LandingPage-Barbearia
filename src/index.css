@@ -124,4 +124,8 @@
   .premium-card {
     @apply rounded-3xl bg-white border border-border/50 shadow-sm transition-all duration-300;
   }
+
+  .dark .premium-card {
+    @apply bg-slate-900 border-slate-800 shadow-none;
+  }
 }
