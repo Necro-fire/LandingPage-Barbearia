@@ -633,7 +633,7 @@ export default function BookingFlow() {
           <div className="space-y-8">
             <h4 className={cn("text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>NEWSLETTER</h4>
             <div className="flex">
-              <input type="email" placeholder="SEU E-MAIL" className="bg-slate-50 border border-slate-100 rounded-xl px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary" />
+              <input type="email" placeholder="SEU E-MAIL" className={cn("border rounded-xl px-6 py-4 text-[11px] w-full focus:outline-none focus:border-primary transition-colors duration-500", theme === 'dark' ? "bg-slate-900 border-slate-800 text-white" : "bg-slate-50 border-slate-100 text-slate-900")} />
               <button className="bg-primary text-white px-6 py-4 text-[11px] font-bold rounded-xl ml-2 shadow-lg shadow-primary/20">OK</button>
             </div>
           </div>
