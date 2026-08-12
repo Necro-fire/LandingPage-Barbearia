@@ -450,14 +450,14 @@ export default function BookingFlow() {
         </div>
       </nav>
 
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop" 
-            className="h-full w-full object-cover opacity-40 grayscale brightness-[0.3]" 
+            className="h-full w-full object-cover opacity-10 grayscale brightness-125" 
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent" />
         </div>
         
         <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
