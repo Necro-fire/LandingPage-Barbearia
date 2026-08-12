@@ -460,7 +460,7 @@ export default function Schedule() {
                         <Badge variant="outline" className={cn("rounded-lg uppercase font-black text-[9px] tracking-widest px-3", ex.is_closed ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500")}>
                           {ex.is_closed ? "Fechado" : `${ex.start_time} - ${ex.end_time}`}
                         </Badge>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-red-500">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-red-500" onClick={() => deleteException(ex.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
