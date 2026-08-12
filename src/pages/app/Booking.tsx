@@ -463,8 +463,8 @@ export default function BookingFlow() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-foreground selection:bg-primary/30">
-      <nav className="sticky top-0 z-50 border-b border-white/5 bg-black px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl">
+    <div className={cn("min-h-screen transition-colors duration-500", theme === 'dark' ? "bg-slate-950" : "bg-white")}>
+      <nav className={cn("sticky top-0 z-50 border-b px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl transition-colors duration-500", theme === 'dark' ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-slate-100")}>
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
