@@ -504,7 +504,7 @@ export default function BookingFlow() {
             OBTENHA UMA GAMA COMPLETA DE SERVIÇOS PREMIUM.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
             <Button 
               size="lg"
               onClick={() => {
@@ -518,6 +518,29 @@ export default function BookingFlow() {
             <button className="text-[10px] font-bold tracking-[0.3em] text-slate-400 hover:text-slate-900 transition-colors border-b border-slate-200 pb-1 uppercase">
               CONHEÇA NOSSO ESPAÇO
             </button>
+          </div>
+
+          <div className="flex justify-center">
+            <div className="bg-white/50 backdrop-blur-sm border border-slate-200 p-1.5 rounded-2xl inline-flex gap-1 shadow-sm">
+              <button 
+                onClick={() => setTheme("light")}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                  theme === "light" ? "bg-white text-primary shadow-sm" : "text-slate-400 hover:text-slate-600"
+                )}
+              >
+                <Sun className="h-3.5 w-3.5" /> Claro
+              </button>
+              <button 
+                onClick={() => setTheme("dark")}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                  theme === "dark" ? "bg-slate-900 text-white shadow-sm" : "text-slate-400 hover:text-slate-600"
+                )}
+              >
+                <Moon className="h-3.5 w-3.5" /> Escuro
+              </button>
+            </div>
           </div>
         </div>
       </section>
