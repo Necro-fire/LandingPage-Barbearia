@@ -595,7 +595,7 @@ export default function BookingFlow() {
             <div className="flex justify-center text-primary mb-2">
               {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <h4 className="text-[12px] font-bold tracking-[0.3em] text-slate-900 uppercase">JONATHAN SMITH</h4>
+            <h4 className={cn("text-[12px] font-bold tracking-[0.3em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>JONATHAN SMITH</h4>
           </div>
         </div>
       </main>
