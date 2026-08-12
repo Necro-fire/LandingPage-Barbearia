@@ -68,15 +68,18 @@ export default function Schedule() {
         `)
         .order("starts_at", { ascending: true }),
       supabase.from("barbers").select("*").eq("is_active", true),
-      (supabase.from("shop_working_hours") as any).select("*").order("weekday", { ascending: true }),
+      supabase.from("settings").select("*").eq("is_public", true), // Dummy to avoid TS error for now while we use (supabase as any)
       supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
     ]);
 
+    // Use (supabase as any) to bypass type checking for the new table
+    const { data: realShopData } = await (supabase as any).from("shop_working_hours").select("*").order("weekday", { ascending: true });
+
     if (appRes.data) setAppointments(appRes.data);
     if (brbRes.data) setBarbers(brbRes.data);
-    if (shopRes.data) {
+    if (realShopData) {
       const hoursMap: any = {};
-      (shopRes.data as any[]).forEach(item => {
+      realShopData.forEach((item: any) => {
         hoursMap[item.weekday] = {
           active: item.active,
           hours: item.intervals
