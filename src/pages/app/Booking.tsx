@@ -333,7 +333,7 @@ export default function BookingFlow() {
         );
       case "guest-info":
         return (
-          <div className="max-w-md mx-auto border border-white/5 bg-white/[0.02] p-10 space-y-10">
+          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-10 rounded-3xl shadow-sm">
             <div className="space-y-8">
               <div className="space-y-3">
                 <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
