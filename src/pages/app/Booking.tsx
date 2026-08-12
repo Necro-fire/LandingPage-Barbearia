@@ -372,9 +372,9 @@ export default function BookingFlow() {
         return (
           <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-12 rounded-3xl shadow-sm">
             <div className="space-y-8">
-              <div className="flex justify-between items-center border-b border-white/5 pb-5">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">SERVIÇO</span>
-                <span className="text-[11px] font-black tracking-[0.1em] text-white uppercase">{selectedService.name}</span>
+              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+                <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">SERVIÇO</span>
+                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedService.name}</span>
               </div>
               <div className="flex justify-between items-center border-b border-white/5 pb-5">
                 <span className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">BARBEIRO</span>
