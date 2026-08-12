@@ -92,7 +92,9 @@ export default function ClientsPage() {
     }
 
     // Creating a profile manually for a client
+    // Since id is primary key and likely not serial, we might need a gen_random_uuid() or handle it
     const { error } = await supabase.from("profiles").insert({
+      id: crypto.randomUUID(),
       full_name: formData.full_name,
       phone: formData.phone
     });
