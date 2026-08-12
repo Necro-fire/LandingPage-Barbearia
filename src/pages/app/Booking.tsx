@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Check, Calendar, User, Scissors, Clock, ArrowRight, ArrowLeft, Star, MapPin, Instagram, Phone, ChevronLeft, ChevronRight, AlertCircle, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +16,7 @@ import { ptBR } from "date-fns/locale";
 type Step = "service" | "barber" | "date" | "time" | "guest-info" | "summary" | "confirmation";
 
 export default function BookingFlow() {
+  const navigate = useNavigate();
   const [step, setStep] = useState<Step>("service");
   const [loading, setLoading] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -144,8 +146,9 @@ export default function BookingFlow() {
   const handleBooking = async () => {
     if (!selectedDate || !selectedTime) return;
     
-    if (!user && (!guestName || !guestPhone)) {
-      setStep("guest-info");
+    if (!user) {
+      toast({ title: "Login necessário", description: "Por favor, faça login ou cadastre-se para agendar." });
+      navigate("/auth");
       return;
     }
 

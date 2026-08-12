@@ -118,15 +118,15 @@ export default function ClientsPage() {
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <PageHeader 
-          title="Clientes" 
-          description="Gerencie sua base de clientes e histórico de fidelidade."
+          title="Central de Clientes" 
+          description="Acompanhe o histórico completo e fidelidade dos seus clientes."
         />
         <div className="flex items-center gap-2">
           <Button 
             onClick={() => setIsOpen(true)}
             className="rounded-xl shadow-lg shadow-primary/20 h-10 px-6 font-bold uppercase text-xs"
           >
-            <Plus className="h-4 w-4 mr-2" /> Adicionar Cliente
+            <Plus className="h-4 w-4 mr-2" /> Consulta de Histórico
           </Button>
         </div>
       </div>
