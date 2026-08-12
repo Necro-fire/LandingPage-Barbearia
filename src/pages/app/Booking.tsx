@@ -336,11 +336,11 @@ export default function BookingFlow() {
           <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-10 rounded-3xl shadow-sm">
             <div className="space-y-8">
               <div className="space-y-3">
-                <label className="text-[10px] font-black tracking-[0.2em] text-white/40 uppercase">NOME COMPLETO</label>
+                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">NOME COMPLETO</label>
                 <Input 
                   value={guestName} 
                   onChange={(e) => setGuestName(e.target.value)}
-                  className="rounded-none bg-white/[0.02] border-white/10 text-white text-[11px] uppercase tracking-widest focus:border-primary h-14"
+                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
                   placeholder="DIGITE SEU NOME"
                 />
               </div>
