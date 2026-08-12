@@ -543,11 +543,11 @@ export default function BookingFlow() {
         </a>
       </div>
 
-      <footer className="border-t border-white/5 bg-black py-32 px-6">
+      <footer className="border-t border-slate-100 bg-white py-32 px-6">
         <div className="mx-auto max-w-7xl grid gap-20 md:grid-cols-4">
           <div className="space-y-8">
-            <span className="font-heading text-2xl font-black uppercase tracking-tighter text-white">BARBER</span>
-            <p className="text-[11px] leading-relaxed tracking-wider text-white/40 uppercase">
+            <span className="font-heading text-2xl font-bold uppercase tracking-tight text-slate-900">ON-TESTE</span>
+            <p className="text-[11px] leading-relaxed tracking-wider text-slate-400 uppercase font-medium">
               Excelência em barbearia clássica e moderna. O cuidado que seu visual merece.
             </p>
           </div>
