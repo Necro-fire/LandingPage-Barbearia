@@ -316,7 +316,7 @@ export default function BookingFlow() {
                     className={cn(
                       "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
                       isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
-                      (isPast || isSunday) && "opacity-20 cursor-not-allowed"
+                      (isPast || isClosedByConfig) && "opacity-20 cursor-not-allowed"
                     )}
                   >
                     {format(day, "d")}
