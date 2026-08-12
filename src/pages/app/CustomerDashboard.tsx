@@ -17,6 +17,7 @@ import { format, isAfter } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useAuth } from "@/hooks/useAuth";
 import { Spinner } from "@/components/common/Loading";
+import { cn } from "@/lib/utils";
 
 export default function CustomerDashboard() {
   const { user, profile, signOut } = useAuth();
