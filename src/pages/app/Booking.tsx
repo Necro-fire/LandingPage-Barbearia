@@ -30,6 +30,7 @@ export default function BookingFlow() {
   const [loadingTimes, setLoadingTimes] = useState(false);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [isSlotTaken, setIsSlotTaken] = useState(false);
+  const [shopWorkingHours, setShopWorkingHours] = useState<any[]>([]);
   const [guestName, setGuestName] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
   const [user, setUser] = useState<any>(null);
