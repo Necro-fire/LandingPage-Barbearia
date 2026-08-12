@@ -213,7 +213,7 @@ export default function BookingFlow() {
         return (
           <div className="space-y-0" id="booking-section">
             <div className="mb-20 text-center">
-              <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 uppercase mb-4">Nossos Preços</h3>
+              <h3 className={cn("text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4 transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>Nossos Preços</h3>
               <p className="text-[10px] md:text-[11px] tracking-[0.3em] text-slate-400 uppercase">Obtenha uma gama completa de serviços premium.</p>
             </div>
             <div className="grid gap-x-20 gap-y-0 lg:grid-cols-2">
