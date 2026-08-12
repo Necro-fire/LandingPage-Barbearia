@@ -615,7 +615,7 @@ export default function BookingFlow() {
             </p>
           </div>
           <div className="space-y-8">
-            <h4 className="text-[11px] font-bold tracking-[0.4em] text-slate-900 uppercase">LINKS RÁPIDOS</h4>
+            <h4 className={cn("text-[11px] font-bold tracking-[0.4em] uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>LINKS RÁPIDOS</h4>
             <ul className="text-[11px] font-bold tracking-[0.3em] text-slate-400 space-y-4 uppercase">
               <li><a href="#" className="hover:text-primary transition-colors">HOME</a></li>
               <li><a href="#" className="hover:text-primary transition-colors">ABOUT US</a></li>
