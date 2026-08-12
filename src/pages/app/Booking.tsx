@@ -325,7 +325,7 @@ export default function BookingFlow() {
                 ))
               ) : (
                 <div className="col-span-full py-16 text-center">
-                  <p className="text-[11px] font-black text-white/40 uppercase tracking-widest">NÃO HÁ HORÁRIOS DISPONÍVEIS NESTA DATA.</p>
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">NÃO HÁ HORÁRIOS DISPONÍVEIS NESTA DATA.</p>
                 </div>
               )}
             </div>
