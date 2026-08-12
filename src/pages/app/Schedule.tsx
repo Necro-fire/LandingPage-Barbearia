@@ -164,38 +164,6 @@ export default function Schedule() {
     });
   };
 
-  const deleteException = async (id: string) => {
-    const { error } = await supabase.from("schedule_exceptions").delete().eq("id", id);
-    if (error) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Sucesso", description: "Exceção removida." });
-      fetchData();
-    }
-  };
-
-  const addException = async (data: any) => {
-    const { error } = await supabase.from("schedule_exceptions").insert(data);
-    if (error) {
-      toast({ title: "Erro", description: error.message, variant: "destructive" });
-    } else {
-      toast({ title: "Sucesso", description: "Exceção adicionada." });
-      fetchData();
-    }
-  };
-    setShopHours((prev: any) => {
-      const newHours = [...prev[weekday].hours];
-      newHours[index] = { ...newHours[index], [field]: value };
-      return {
-        ...prev,
-        [weekday]: {
-          ...prev[weekday],
-          hours: newHours
-        }
-      };
-    });
-  };
-
   const updateAppointmentStatus = async (id: string, status: any) => {
     const { error } = await supabase.from("appointments").update({ status }).eq("id", id);
     if (error) {
