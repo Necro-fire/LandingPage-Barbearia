@@ -497,7 +497,7 @@ export default function BookingFlow() {
         
         <div className="container relative z-10 mx-auto max-w-4xl px-6 text-center">
           <span className="mb-4 block text-[9px] font-black tracking-[0.5em] text-primary uppercase animate-fade-in">BEM-VINDO À ON-TESTE</span>
-          <h1 className="mb-6 font-heading text-5xl font-bold uppercase tracking-tight text-slate-900 md:text-8xl lg:text-9xl leading-[0.9]">
+          <h1 className={cn("mb-6 font-heading text-5xl font-bold uppercase tracking-tight md:text-8xl lg:text-9xl leading-[0.9] transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
             ESTILO & <br />
             <span className="text-primary italic">CONFIANÇA</span>
           </h1>
