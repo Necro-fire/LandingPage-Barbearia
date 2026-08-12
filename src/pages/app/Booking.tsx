@@ -30,6 +30,7 @@ export default function BookingFlow() {
   const [loadingTimes, setLoadingTimes] = useState(false);
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [isSlotTaken, setIsSlotTaken] = useState(false);
+  const [shopWorkingHours, setShopWorkingHours] = useState<any[]>([]);
   const [guestName, setGuestName] = useState("");
   const [guestPhone, setGuestPhone] = useState("");
   const [user, setUser] = useState<any>(null);
@@ -42,12 +43,14 @@ export default function BookingFlow() {
 
   useEffect(() => {
     async function fetchData() {
-      const [srvRes, brbRes] = await Promise.all([
+      const [srvRes, brbRes, shopRes] = await Promise.all([
         supabase.from("services").select("*").eq("is_active", true),
-        supabase.from("barbers").select("*").eq("is_active", true)
+        supabase.from("barbers").select("*").eq("is_active", true),
+        (supabase as any).from("shop_working_hours").select("*")
       ]);
       if (srvRes.data) setServices(srvRes.data);
       if (brbRes.data) setBarbers(brbRes.data);
+      if (shopRes.data) setShopWorkingHours(shopRes.data);
     }
     fetchData();
   }, []);
@@ -67,43 +70,72 @@ export default function BookingFlow() {
     const startOfSelectedDay = startOfDay(selectedDate);
     const endOfSelectedDay = new Date(startOfSelectedDay);
     endOfSelectedDay.setHours(23, 59, 59, 999);
+    const weekday = selectedDate.getDay();
 
-    const { data: existingApps } = await supabase
-      .from("appointments")
-      .select("starts_at, ends_at")
-      .eq("barber_id", selectedBarber.id)
-      .gte("starts_at", startOfSelectedDay.toISOString())
-      .lte("starts_at", endOfSelectedDay.toISOString())
-      .neq("status", "cancelled");
+    const [appointmentsRes, shopHoursRes, exceptionsRes] = await Promise.all([
+      supabase
+        .from("appointments")
+        .select("starts_at, ends_at")
+        .eq("barber_id", selectedBarber.id)
+        .gte("starts_at", startOfSelectedDay.toISOString())
+        .lte("starts_at", endOfSelectedDay.toISOString())
+        .neq("status", "cancelled"),
+      (supabase as any).from("shop_working_hours").select("*").eq("weekday", weekday).maybeSingle(),
+      supabase.from("schedule_exceptions").select("*").eq("date", format(selectedDate, "yyyy-MM-dd")).maybeSingle()
+    ]);
+
+    const existingApps = appointmentsRes.data;
+    const shopConfig = shopHoursRes.data;
+    const exception = exceptionsRes.data;
 
     const slots: string[] = [];
-    let current = new Date(startOfSelectedDay);
-    current.setHours(9, 0, 0, 0);
-    const endDay = new Date(startOfSelectedDay);
-    endDay.setHours(19, 0, 0, 0);
-
     const serviceDuration = selectedService.duration_minutes;
 
-    while (current < endDay) {
-      const slotStart = new Date(current);
-      const slotEnd = new Date(current.getTime() + serviceDuration * 60000);
-      
-      const isOccupied = existingApps?.some(app => {
-        const appStart = new Date(app.starts_at);
-        const appEnd = new Date(app.ends_at);
-        return (slotStart < appEnd && slotEnd > appStart);
-      });
+    // Determine working intervals for this day
+    let workingIntervals: { start: string, end: string }[] = [];
 
-      const isPast = isBefore(slotStart, new Date());
-
-      if (!isOccupied && !isPast) {
-        slots.push(format(slotStart, "HH:mm"));
+    if (exception) {
+      if (!exception.is_closed && exception.start_time && exception.end_time) {
+        workingIntervals = [{ start: exception.start_time, end: exception.end_time }];
       }
-      
-      current.setMinutes(current.getMinutes() + 30);
+    } else if (shopConfig && shopConfig.active) {
+      workingIntervals = shopConfig.intervals || [];
     }
 
-    setAvailableTimes(slots);
+    workingIntervals.forEach(interval => {
+      const [startH, startM] = interval.start.split(":").map(Number);
+      const [endH, endM] = interval.end.split(":").map(Number);
+
+      let current = new Date(startOfSelectedDay);
+      current.setHours(startH, startM, 0, 0);
+      
+      const endDay = new Date(startOfSelectedDay);
+      endDay.setHours(endH, endM, 0, 0);
+
+      while (current < endDay) {
+        const slotStart = new Date(current);
+        const slotEnd = new Date(current.getTime() + serviceDuration * 60000);
+        
+        // Ensure slot doesn't end after working hours
+        if (slotEnd > endDay) break;
+
+        const isOccupied = existingApps?.some(app => {
+          const appStart = new Date(app.starts_at);
+          const appEnd = new Date(app.ends_at);
+          return (slotStart < appEnd && slotEnd > appStart);
+        });
+
+        const isPast = isBefore(slotStart, new Date());
+
+        if (!isOccupied && !isPast) {
+          slots.push(format(slotStart, "HH:mm"));
+        }
+        
+        current.setMinutes(current.getMinutes() + 15); // Check every 15 mins for more flexibility
+      }
+    });
+
+    setAvailableTimes([...new Set(slots)].sort()); // Ensure unique and sorted
     setLoadingTimes(false);
   };
 
@@ -270,12 +302,13 @@ export default function BookingFlow() {
               {days.map((day) => {
                 const isPast = isBefore(day, startOfDay(new Date()));
                 const isSelected = selectedDate && isSameDay(day, selectedDate);
-                const isSunday = day.getDay() === 0;
+                const shopConfig = shopWorkingHours.find(s => s.weekday === day.getDay());
+                const isClosedByConfig = shopConfig ? !shopConfig.active : false;
 
                 return (
                   <button
                     key={day.toString()}
-                    disabled={isPast || isSunday}
+                    disabled={isPast || isClosedByConfig}
                     onClick={() => {
                       setSelectedDate(day);
                       setStep("time");
@@ -283,7 +316,7 @@ export default function BookingFlow() {
                     className={cn(
                       "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
                       isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
-                      (isPast || isSunday) && "opacity-20 cursor-not-allowed"
+                      (isPast || isClosedByConfig) && "opacity-20 cursor-not-allowed"
                     )}
                   >
                     {format(day, "d")}

@@ -54,10 +54,18 @@ export default function Schedule() {
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [shopHours, setShopHours] = useState<any>(null);
   const [exceptions, setExceptions] = useState<any[]>([]);
+  const [isAddExceptionOpen, setIsAddExceptionOpen] = useState(false);
+  const [newException, setNewException] = useState({
+    date: format(new Date(), "yyyy-MM-dd"),
+    reason: "",
+    is_closed: true,
+    start_time: "09:00",
+    end_time: "18:00"
+  });
 
   const fetchData = async () => {
     setLoading(true);
-    const [appRes, brbRes, settingsRes, exceptionsRes] = await Promise.all([
+    const [appRes, brbRes, shopRes, exceptionsRes] = await Promise.all([
       supabase
         .from("appointments")
         .select(`
@@ -68,13 +76,25 @@ export default function Schedule() {
         `)
         .order("starts_at", { ascending: true }),
       supabase.from("barbers").select("*").eq("is_active", true),
-      supabase.from("settings").select("*").eq("key", "shop_working_hours").maybeSingle(),
+      supabase.from("settings").select("*").eq("is_public", true), // Dummy to avoid TS error for now while we use (supabase as any)
       supabase.from("schedule_exceptions").select("*").order("date", { ascending: true })
     ]);
 
+    // Use (supabase as any) to bypass type checking for the new table
+    const { data: realShopData } = await (supabase as any).from("shop_working_hours").select("*").order("weekday", { ascending: true });
+
     if (appRes.data) setAppointments(appRes.data);
     if (brbRes.data) setBarbers(brbRes.data);
-    if (settingsRes.data) setShopHours(settingsRes.data.value);
+    if (realShopData) {
+      const hoursMap: any = {};
+      realShopData.forEach((item: any) => {
+        hoursMap[item.weekday] = {
+          active: item.active,
+          hours: item.intervals
+        };
+      });
+      setShopHours(hoursMap);
+    }
     if (exceptionsRes.data) setExceptions(exceptionsRes.data);
     setLoading(false);
   };
@@ -84,15 +104,92 @@ export default function Schedule() {
   }, [currentDate]);
 
   const saveWorkingHours = async () => {
-    const { error } = await supabase.from("settings").upsert({
-      key: "shop_working_hours",
-      value: shopHours
-    }, { onConflict: 'key' });
+    if (!shopHours) return;
+    
+    setLoading(true);
+    const updates = Object.entries(shopHours).map(([weekday, config]: [string, any]) => ({
+      weekday: parseInt(weekday),
+      active: config.active,
+      intervals: config.hours || []
+    }));
+
+    const { error } = await (supabase as any).from("shop_working_hours").upsert(updates);
 
     if (error) {
       toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
     } else {
       toast({ title: "Sucesso", description: "Horários atualizados!" });
+    }
+    setLoading(false);
+  };
+
+  const toggleDayActive = (weekday: number) => {
+    setShopHours((prev: any) => ({
+      ...prev,
+      [weekday]: {
+        ...prev[weekday],
+        active: !prev[weekday].active,
+        hours: prev[weekday].active ? [] : [{ start: "09:00", end: "18:00" }]
+      }
+    }));
+  };
+
+  const addInterval = (weekday: number) => {
+    setShopHours((prev: any) => ({
+      ...prev,
+      [weekday]: {
+        ...prev[weekday],
+        hours: [...(prev[weekday].hours || []), { start: "09:00", end: "18:00" }]
+      }
+    }));
+  };
+
+  const removeInterval = (weekday: number, index: number) => {
+    setShopHours((prev: any) => {
+      const newHours = [...prev[weekday].hours];
+      newHours.splice(index, 1);
+      return {
+        ...prev,
+        [weekday]: {
+          ...prev[weekday],
+          hours: newHours
+        }
+      };
+    });
+  };
+
+  const updateInterval = (weekday: number, index: number, field: 'start' | 'end', value: string) => {
+    setShopHours((prev: any) => {
+      const newHours = [...prev[weekday].hours];
+      newHours[index] = { ...newHours[index], [field]: value };
+      return {
+        ...prev,
+        [weekday]: {
+          ...prev[weekday],
+          hours: newHours
+        }
+      };
+    });
+  };
+
+  const deleteException = async (id: string) => {
+    const { error } = await supabase.from("schedule_exceptions").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Sucesso", description: "Exceção removida." });
+      fetchData();
+    }
+  };
+
+  const addException = async () => {
+    const { error } = await supabase.from("schedule_exceptions").insert(newException);
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Sucesso", description: "Exceção adicionada." });
+      setIsAddExceptionOpen(false);
+      fetchData();
     }
   };
 
@@ -259,10 +356,10 @@ export default function Schedule() {
             <CardContent className="p-6">
               <div className="space-y-6">
                 {weekDays.map((day) => {
-                  const config = shopHours?.[day.id.toString()] || { active: false };
+                  const config = shopHours?.[day.id] || { active: false, hours: [] };
                   return (
-                    <div key={day.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl border border-border/40 bg-background/50">
-                      <div className="flex items-center gap-3 min-w-[120px]">
+                    <div key={day.id} className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 p-4 rounded-xl border border-border/40 bg-background/50">
+                      <div className="flex items-center gap-3 min-w-[120px] pt-2">
                         <div className={cn(
                           "h-2 w-2 rounded-full",
                           config.active ? "bg-green-500" : "bg-red-500"
@@ -270,31 +367,71 @@ export default function Schedule() {
                         <span className="font-bold uppercase tracking-tighter text-sm">{day.name}</span>
                       </div>
 
-                      <div className="flex-1 space-y-2">
+                      <div className="flex-1 space-y-3">
                         {config.active ? (
-                          <div className="flex flex-wrap gap-2">
-                            {config.hours?.map((block: any, idx: number) => (
-                              <Badge key={idx} variant="secondary" className="rounded-lg px-3 py-1 flex items-center gap-2 bg-secondary/80 border-none group">
-                                <Clock className="h-3 w-3 text-muted-foreground" />
-                                <span className="font-bold text-[10px]">{block.start} — {block.end}</span>
-                                <Trash2 className="h-3 w-3 text-muted-foreground hover:text-red-500 cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity" />
-                              </Badge>
-                            ))}
-                            <Button variant="ghost" size="sm" className="h-8 rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[9px] font-black uppercase tracking-widest">
-                              <Plus className="h-3 w-3 mr-1" /> Adicionar Intervalo
+                          <div className="flex flex-col gap-3">
+                            <div className="flex flex-wrap gap-2">
+                              {config.hours?.map((block: any, idx: number) => (
+                                <div key={idx} className="flex items-center gap-2 bg-secondary/80 rounded-lg p-2 group border border-border/40">
+                                  <Clock className="h-3 w-3 text-muted-foreground" />
+                                  <div className="flex items-center gap-1">
+                                    <input 
+                                      type="time" 
+                                      value={block.start} 
+                                      onChange={(e) => updateInterval(day.id, idx, 'start', e.target.value)}
+                                      className="bg-transparent border-none text-[10px] font-bold w-14 p-0 focus:ring-0"
+                                    />
+                                    <span className="text-[10px] font-bold text-muted-foreground">/</span>
+                                    <input 
+                                      type="time" 
+                                      value={block.end} 
+                                      onChange={(e) => updateInterval(day.id, idx, 'end', e.target.value)}
+                                      className="bg-transparent border-none text-[10px] font-bold w-14 p-0 focus:ring-0"
+                                    />
+                                  </div>
+                                  <button 
+                                    onClick={() => removeInterval(day.id, idx)}
+                                    className="text-muted-foreground hover:text-red-500 transition-colors"
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={() => addInterval(day.id)}
+                              className="h-8 w-fit rounded-lg border border-dashed border-border/60 hover:border-primary/50 text-[9px] font-black uppercase tracking-widest"
+                            >
+                              <Plus className="h-3 w-3 mr-1" /> Adicionar Turno
                             </Button>
                           </div>
                         ) : (
-                          <span className="text-[10px] text-muted-foreground italic uppercase tracking-widest">Fechado</span>
+                          <span className="text-[10px] text-muted-foreground italic uppercase tracking-widest pt-1 inline-block">Fechado</span>
                         )}
                       </div>
 
-                      <Button variant="outline" size="sm" className="rounded-xl border-border/60 h-8 text-[9px] font-black uppercase tracking-[0.2em]">
+                      <Button 
+                        variant={config.active ? "outline" : "default"}
+                        size="sm" 
+                        onClick={() => toggleDayActive(day.id)}
+                        className="rounded-xl border-border/60 h-8 text-[9px] font-black uppercase tracking-[0.2em] min-w-[100px]"
+                      >
                         {config.active ? "Desativar" : "Ativar"}
                       </Button>
                     </div>
                   );
                 })}
+              </div>
+              <div className="flex justify-end pt-6 border-t border-border/40">
+                <Button 
+                  onClick={saveWorkingHours}
+                  className="rounded-xl shadow-lg shadow-primary/20 h-10 px-8 font-bold uppercase text-[10px] tracking-widest"
+                  disabled={loading}
+                >
+                  {loading ? "Salvando..." : "Salvar Configurações"}
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -306,7 +443,12 @@ export default function Schedule() {
                   <CardTitle className="text-lg font-heading">Exceções de Funcionamento</CardTitle>
                   <CardDescription className="text-xs uppercase tracking-widest">Feriados ou horários especiais.</CardDescription>
                 </div>
-                <Button size="sm" variant="outline" className="rounded-xl gap-2 border-border/60 text-[9px] font-black uppercase h-8 px-4">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="rounded-xl gap-2 border-border/60 text-[9px] font-black uppercase h-8 px-4"
+                  onClick={() => setIsAddExceptionOpen(true)}
+                >
                   <Plus className="h-4 w-4" /> Nova Exceção
                 </Button>
               </div>
@@ -329,7 +471,7 @@ export default function Schedule() {
                         <Badge variant="outline" className={cn("rounded-lg uppercase font-black text-[9px] tracking-widest px-3", ex.is_closed ? "border-red-500 text-red-500" : "border-amber-500 text-amber-500")}>
                           {ex.is_closed ? "Fechado" : `${ex.start_time} - ${ex.end_time}`}
                         </Badge>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-red-500">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-red-500" onClick={() => deleteException(ex.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -552,6 +694,80 @@ export default function Schedule() {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isAddExceptionOpen} onOpenChange={setIsAddExceptionOpen}>
+        <DialogContent className="rounded-2xl border-border/60 bg-card/95 backdrop-blur-xl sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-xl uppercase tracking-tighter">Nova Exceção</DialogTitle>
+            <DialogDescription className="text-xs uppercase tracking-widest text-muted-foreground">
+              Configure feriados ou horários especiais
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Data</label>
+              <input 
+                type="date" 
+                value={newException.date}
+                onChange={(e) => setNewException({...newException, date: e.target.value})}
+                className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Motivo / Nome do Feriado</label>
+              <input 
+                type="text" 
+                placeholder="Ex: Natal, Reforma, Folga..."
+                value={newException.reason}
+                onChange={(e) => setNewException({...newException, reason: e.target.value})}
+                className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+              />
+            </div>
+
+            <div className="flex items-center gap-2 pt-2">
+              <input 
+                type="checkbox" 
+                id="is_closed"
+                checked={newException.is_closed}
+                onChange={(e) => setNewException({...newException, is_closed: e.target.checked})}
+                className="rounded border-border/60 text-primary focus:ring-primary"
+              />
+              <label htmlFor="is_closed" className="text-xs font-bold uppercase tracking-tighter cursor-pointer">Fechar o dia inteiro</label>
+            </div>
+
+            {!newException.is_closed && (
+              <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Início</label>
+                  <input 
+                    type="time" 
+                    value={newException.start_time}
+                    onChange={(e) => setNewException({...newException, start_time: e.target.value})}
+                    className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Fim</label>
+                  <input 
+                    type="time" 
+                    value={newException.end_time}
+                    onChange={(e) => setNewException({...newException, end_time: e.target.value})}
+                    className="w-full bg-secondary/50 border border-border/40 rounded-xl p-3 text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+            )}
+
+            <Button 
+              className="w-full rounded-xl shadow-lg shadow-primary/20 h-12 font-bold uppercase text-xs mt-4"
+              onClick={addException}
+            >
+              <Plus className="h-4 w-4 mr-2" /> Adicionar Exceção
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
