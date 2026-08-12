@@ -467,7 +467,7 @@ export default function BookingFlow() {
       <nav className={cn("sticky top-0 z-50 border-b px-4 md:px-6 py-4 md:py-5 backdrop-blur-xl transition-colors duration-500", theme === 'dark' ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-slate-100")}>
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-heading text-2xl font-black tracking-tighter text-white uppercase">ON-TESTE</span>
+            <span className={cn("font-heading text-2xl font-black tracking-tighter uppercase transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>ON-TESTE</span>
           </div>
           <div className="hidden items-center gap-10 lg:flex">
             <a href="#" className="text-[10px] font-black tracking-[0.2em] text-white/70 hover:text-primary transition-colors uppercase">INÍCIO</a>
