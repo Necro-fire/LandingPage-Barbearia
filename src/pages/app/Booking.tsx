@@ -362,7 +362,7 @@ export default function BookingFlow() {
                 }
                 setStep("summary");
               }}
-              className="w-full rounded-none bg-primary py-10 text-[12px] font-black tracking-[0.4em] uppercase text-black hover:bg-primary/90 transition-all"
+              className="w-full rounded-xl bg-primary py-10 text-[12px] font-bold tracking-widest uppercase text-white hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
             >
               PRÓXIMO PASSO
             </Button>
