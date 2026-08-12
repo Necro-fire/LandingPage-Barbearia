@@ -256,10 +256,10 @@ export default function BookingFlow() {
 
         return (
           <div className="max-w-md mx-auto space-y-12">
-            <div className="flex items-center justify-between border-b border-white/10 pb-6">
-              <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronLeft className="h-6 w-6" /></button>
-              <h3 className="text-base font-black uppercase tracking-widest text-white">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
-              <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-white/50 hover:text-white"><ChevronRight className="h-6 w-6" /></button>
+            <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+              <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronLeft className="h-6 w-6" /></button>
+              <h3 className="text-base font-bold uppercase tracking-widest text-slate-900">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
+              <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronRight className="h-6 w-6" /></button>
             </div>
 
             <div className="grid grid-cols-7 gap-3 text-center">
