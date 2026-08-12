@@ -533,7 +533,7 @@ export default function BookingFlow() {
                 onClick={() => setTheme("light")}
                 className={cn(
                   "flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
-                  theme === "light" ? "bg-white text-primary shadow-sm" : "text-slate-400 hover:text-slate-600"
+                  theme === "light" ? (theme === 'dark' ? "bg-slate-800 text-primary shadow-sm" : "bg-white text-primary shadow-sm") : (theme === 'dark' ? "text-slate-500 hover:text-slate-300" : "text-slate-400 hover:text-slate-600")
                 )}
               >
                 <Sun className="h-3.5 w-3.5" /> Claro
