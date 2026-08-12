@@ -305,7 +305,7 @@ export default function BookingFlow() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 md:grid-cols-5">
               {loadingTimes ? (
                 Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="h-16 border border-white/5 bg-white/[0.02] animate-pulse" />
+                  <div key={i} className="h-16 border border-slate-100 bg-slate-50 animate-pulse rounded-xl" />
                 ))
               ) : availableTimes.length > 0 ? (
                 availableTimes.map((t) => (
