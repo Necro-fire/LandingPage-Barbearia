@@ -528,7 +528,7 @@ export default function BookingFlow() {
           </div>
 
           <div className="flex justify-center">
-            <div className="bg-white/50 backdrop-blur-sm border border-slate-200 p-1.5 rounded-2xl inline-flex gap-1 shadow-sm">
+            <div className={cn("backdrop-blur-sm border p-1.5 rounded-2xl inline-flex gap-1 shadow-sm transition-colors duration-500", theme === 'dark' ? "bg-slate-900/50 border-slate-800" : "bg-white/50 border-slate-200")}>
               <button 
                 onClick={() => setTheme("light")}
                 className={cn(
