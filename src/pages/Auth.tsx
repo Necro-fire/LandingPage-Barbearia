@@ -30,7 +30,17 @@ export default function Auth() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
 
   useEffect(() => {
-    if (!loading && session) navigate("/app", { replace: true });
+    if (!loading && session) {
+      // If admin, go to /app, else go to /app/meu-painel
+      supabase.from("user_roles").select("role").eq("user_id", session.user.id).then(({ data }) => {
+        const roles = (data || []).map(r => r.role);
+        if (roles.includes("admin")) {
+          navigate("/app", { replace: true });
+        } else {
+          navigate("/app/meu-painel", { replace: true });
+        }
+      });
+    }
   }, [session, loading, navigate]);
 
   const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {

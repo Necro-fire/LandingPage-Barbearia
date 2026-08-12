@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/ForgotPassword.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Dashboard from "./pages/app/Dashboard.tsx";
 import Profile from "./pages/app/Profile.tsx";
+import CustomerDashboard from "./pages/app/CustomerDashboard.tsx";
 import {
   SettingsPage,
 } from "./pages/app/Modules.tsx";
@@ -54,7 +55,12 @@ const App = () => (
                     </ProtectedRoute>
                   }
                 >
-                  <Route index element={<Dashboard />} />
+                  <Route index element={
+                    <ProtectedRoute permission="dashboard.view">
+                      <Dashboard />
+                    </ProtectedRoute>
+                  } />
+                  <Route path="meu-painel" element={<CustomerDashboard />} />
                   <Route
                     path="agenda"
                     element={<ProtectedRoute permission="schedule.view"><Schedule /></ProtectedRoute>}
