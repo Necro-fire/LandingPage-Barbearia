@@ -522,17 +522,17 @@ export default function BookingFlow() {
           </div>
 
           {/* Section Style Image - White Box */}
-          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto">
-            <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full">
+          <div className="bg-white p-10 md:p-20 text-center max-w-4xl mx-auto rounded-3xl shadow-sm border border-slate-100">
+            <div className="h-20 w-20 mx-auto mb-10 overflow-hidden rounded-full shadow-lg">
               <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" className="h-full w-full object-cover" alt="Reviewer" />
             </div>
-            <p className="text-[12px] leading-relaxed text-black tracking-wider max-w-2xl mx-auto italic mb-10">
-              "Sample text. Click to select the text box. Click again or double-click to start editing the text. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            <p className="text-[14px] leading-relaxed text-slate-600 tracking-wide max-w-2xl mx-auto italic mb-10">
+              "A melhor barbearia que já frequentei. O atendimento é impecável e o ambiente muito profissional. Saio sempre renovado!"
             </p>
             <div className="flex justify-center text-primary mb-2">
               {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="h-4 w-4 fill-current" />)}
             </div>
-            <h4 className="text-[12px] font-black tracking-[0.3em] text-black uppercase">JONATHAN SMITH</h4>
+            <h4 className="text-[12px] font-bold tracking-[0.3em] text-slate-900 uppercase">JONATHAN SMITH</h4>
           </div>
         </div>
       </main>
