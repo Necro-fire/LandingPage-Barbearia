@@ -76,42 +76,16 @@
 }
 
 @layer utilities {
-  .text-gold-gradient {
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gold-line {
-    width: 60px;
-    height: 2px;
-    background: var(--gold-gradient);
-    border-radius: 1px;
-  }
-
   .section-padding {
     @apply py-20 md:py-28 px-4 md:px-8;
   }
 
-  .glass-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .glass-card-glow {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow), var(--glow-shadow);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
   .soft-shadow {
-    box-shadow: var(--card-shadow);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  }
+
+  .premium-card {
+    @apply rounded-3xl bg-white border border-border/50 shadow-sm transition-all duration-300;
   }
 }
 
