@@ -374,62 +374,32 @@ export default function BookingFlow() {
             </div>
           </div>
         );
-      case "guest-info":
-        return (
-          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-10 rounded-3xl shadow-sm">
-            <div className="space-y-8">
-              <div className="space-y-3">
-                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">NOME COMPLETO</label>
-                <Input 
-                  value={guestName} 
-                  onChange={(e) => setGuestName(e.target.value)}
-                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
-                  placeholder="DIGITE SEU NOME"
-                />
-              </div>
-              <div className="space-y-3">
-                <label className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">WHATSAPP / TELEFONE</label>
-                <Input 
-                  value={guestPhone} 
-                  onChange={(e) => setGuestPhone(e.target.value)}
-                  className="rounded-xl bg-slate-50 border-slate-100 text-slate-900 text-sm focus:border-primary h-14"
-                  placeholder="(99) 9 9999-9999"
-                />
-              </div>
-            </div>
-            <Button 
-              onClick={() => {
-                if (!guestName || !guestPhone) {
-                  toast({ title: "Campos obrigatórios", description: "Por favor, preencha seu nome e telefone.", variant: "destructive" });
-                  return;
-                }
-                setStep("summary");
-              }}
-              className="w-full rounded-xl bg-primary py-10 text-[12px] font-bold tracking-widest uppercase text-white hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all"
-            >
-              PRÓXIMO PASSO
-            </Button>
-          </div>
-        );
       case "summary":
         return (
-          <div className="max-w-md mx-auto border border-slate-100 bg-white p-10 space-y-12 rounded-3xl shadow-sm">
+          <div className={cn("max-w-md mx-auto border p-10 space-y-12 rounded-3xl shadow-sm transition-all duration-500", 
+            theme === 'dark' ? "bg-slate-900 border-slate-800" : "bg-white border-slate-100")}>
             <div className="space-y-8">
-              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+              <div className={cn("flex justify-between items-center border-b pb-5", theme === 'dark' ? "border-slate-800" : "border-slate-50")}>
                 <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">SERVIÇO</span>
-                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedService.name}</span>
+                <span className={cn("text-[11px] font-bold tracking-tight uppercase", theme === 'dark' ? "text-white" : "text-slate-900")}>
+                  {selectedService?.name}
+                </span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+              <div className={cn("flex justify-between items-center border-b pb-5", theme === 'dark' ? "border-slate-800" : "border-slate-50")}>
                 <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">BARBEIRO</span>
-                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedBarber.display_name}</span>
+                <span className={cn("text-[11px] font-bold tracking-tight uppercase", theme === 'dark' ? "text-white" : "text-slate-900")}>
+                  {selectedBarber?.display_name}
+                </span>
               </div>
-              <div className="flex justify-between items-center border-b border-slate-50 pb-5">
+              <div className={cn("flex justify-between items-center border-b pb-5", theme === 'dark' ? "border-slate-800" : "border-slate-50")}>
                 <span className="text-[10px] font-bold tracking-wider text-slate-400 uppercase">DATA E HORA</span>
-                <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}</span>
+                <span className={cn("text-[11px] font-bold tracking-tight uppercase", theme === 'dark' ? "text-white" : "text-slate-900")}>
+                  {selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}
+                </span>
               </div>
               <div className="flex justify-between items-center pt-4">
-                <span className="text-[10px] font-bold tracking-wider text-slate-900 uppercase">TOTAL</span>
-                <span className="text-2xl font-bold tracking-tight text-primary">R$ {selectedService.price}</span>
+                <span className={cn("text-[10px] font-bold tracking-wider uppercase", theme === 'dark' ? "text-white" : "text-slate-900")}>TOTAL</span>
+                <span className="text-2xl font-bold tracking-tight text-primary">R$ {selectedService?.price}</span>
               </div>
             </div>
             
@@ -444,23 +414,33 @@ export default function BookingFlow() {
         );
       case "confirmation":
         return (
-          <div className="text-center space-y-10 py-16">
-            <div className="mx-auto flex h-28 w-28 items-center justify-center border-2 border-primary text-primary">
+          <div className="text-center space-y-10 py-16 animate-in fade-in zoom-in duration-700">
+            <div className="mx-auto flex h-28 w-28 items-center justify-center border-2 border-primary text-primary rounded-full">
               <Check className="h-12 w-12" />
             </div>
             <div className="space-y-6">
-              <h3 className="text-4xl font-black uppercase tracking-tighter text-white">SOLICITAÇÃO ENVIADA</h3>
-              <p className="text-[11px] leading-relaxed tracking-wider text-white/40 max-w-sm mx-auto uppercase">
-                SEU AGENDAMENTO ESTÁ AGUARDANDO APROVAÇÃO. VOCÊ RECEBERÁ UMA CONFIRMAÇÃO EM BREVE.
+              <h3 className={cn("text-4xl font-black uppercase tracking-tighter transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>SOLICITAÇÃO ENVIADA</h3>
+              <p className={cn("text-[11px] leading-relaxed tracking-wider max-w-sm mx-auto uppercase", theme === 'dark' ? "text-white/40" : "text-slate-400")}>
+                SEU AGENDAMENTO ESTÁ AGUARDANDO APROVAÇÃO. VOCÊ RECEBERÁ UMA CONFIRMAÇÃO EM BREVE NO SEU PAINEL.
               </p>
             </div>
-            <button 
-              onClick={() => setStep("service")} 
-              className="text-[11px] font-black tracking-[0.3em] text-white underline decoration-primary decoration-2 underline-offset-8"
-            >
-              NOVO AGENDAMENTO
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button 
+                onClick={() => setStep("service")} 
+                variant="outline"
+                className={cn("rounded-xl px-10 h-14 text-[11px] font-black tracking-[0.3em] uppercase", theme === 'dark' ? "border-slate-800 text-white" : "border-slate-200 text-slate-900")}
+              >
+                NOVO AGENDAMENTO
+              </Button>
+              <Button 
+                onClick={() => navigate("/app/meu-painel")} 
+                className="rounded-xl px-10 h-14 text-[11px] font-black tracking-[0.3em] uppercase bg-primary text-white"
+              >
+                VER MEU PAINEL
+              </Button>
+            </div>
           </div>
+        );
         );
     }
   };
