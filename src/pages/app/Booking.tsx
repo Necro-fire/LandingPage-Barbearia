@@ -67,43 +67,72 @@ export default function BookingFlow() {
     const startOfSelectedDay = startOfDay(selectedDate);
     const endOfSelectedDay = new Date(startOfSelectedDay);
     endOfSelectedDay.setHours(23, 59, 59, 999);
+    const weekday = selectedDate.getDay();
 
-    const { data: existingApps } = await supabase
-      .from("appointments")
-      .select("starts_at, ends_at")
-      .eq("barber_id", selectedBarber.id)
-      .gte("starts_at", startOfSelectedDay.toISOString())
-      .lte("starts_at", endOfSelectedDay.toISOString())
-      .neq("status", "cancelled");
+    const [appointmentsRes, shopHoursRes, exceptionsRes] = await Promise.all([
+      supabase
+        .from("appointments")
+        .select("starts_at, ends_at")
+        .eq("barber_id", selectedBarber.id)
+        .gte("starts_at", startOfSelectedDay.toISOString())
+        .lte("starts_at", endOfSelectedDay.toISOString())
+        .neq("status", "cancelled"),
+      (supabase as any).from("shop_working_hours").select("*").eq("weekday", weekday).maybeSingle(),
+      supabase.from("schedule_exceptions").select("*").eq("date", format(selectedDate, "yyyy-MM-dd")).maybeSingle()
+    ]);
+
+    const existingApps = appointmentsRes.data;
+    const shopConfig = shopHoursRes.data;
+    const exception = exceptionsRes.data;
 
     const slots: string[] = [];
-    let current = new Date(startOfSelectedDay);
-    current.setHours(9, 0, 0, 0);
-    const endDay = new Date(startOfSelectedDay);
-    endDay.setHours(19, 0, 0, 0);
-
     const serviceDuration = selectedService.duration_minutes;
 
-    while (current < endDay) {
-      const slotStart = new Date(current);
-      const slotEnd = new Date(current.getTime() + serviceDuration * 60000);
-      
-      const isOccupied = existingApps?.some(app => {
-        const appStart = new Date(app.starts_at);
-        const appEnd = new Date(app.ends_at);
-        return (slotStart < appEnd && slotEnd > appStart);
-      });
+    // Determine working intervals for this day
+    let workingIntervals: { start: string, end: string }[] = [];
 
-      const isPast = isBefore(slotStart, new Date());
-
-      if (!isOccupied && !isPast) {
-        slots.push(format(slotStart, "HH:mm"));
+    if (exception) {
+      if (!exception.is_closed && exception.start_time && exception.end_time) {
+        workingIntervals = [{ start: exception.start_time, end: exception.end_time }];
       }
-      
-      current.setMinutes(current.getMinutes() + 30);
+    } else if (shopConfig && shopConfig.active) {
+      workingIntervals = shopConfig.intervals || [];
     }
 
-    setAvailableTimes(slots);
+    workingIntervals.forEach(interval => {
+      const [startH, startM] = interval.start.split(":").map(Number);
+      const [endH, endM] = interval.end.split(":").map(Number);
+
+      let current = new Date(startOfSelectedDay);
+      current.setHours(startH, startM, 0, 0);
+      
+      const endDay = new Date(startOfSelectedDay);
+      endDay.setHours(endH, endM, 0, 0);
+
+      while (current < endDay) {
+        const slotStart = new Date(current);
+        const slotEnd = new Date(current.getTime() + serviceDuration * 60000);
+        
+        // Ensure slot doesn't end after working hours
+        if (slotEnd > endDay) break;
+
+        const isOccupied = existingApps?.some(app => {
+          const appStart = new Date(app.starts_at);
+          const appEnd = new Date(app.ends_at);
+          return (slotStart < appEnd && slotEnd > appStart);
+        });
+
+        const isPast = isBefore(slotStart, new Date());
+
+        if (!isOccupied && !isPast) {
+          slots.push(format(slotStart, "HH:mm"));
+        }
+        
+        current.setMinutes(current.getMinutes() + 15); // Check every 15 mins for more flexibility
+      }
+    });
+
+    setAvailableTimes([...new Set(slots)].sort()); // Ensure unique and sorted
     setLoadingTimes(false);
   };
 
