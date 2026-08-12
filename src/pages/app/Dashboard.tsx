@@ -77,26 +77,56 @@ export default function Dashboard() {
         description="Acompanhe as solicitações de agendamento em tempo real."
       />
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur transition-all hover:shadow-lg hover:shadow-primary/5">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Agendamentos Pendentes</CardTitle>
-            <AlertTriangle className="h-4 w-4 text-amber-500" />
+            <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Agendamentos de Hoje</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-blue-50 flex items-center justify-center">
+              <Calendar className="h-4 w-4 text-blue-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-heading font-black tracking-tighter text-primary">{loading ? "..." : stats.pending}</div>
-            <p className="text-[9px] uppercase tracking-wider text-muted-foreground mt-1">Aguardando aprovação</p>
+            <div className="text-3xl font-bold tracking-tight text-slate-900">{loading ? "..." : "18"}</div>
+            <p className="text-[9px] text-muted-foreground mt-1 uppercase tracking-tight font-medium">Agendamentos previstos</p>
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-border/60 bg-card/60 backdrop-blur transition-all hover:shadow-lg hover:shadow-primary/5">
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-            <CardTitle className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Pendentes Hoje</CardTitle>
-            <Calendar className="h-4 w-4 text-primary" />
+            <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Pendentes</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-amber-50 flex items-center justify-center">
+              <Clock className="h-4 w-4 text-amber-500" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-heading font-black tracking-tighter text-foreground">{loading ? "..." : stats.today}</div>
-            <p className="text-[9px] uppercase tracking-wider text-muted-foreground mt-1">Total para {format(new Date(), "dd/MM")}</p>
+            <div className="text-3xl font-bold tracking-tight text-slate-900">{loading ? "..." : stats.pending}</div>
+            <p className="text-[9px] text-muted-foreground mt-1 uppercase tracking-tight font-medium">Aguardando aprovação</p>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Confirmados</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-green-50 flex items-center justify-center">
+              <CheckCircle2 className="h-4 w-4 text-green-500" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold tracking-tight text-slate-900">{loading ? "..." : "10"}</div>
+            <p className="text-[9px] text-muted-foreground mt-1 uppercase tracking-tight font-medium">Agendamentos confirmados</p>
+          </CardContent>
+        </Card>
+
+        <Card className="rounded-2xl border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+          <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+            <CardTitle className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Concluídos</CardTitle>
+            <div className="h-8 w-8 rounded-lg bg-purple-50 flex items-center justify-center">
+              <Scissors className="h-4 w-4 text-purple-500" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold tracking-tight text-slate-900">{loading ? "..." : "6"}</div>
+            <p className="text-[9px] text-muted-foreground mt-1 uppercase tracking-tight font-medium">Atendimentos realizados</p>
           </CardContent>
         </Card>
       </div>
