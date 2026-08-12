@@ -17,6 +17,7 @@ type Step = "service" | "barber" | "date" | "time" | "guest-info" | "summary" | 
 export default function BookingFlow() {
   const [step, setStep] = useState<Step>("service");
   const [loading, setLoading] = useState(false);
+  const { theme, setTheme } = useTheme();
   
   // Data from DB
   const [services, setServices] = useState<any[]>([]);
