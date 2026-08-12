@@ -355,8 +355,9 @@ export default function BookingFlow() {
                       setStep("summary");
                     }}
                     className={cn(
-                      "border border-slate-100 bg-white py-6 text-[11px] font-bold tracking-widest text-slate-900 transition-all rounded-xl shadow-sm hover:border-primary hover:text-primary hover:shadow-md",
-                      selectedTime === t && "border-primary text-white bg-primary shadow-lg shadow-primary/30"
+                      "border py-6 text-[11px] font-bold tracking-widest transition-all rounded-xl shadow-sm hover:border-primary hover:text-primary hover:shadow-md duration-500",
+                      theme === 'dark' ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-slate-100 text-slate-900",
+                      selectedTime === t && (theme === 'dark' ? "border-primary text-slate-950 bg-primary shadow-lg shadow-primary/30" : "border-primary text-white bg-primary shadow-lg shadow-primary/30")
                     )}
                   >
                     {t}
