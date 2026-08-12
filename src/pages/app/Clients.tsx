@@ -131,12 +131,12 @@ export default function ClientsPage() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4 bg-card/60 backdrop-blur p-4 rounded-2xl border border-border/60">
+      <div className="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <input 
             placeholder="Buscar por nome ou telefone..." 
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-background/50 border border-border/40 focus:border-primary/50 outline-none transition-all text-sm"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-100 focus:border-primary/50 outline-none transition-all text-sm"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -155,7 +155,7 @@ export default function ClientsPage() {
           filteredClients.map((client) => (
             <Card 
               key={client.id} 
-              className="rounded-2xl border-border/60 bg-card/60 backdrop-blur hover:bg-muted/20 transition-colors group cursor-pointer"
+              className="rounded-2xl border-none bg-white shadow-sm hover:shadow-md hover:bg-slate-50 transition-all group cursor-pointer"
               onClick={() => !client.is_guest && navigate(`/app/clientes/${client.id}`)}
             >
               <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
