@@ -482,7 +482,7 @@ export default function BookingFlow() {
                 const el = document.getElementById('booking-section');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="rounded-none bg-primary px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] text-black hover:bg-primary/90 transition-all uppercase whitespace-nowrap"
+              className={cn("rounded-none px-4 md:px-8 py-5 md:py-6 text-[9px] md:text-[10px] font-black tracking-[0.2em] transition-all uppercase whitespace-nowrap", theme === 'dark' ? "bg-primary text-slate-950 hover:bg-primary/90" : "bg-primary text-white hover:bg-primary/90")}
             >
               AGENDAR HORÁRIO
             </Button>
