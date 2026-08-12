@@ -227,18 +227,18 @@ export default function BookingFlow() {
                 }}
               >
                 <div className="flex gap-6 items-center">
-                  <div className="h-24 w-24 overflow-hidden border border-white/10 grayscale group-hover:grayscale-0 transition-all">
+                  <div className="h-24 w-24 overflow-hidden border border-slate-100 rounded-xl grayscale group-hover:grayscale-0 transition-all">
                     {b.avatar_url ? (
                       <img src={b.avatar_url} alt={b.display_name} className="h-full w-full object-cover" />
                     ) : (
-                      <div className="h-full w-full bg-white/5 flex items-center justify-center">
-                        <User className="h-10 w-10 text-white/20" />
+                      <div className="h-full w-full bg-slate-50 flex items-center justify-center">
+                        <User className="h-10 w-10 text-slate-300" />
                       </div>
                     )}
                   </div>
                   <div>
-                    <h4 className="text-lg font-black uppercase tracking-widest text-white mb-2">{b.display_name}</h4>
-                    <p className="text-[10px] text-white/40 tracking-wider uppercase leading-relaxed">
+                    <h4 className="text-lg font-bold uppercase tracking-widest text-slate-900 mb-2">{b.display_name}</h4>
+                    <p className="text-[10px] text-slate-400 tracking-wider uppercase leading-relaxed">
                       {b.specialties?.join(" / ") || "ESPECIALISTA EM CORTES"}
                     </p>
                   </div>
