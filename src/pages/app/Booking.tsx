@@ -551,7 +551,7 @@ export default function BookingFlow() {
         <div className="space-y-20 md:space-y-32">
           <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100 pb-8 mb-12 md:mb-16 gap-6">
-              <h2 className="text-3xl font-bold uppercase tracking-tight text-slate-900 md:text-5xl leading-tight">
+              <h2 className={cn("text-3xl font-bold uppercase tracking-tight md:text-5xl leading-tight transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
                 OFERECEMOS SERVIÇOS DE <br className="hidden md:block" /> 
                 <span className="text-primary text-xl md:text-2xl tracking-[0.2em] font-bold">PRIMEIRA CLASSE</span>
               </h2>
