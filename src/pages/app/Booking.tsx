@@ -231,7 +231,7 @@ export default function BookingFlow() {
                   }}
                 >
                   <div className="flex justify-between items-baseline mb-3">
-                    <h4 className="text-base font-bold uppercase tracking-widest text-slate-900 group-hover:text-primary transition-colors">
+                    <h4 className={cn("text-base font-bold uppercase tracking-widest group-hover:text-primary transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>
                       {s.name}
                     </h4>
                     <span className="text-base font-bold text-primary tracking-widest">
