@@ -253,8 +253,9 @@ export default function BookingFlow() {
               <div 
                 key={b.id} 
                 className={cn(
-                  "group cursor-pointer transition-all border border-slate-100 bg-white p-8 rounded-2xl shadow-sm hover:border-primary/50",
-                  selectedBarber?.id === b.id && "border-primary bg-primary/5 shadow-md shadow-primary/5"
+                  "group cursor-pointer transition-all border p-8 rounded-2xl shadow-sm hover:border-primary/50 duration-500",
+                  theme === 'dark' ? "bg-slate-900 border-slate-800 shadow-none" : "bg-white border-slate-100 shadow-sm",
+                  selectedBarber?.id === b.id && (theme === 'dark' ? "border-primary bg-primary/10 shadow-md shadow-primary/5" : "border-primary bg-primary/5 shadow-md shadow-primary/5")
                 )}
                 onClick={() => {
                   setSelectedBarber(b);
