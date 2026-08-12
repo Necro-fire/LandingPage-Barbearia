@@ -385,8 +385,8 @@ export default function BookingFlow() {
                 <span className="text-[11px] font-bold tracking-tight text-slate-900 uppercase">{selectedDate ? format(selectedDate, "dd/MM/yyyy") : ""} - {selectedTime}</span>
               </div>
               <div className="flex justify-between items-center pt-4">
-                <span className="text-[10px] font-black tracking-[0.2em] text-white uppercase">TOTAL</span>
-                <span className="text-2xl font-black tracking-tighter text-primary">R$ {selectedService.price}</span>
+                <span className="text-[10px] font-bold tracking-wider text-slate-900 uppercase">TOTAL</span>
+                <span className="text-2xl font-bold tracking-tight text-primary">R$ {selectedService.price}</span>
               </div>
             </div>
             
