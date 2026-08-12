@@ -294,7 +294,7 @@ export default function BookingFlow() {
           <div className="max-w-md mx-auto space-y-12">
             <div className={cn("flex items-center justify-between border-b pb-6 transition-colors duration-500", theme === 'dark' ? "border-slate-800" : "border-slate-100")}>
               <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronLeft className="h-6 w-6" /></button>
-              <h3 className="text-base font-bold uppercase tracking-widest text-slate-900">{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
+              <h3 className={cn("text-base font-bold uppercase tracking-widest transition-colors duration-500", theme === 'dark' ? "text-white" : "text-slate-900")}>{format(currentMonth, "MMMM yyyy", { locale: ptBR })}</h3>
               <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="text-slate-400 hover:text-slate-900"><ChevronRight className="h-6 w-6" /></button>
             </div>
 
