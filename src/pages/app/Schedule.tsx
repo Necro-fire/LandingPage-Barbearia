@@ -54,6 +54,14 @@ export default function Schedule() {
   const [filterStatus, setFilterStatus] = useState<string>("all");
   const [shopHours, setShopHours] = useState<any>(null);
   const [exceptions, setExceptions] = useState<any[]>([]);
+  const [isAddExceptionOpen, setIsAddExceptionOpen] = useState(false);
+  const [newException, setNewException] = useState({
+    date: format(new Date(), "yyyy-MM-dd"),
+    reason: "",
+    is_closed: true,
+    start_time: "09:00",
+    end_time: "18:00"
+  });
 
   const fetchData = async () => {
     setLoading(true);
