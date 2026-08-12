@@ -302,7 +302,8 @@ export default function BookingFlow() {
               {days.map((day) => {
                 const isPast = isBefore(day, startOfDay(new Date()));
                 const isSelected = selectedDate && isSameDay(day, selectedDate);
-                const isSunday = day.getDay() === 0;
+                const shopConfig = shopWorkingHours.find(s => s.weekday === day.getDay());
+                const isClosedByConfig = shopConfig ? !shopConfig.active : false;
 
                 return (
                   <button
