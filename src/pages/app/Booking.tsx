@@ -43,12 +43,14 @@ export default function BookingFlow() {
 
   useEffect(() => {
     async function fetchData() {
-      const [srvRes, brbRes] = await Promise.all([
+      const [srvRes, brbRes, shopRes] = await Promise.all([
         supabase.from("services").select("*").eq("is_active", true),
-        supabase.from("barbers").select("*").eq("is_active", true)
+        supabase.from("barbers").select("*").eq("is_active", true),
+        (supabase as any).from("shop_working_hours").select("*")
       ]);
       if (srvRes.data) setServices(srvRes.data);
       if (brbRes.data) setBarbers(brbRes.data);
+      if (shopRes.data) setShopWorkingHours(shopRes.data);
     }
     fetchData();
   }, []);
