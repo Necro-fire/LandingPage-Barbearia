@@ -538,7 +538,7 @@ export default function BookingFlow() {
       </main>
       
       <div className="fixed bottom-10 right-10 z-50 flex flex-col items-end gap-5">
-        <a href="https://wa.me/5500000000000" target="_blank" className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white shadow-2xl transition-transform hover:scale-110">
+        <a href="https://wa.me/5500000000000" target="_blank" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-green-500 text-white shadow-xl shadow-green-500/20 transition-transform hover:scale-110">
           <Phone className="h-6 w-6" />
         </a>
       </div>
