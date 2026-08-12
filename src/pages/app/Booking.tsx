@@ -318,8 +318,10 @@ export default function BookingFlow() {
                       setStep("time");
                     }}
                     className={cn(
-                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg",
-                      isSelected ? "bg-primary text-white shadow-lg shadow-primary/30" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50",
+                      "aspect-square text-[11px] font-bold tracking-tighter flex items-center justify-center transition-all border border-transparent rounded-lg duration-500",
+                      isSelected 
+                        ? (theme === 'dark' ? "bg-primary text-slate-950 shadow-lg shadow-primary/30" : "bg-primary text-white shadow-lg shadow-primary/30") 
+                        : (theme === 'dark' ? "text-slate-300 hover:border-slate-800 hover:bg-slate-900" : "text-slate-600 hover:border-slate-200 hover:bg-slate-50"),
                       (isPast || isClosedByConfig) && "opacity-20 cursor-not-allowed"
                     )}
                   >
