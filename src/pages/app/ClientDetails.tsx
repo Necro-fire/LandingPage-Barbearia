@@ -32,7 +32,7 @@ export default function ClientDetails() {
       const [clientRes, appRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("id", id).maybeSingle(),
         supabase.from("appointments")
-          .select("*, service:service_id(name, price)")
+          .select("*, service:service_id(name, price), barber:barber_id(display_name)")
           .eq("client_id", id)
           .order("starts_at", { ascending: false })
       ]);

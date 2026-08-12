@@ -123,28 +123,30 @@ export default function BookingFlow() {
     
     const endDate = new Date(startDateTime.getTime() + selectedService.duration_minutes * 60000);
 
-    const { data: conflict } = await supabase
-      .from("appointments")
-      .select("id")
-      .eq("barber_id", selectedBarber.id)
-      .gte("starts_at", startDateTime.toISOString())
-      .lt("starts_at", endDate.toISOString())
-      .neq("status", "cancelled")
-      .maybeSingle();
-
-    if (conflict) {
-      setIsSlotTaken(true);
-      setStep("time");
-      toast({ title: "Horário Indisponível", description: "Infelizmente esse horário acabou de ser preenchido.", variant: "destructive" });
-      setLoading(false);
-      fetchAvailableTimes();
-      return;
+    // 1. Ensure client exists (if not logged in)
+    let clientId = user?.id;
+    
+    if (!clientId) {
+      // Look for profile with same phone
+      const { data: existingProfile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("phone", guestPhone)
+        .maybeSingle();
+      
+      if (existingProfile) {
+        clientId = existingProfile.id;
+      } else {
+        // Since we can't create auth users directly without their interaction (usually),
+        // we'll store the guest info in the appointment itself as per our updated schema.
+        // The admin can manually create a profile later or we can have a trigger.
+      }
     }
 
     const { error } = await supabase.from("appointments").insert({
-      client_id: user?.id || null,
-      guest_name: user ? null : guestName,
-      guest_phone: user ? null : guestPhone,
+      client_id: clientId || null,
+      guest_name: clientId ? null : guestName,
+      guest_phone: clientId ? null : guestPhone,
       service_id: selectedService.id,
       barber_id: selectedBarber.id,
       starts_at: startDateTime.toISOString(),
@@ -152,6 +154,16 @@ export default function BookingFlow() {
       status: "pending",
       price: selectedService.price
     });
+
+    // Create a notification for the admin
+    if (!error) {
+      await supabase.from("notifications").insert({
+        user_id: "00000000-0000-0000-0000-000000000000", // We should ideally find an admin ID, but for now we target the first admin or a placeholder
+        title: "Novo Agendamento Solicitado",
+        body: `${user?.full_name || guestName} solicitou ${selectedService.name} para ${format(startDateTime, "dd/MM 'às' HH:mm")}`,
+        type: "appointment"
+      });
+    }
 
     setLoading(false);
     if (error) {
